@@ -52,7 +52,8 @@ Donde c es una constante de escala y γ el exponente de corrección. Si γ\<1, l
 
 Las transformaciones geométricas son operaciones fundamentales en el procesamiento de imágenes,entre las más comunes están la traslación y la rotación, donde, estas transformaciones se representan mediante matrices en coordenadas homogéneas que modifican la relación espacial entre píxeles (Herrera, Guijarro, Guerrero, José. (2016). 
 
-Matemáticamente, la traslación está dada por 
+Matemáticamente, estas transformaciones se representan mediante matrices en coordenadas homogéneas: traslación por vector (tx, ty); rotación por ángulo θ, escala por factores (sx, sy). La composición de transformaciones se obtiene mediante multiplicación de matrices y el orden importa: rotar y luego trasladar no es equivalente a trasladar y luego rotar.
+
 
 ## 2.4 Distribución de intensidades
 
@@ -101,14 +102,14 @@ Estas operaciones se realizaron a nivel de píxel y fueron programadas utilizand
 
 ## 3.3 Transformaciones geométricas
 
-: se construyó una lista con 5–8 configuraciones (tx, ty, θ, s). Cada configuración produce un frame.  
-3\. Aplicación de transformaciones:  
+1. Prepareción de la immagen: se cargó la imagen y posteriromente se conviritió en RGBA.
+2. Definición de la transformaciones: se construyó una lista con 5–8 configuraciones (tx, ty, θ, s). Cada configuración produce un frame.  
+3. Ejecución de transformaciones:  
    \- Escala (factor s) aplicada con interpolación bicúbica.  
    \- Rotación sobre el centro (expand=True para evitar recortes).  
    \- Pegado de la imagen rotada en un lienzo del tamaño original y aplicación de la traslación (tx, ty).  
-4\. Almacenamiento: cada frame se guarda como PNG numerado.  
-5\. Generación del GIF usando imageio, ajustando \`duration\` para la velocidad.  
-6\. Análisis: se inspeccionaron los efectos de la orden de operaciones y la interpolación; se observó pérdida de detalle para s\<1 y suavizado para s\>1.
+4. Guardar: cada frame se guarda como PNG numerado.  
+5. Generación del GIF usando imageio, ajustando \`duration\` para la velocidad.  
 
 ## 3.4 Distribución de intensidades
 
@@ -210,19 +211,31 @@ La división amplifica intensidades cuando los valores en la imagen PM son peque
 
 ## 4.3 Transformaciones geométricas
 
-Este ejercicio permitió observar cómo las transformaciones geométricas influyen en la apariencia y trayectoria de una imagen aplicadas de forma sucesiva. El orden de las operaciones es muy importante, ya que, 
+Este ejercicio permitió observar cómo las transformaciones geométricas influyen en la apariencia y trayectoria de una imagen aplicadas de forma sucesiva. El orden de las operaciones es muy importante, ya que, modificar la secuencia entre escala, rotación y traslación cambia bastante la posición final de los píxeles.
+
+La función **transform** es la que permite ajustar el tamaño mediante escalado, girarla según el ángulo de rotación y desplazarla en el plano mediante traslación. Para evitar que la imagen recortada pierda información, se crea un lienzo del tamaño original donde se pega la versión transformada de la imagen, garantizando que  la imagen permanezca dentro de los límites visibles, siendo esto una herramienta esencial en visión por computadora que permite modelar cómo un sistema percibe los objetos independientemente de su posición, tamaño u orientación.
+
+![image6](./results/3.transformacionesRotaciónTraslación/frames/frame_01.png)
+![image7](./results/3.transformacionesRotaciónTraslación/frames/frame_04.png)
+![image8](./results/3.transformacionesRotaciónTraslación/frames/frame_06.png)
+
+La función **generate_transform_sequence** se encarga de aplicar varias transformaciones a una imagen y crear un GIF animado con todo el proceso. Con la imagen principal (base), le va aplica distintos cambios como moverla, girarla y escalarla, guardando cada paso como una imagen separada (frames). Luego, con la librería imageio, se juntan todos los frames como una animación, mostrando de forma visual cómo la imagen se va transformando poco a poco.
+
+
+![image9](.results/3.transformacionesRotaciónTraslación/frames/transformations.gif)
+
 
 ## 4.4 Distribución de intensidades
 
-![image6](./results/4.distribuciónIntensidad/histogramas.png) 
+![image10](./results/4.distribuciónIntensidad/histogramas.png) 
 
 Para la fachada AM el histograma tiene una distribución a lo largo de todo el rango dinámico con un aumento en valores bajos. Aunque la imagen tiene zonas oscuras como los árboles cuenta con una iluminación más equilibrada que incluye intensidades medias y altas. Por el contrario, en la imagen de la fachada PM el histograma se concentra principalmente en intensidades bajas, lo que refleja una escena predominantemente oscura.
 
-![image7](./results/4.distribuciónIntensidad/CDF%20Normalizada.png)
+![image11](./results/4.distribuciónIntensidad/CDF%20Normalizada.png)
 
 la CDF en el caso  AM el aumento fue más constante con una pequeña meseta \~ 100 y 200 y un aumento casi lineal al final, mientras que en el caso PM se evidenció un cambio más pronunciado al inicio y una meseta \~ desde 100, lo que evidencia un aumento de intensidades en las zonas más oscuras de la imagen.
 
-![image8](./results/4.distribuciónIntensidad/ImágenesEcualizadas.png)
+![image12](./results/4.distribuciónIntensidad/ImágenesEcualizadas.png)
 
 En la imagen AM, la distribución de intensidades ya era amplia y la transformación de ecualización fue más suave, con cambios leves en los niveles de intensidad y un incremento moderado del contraste.
 
@@ -243,7 +256,7 @@ Este comportamiento es posible gracias a la combinación de varias técnicas imp
 
 En conjunto, estos resultados validan que el sistema desarrollado no solo es funcional, sino que es capaz de realizar una **detección y visualización efectiva** de los colores de interés, así como el cálculo de su área y conteo de los bordes detectados.
 
-![image10](./results/5.segmentacion/resultado_segmentacion.jpg)
+![image13](./results/5.segmentacion/resultado_segmentacion.jpg)
 
 # 5\. Referencias Bibliográficas
 
@@ -268,7 +281,7 @@ Kaustubh Sadekar, Satya Mallick (25 de Febrero del 2020\) Camera Calibration usi
 
 | Estudiante | Aporte Personal |
 | :---- | :---- |
-|  |  |
+| Leidy Marcela Leal Loaiza | Ejercicio de Transformaciones geométricas|
 | Juan Felipe Arbelaez | Ejercicio de Calibración de Cámara y Segmentación por colores. |
 | Bibiana Andrea Peña V | transformación de intensidades y la ecualización del histograma para mejorar el contraste de las imágenes, incluyendo la implementación y validación del procedimiento. Además, participé en la redacción del informe final y en la organización de los archivos comunes del proyecto, contribuyendo a mantener una estructura clara y coherente para el trabajo en equipo. |
 
