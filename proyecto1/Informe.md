@@ -170,6 +170,8 @@ d \= (cx-ix)2+(cy-iy)2= 44.87 pixeles de diferencia
 
 Lo más a destacar de los resultados es la variación en y, tanto en la **distancia focal** como en la distancia del centro de la cámara al centro de la imagen que presenta una variación mayor, esto nos hace intuir que los píxeles de la cámara presenta un tamaño mayor en su altura dando lugar a estas variaciones.
 
+![image9](./results/1.calibracionCamara/20251010_160324_undistorted.jpg)
+
 ## 4.2 Transformaciones de intensidad
 
 **Brillo**  
@@ -240,6 +242,8 @@ Este comportamiento es posible gracias a la combinación de varias técnicas imp
 * La visualización final con *cv2.drawContours()* o funciones similares, que permiten resaltar cada objeto con trazos diferenciados y adaptativos.
 
 En conjunto, estos resultados validan que el sistema desarrollado no solo es funcional, sino que es capaz de realizar una **detección y visualización efectiva** de los colores de interés, así como el cálculo de su área y conteo de los bordes detectados.
+
+![image10](./results/5.segmentacion/resultado_segmentacion.jpg)
 
 # 5\. Referencias Bibliográficas
 
