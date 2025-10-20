@@ -17,7 +17,7 @@ segmentacion.
 - os
 - imageio
 
-##Instala dependencias necesarias con:
+## Instala las dependencia necesarias con:
 
 ```bash
 pip install opencv-python
