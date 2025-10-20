@@ -1,6 +1,4 @@
-# Digivision
-
-1. ## **Introducción**
+# **1\. Introducción**
 
 La visión por computador es una herramienta fundamental que permite procesar y obtener información a partir de imágenes digitales. Para garantizar la precisión geométrica de las mediciones, la calibración de cámara permite estimar parámetros intrínsecos, corregir distorsiones y establecer la relación entre coordenadas reales y de imagen (Zhang, 2000; Duisterhof et al., 2022).
 
@@ -98,7 +96,7 @@ Utilizando la medida del cuadrado en **mm** como referente, utilizaremos *cv2.ca
 
 ## 3.2 Transformaciones de intensidad 
 
-![][image1]  
+![image1](./suppot_files/tranformacionIntensidadesMetodologia.jpg)  
 Estas operaciones se realizaron a nivel de píxel y fueron programadas utilizando las librerías de NumPy, Matplotlib y Pillow.
 
 ## 3.3 Transformaciones geométricas
@@ -175,19 +173,30 @@ Lo más a destacar de los resultados es la variación en y, tanto en la **distan
 ## 4.2 Transformaciones de intensidad
 
 **Brillo**  
+
+![image2](./results/2.transformaciomesIntensidad/comparacionBrillo.png) 
+
 Se puede observar en la imagen de la fachada AM al utilizar un beta negativo la imagen se oscurece de manera global, desplazando la distribución de intensidades hacia valores más bajos. Mientras que en la imagen de la fachada PM con un beta positivo se desplazan las intensidades hacia valores más altos, la imagen se aclara, es decir, se produce un aumento del brillo general. 
 
-**Contraste**  
+**Contraste** 
+
+![image3](./results/2.transformaciomesIntensidad/compracionContraste.png)  
+
 En la fachada AM al aplicar un α=2 y un punto medio de 0.5, se produce una mayor diferencia entre las intensidades, las regiones claras (como el cielo y las fachadas) se vuelven más brillantes, mientras que las zonas oscuras (árboles) se oscurecen aún más. Esto incrementa el contraste global, pero también puede generar pérdida de detalle en zonas oscuras debido a la saturación.
 
 En la fachada PM al aplicar un α=-1 y un punto medio de 0.5, la relación se invierte respecto al punto medio generando un efecto negativo, las zonas oscuras se vuelven claras y viceversa.
 
 **Corrección Gama**  
+
+![image4](./results/2.transformaciomesIntensidad/comparacionGamma.png) 
+
 Para la imagen de la fachada AM, al aplicar un factor gamma γ=2 con una constante c=1 se genera un oscurecimiento. Esto se debe a que los valores de intensidad inferiores a 1 se elevan a una potencia mayor lo que desplaza parte del rango dinámico hacia valores más bajos. Esto produce una pérdida de detalle en las zonas oscuras y del primer plano.
 
 Para la imagen de la fachada PM, al aplicar un factor gamma γ=2 con una constante c=1 se produce un efecto de aclarado no lineal, ya que los valores bajos se amplifican al elevarlos a un exponente menor que 1\. Esto mejora la visibilidad de detalles en regiones oscuras, como en los árboles y las fachadas inferiores, sin sobreexponer las zonas ya iluminadas como las ventanas.
 
 **Operaciones aritméticas**
+
+![image5](./results/2.transformaciomesIntensidad/operacionesAritmeticas.png) 
 
 La suma de ambas imágenes produce un incremento en la intensidad al combinar los valores de brillo de las dos imágenes. Así, la imagen se ve más clara y brillante, con detalles visibles en los árboles y  la fachada. También, se observa saturación en las regiones más iluminadas como el cielo y reflejos.
 
