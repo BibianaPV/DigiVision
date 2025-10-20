@@ -216,7 +216,7 @@ Este ejercicio permitió observar cómo las transformaciones geométricas influy
 
 Para la fachada AM el histograma tiene una distribución a lo largo de todo el rango dinámico con un aumento en valores bajos. Aunque la imagen tiene zonas oscuras como los árboles cuenta con una iluminación más equilibrada que incluye intensidades medias y altas. Por el contrario, en la imagen de la fachada PM el histograma se concentra principalmente en intensidades bajas, lo que refleja una escena predominantemente oscura.
 
-![image7](./results/4.distribuciónIntensidad/CDF\Normalizada.png)
+![image7](./results/4.distribuciónIntensidad/CDF%20Normalizada.png)
 
 la CDF en el caso  AM el aumento fue más constante con una pequeña meseta \~ 100 y 200 y un aumento casi lineal al final, mientras que en el caso PM se evidenció un cambio más pronunciado al inicio y una meseta \~ desde 100, lo que evidencia un aumento de intensidades en las zonas más oscuras de la imagen.
 
