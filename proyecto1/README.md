@@ -17,7 +17,6 @@ segmentacion.
 - os
 - imageio
 
-
 ##Instala dependencias necesarias con:
 
 ```bash
@@ -37,27 +36,35 @@ pip install imageio
 5. En la carpeta de results podra encontrar todos los resultados de la operaciones.
 6. En el archivo Informe.md pordra encontrar el marco teorico y las conclusiones encontradas.
 
+# Contenido
+
+##Imagenes
+
+- `img/1.calibracionCamara`: Imagenes para realizar calibracion de camara.
+- `img/2.transformaciones y distribución de intensidad`: Ejercicios con operaciones a nivel pixel y de intensidad.
+- `img/3.transformaciones de rotación y traslación`: Imagene para el ejercicio de Transformaciones: Rotacion, Traslacion, Escalado.
+- `img/4.segmentacion`: Imagen del ejercicio de segmentacion de colores.
+
 ## Notebooks con los Ejercicios
 
 En la carpeta `notebooks/` encontrarás versiones en Jupyter de cada ejercicio, listas para ejecutarse:
 
-- `01_basics.ipynb`
-- `02_color_spaces.ipynb`
-- `03_histograms.ipynb`
-- `04_spatial_filtering.ipynb`
-- `05_edge_detection.ipynb`
-- `06_morphology.ipynb`
+- `01_Calibracion_Camara_Patron_Ajedrez.ipynb`
+- `02_Transformaciones_de_intensidad_a_nivel_de_píxel.ipynb`
+- `03_Transformaciones_de_rotación_traslación.ipynb`
+- `04_Distribución_de_intensidades_.ipynb`
+- `05_Segmentacion_Imagenes_Por_Colores.ipynb`
 
-## Contenido
+##Resultados
 
-- `image_processing/basics.py`: operaciones básicas de manipulación.
-- `image_processing/color_spaces.py`: conversiones entre espacios de color y segmentación.
-- `image_processing/histograms.py`: transformaciones de intensidad e histogramas.
-- `image_processing/spatial_filtering.py`: filtrado espacial y convolución.
-- `image_processing/edge_detection.py`: detección de bordes y contornos.
-- `image_processing/morphology.py`: operaciones morfológicas.
+- `results/1.calibracionCamara`: Imagenes para realizar calibracion de camara.
+- `results/2.transformacionesIntensidad`: Resultados de las operaciones a nivel pixel.
+- `results/3.transformacionesRotaciónTraslación`: Resultado en gif del ejercicio de Transformaciones: Rotacion, Traslacion, Escalado.
+- `results/4.distribucionIntensidad`: Resultados de las operaciones a nivel pixel.
+- `results/5.segmentacion`: Resultado del ejercicio de segmentacion de colores.
 
 ## Integrantes del Equipo
-Bibiana Andrea Pena Velasquez - Ejercicios de Operaciones a nivel pixel y de Intensidad
-Leidy Marcela Leal Loaiza - Ejercicios de Transformaciones: Rotacion, Traslacion, Escalado
-Juan Felipe Arbelaez Uribe - Ejercicios de Calibracion de Camara y Ejercicio de Segmentacion por Colores
+
+Bibiana Andrea Pena Velasquez - Ejercicios de Operaciones a nivel pixel y de Intensidad.
+Leidy Marcela Leal Loaiza - Ejercicios de Transformaciones: Rotacion, Traslacion, Escalado.
+Juan Felipe Arbelaez Uribe - Ejercicios de Calibracion de Camara y Ejercicio de Segmentacion por Colores.
