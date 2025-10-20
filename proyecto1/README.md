@@ -27,7 +27,7 @@ pip install Pillow
 pip install imageio
 ```
 
-## Uso
+# Uso
 
 1. Descargue el proyecto completo.
 2. Dirijase al apartado de Requirements.txt y asegurese de tener todas las dependencias instaladas.
@@ -38,7 +38,7 @@ pip install imageio
 
 # Contenido
 
-##Imagenes
+#Imagenes
 
 - `img/1.calibracionCamara`: Imagenes para realizar calibracion de camara.
 - `img/2.transformaciones y distribución de intensidad`: Ejercicios con operaciones a nivel pixel y de intensidad.
@@ -55,7 +55,7 @@ En la carpeta `notebooks/` encontrarás versiones en Jupyter de cada ejercicio, 
 - `04_Distribución_de_intensidades_.ipynb`
 - `05_Segmentacion_Imagenes_Por_Colores.ipynb`
 
-##Resultados
+#Resultados
 
 - `results/1.calibracionCamara`: Imagenes para realizar calibracion de camara.
 - `results/2.transformacionesIntensidad`: Resultados de las operaciones a nivel pixel.
@@ -63,8 +63,8 @@ En la carpeta `notebooks/` encontrarás versiones en Jupyter de cada ejercicio, 
 - `results/4.distribucionIntensidad`: Resultados de las operaciones a nivel pixel.
 - `results/5.segmentacion`: Resultado del ejercicio de segmentacion de colores.
 
-## Integrantes del Equipo
+# Integrantes del Equipo
 
-Bibiana Andrea Pena Velasquez - Ejercicios de Operaciones a nivel pixel y de Intensidad.
-Leidy Marcela Leal Loaiza - Ejercicios de Transformaciones: Rotacion, Traslacion, Escalado.
-Juan Felipe Arbelaez Uribe - Ejercicios de Calibracion de Camara y Ejercicio de Segmentacion por Colores.
+- Bibiana Andrea Pena Velasquez - Ejercicios de Operaciones a nivel pixel y de Intensidad.
+- Leidy Marcela Leal Loaiza - Ejercicios de Transformaciones: Rotacion, Traslacion, Escalado.
+- Juan Felipe Arbelaez Uribe - Ejercicios de Calibracion de Camara y Ejercicio de Segmentacion por Colores.
