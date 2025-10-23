@@ -1,3 +1,7 @@
 theme: minima
 title: "Blog de Proyectos"
 description: "Informes y publicaciones"
+exclude:
+  - README.md
+  - Proyecto1/informe.md
+  - docs/
