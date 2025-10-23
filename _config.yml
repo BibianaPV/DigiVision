@@ -3,6 +3,6 @@ title: "Blog de Proyectos"
 description: "Informes y publicaciones"
 exclude:
   - README.md
-  - proyecto1/Informe.md
+  - /proyecto1/Informe.md
   - docs/
-  - proyecto1/README.md
+  - /proyecto1/README.md
