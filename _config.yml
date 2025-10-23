@@ -1,4 +1,4 @@
-theme: minima
+theme: jekyll-theme-cayman
 title: "Blog de Proyectos"
 description: "Informes y publicaciones"
 exclude:
