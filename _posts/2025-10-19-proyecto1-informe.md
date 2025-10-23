@@ -1,3 +1,9 @@
+---
+layout: post
+title: "Proyecto 1 DigiVision — Informe"
+date: 2025-10-19
+---
+
 # **1\. Introducción**
 
 La visión por computador es una herramienta fundamental que permite procesar y obtener información a partir de imágenes digitales. Para garantizar la precisión geométrica de las mediciones, la calibración de cámara permite estimar parámetros intrínsecos, corregir distorsiones y establecer la relación entre coordenadas reales y de imagen (Zhang, 2000; Duisterhof et al., 2022).
