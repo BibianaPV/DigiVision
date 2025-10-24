@@ -57,11 +57,11 @@ date: 2025-10-19
 }
 </style>
 
-<div class="toc-container"></div>
+<div markdown="1" class="toc-container">
 ## 📑 Índice
 * TOC
 {:toc}
-
+</div>
 
 <!-- Contenido principal -->
 <div class="post-content"></div>
