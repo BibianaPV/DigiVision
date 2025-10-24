@@ -5,22 +5,22 @@ date: 2025-10-19
 ---
 <style>
 .page-content {
-  max-width: 90% !important;
-  width: 90% !important;
+  max-width: 100% !important;
+  width: 100% !important;
   padding: 0 !important;
   margin: 0 !important;
 }
 
 .wrapper {
-  max-width: 90% !important;
-  width: 90% !important;
+  max-width: 100% !important;
+  width: 100% !important;
   padding: 0 !important;
   margin: 0 !important;
 }
 .full-width-section {
-  width: 100%;
+  width: 90%;
   max-width: 100%;
-  margin: 0;
+  margin: 0 auto;
   padding: 0;
   box-sizing: border-box;
 }
