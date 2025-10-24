@@ -46,7 +46,7 @@ date: 2025-10-19
 }
 
 /* Diseño responsive para pantallas pequeñas */
-@media (max-width: 800px) {
+@media (max-width: 1200px) {
   .main-container {
     flex-direction: column;
   }
