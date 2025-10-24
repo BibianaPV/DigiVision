@@ -4,6 +4,14 @@ title: "Informe Proyecto 1"
 date: 2025-10-19
 ---
 <style>
+
+.full-width-section {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 /* Contenedor principal que aloja índice y contenido */
 .main-container {
   display: flex;
@@ -46,7 +54,7 @@ date: 2025-10-19
 }
 
 /* Diseño responsive para pantallas pequeñas */
-@media (max-width: 1200px) {
+@media (max-width: 800px) {
   .main-container {
     flex-direction: column;
   }
