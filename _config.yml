@@ -1,4 +1,4 @@
-theme: jekyll-theme-modernist
+theme: minima
 title: "Blog de Proyectos"
 description: "Informes y publicaciones"
 exclude:
