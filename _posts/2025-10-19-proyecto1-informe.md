@@ -37,7 +37,7 @@ date: 2025-10-19
 }
 
 /* Adaptación responsive */
-@media (max-width: 800px) {
+@media (max-width: 1200px) {
   .toc-container {
     float: none;
     width: 100%;
