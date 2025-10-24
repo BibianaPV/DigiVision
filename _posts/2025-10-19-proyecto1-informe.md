@@ -383,6 +383,7 @@ Kaustubh Sadekar, Satya Mallick (25 de Febrero del 2020\) Camera Calibration usi
 
 <p style="text-align:center;">
   <a href="{{ "/" | relative_url }}">⬅ Volver al inicio</a>
+  <a href="https://github.com/bibianapv/DigiVision" target="_blank">🌐 Ver en GitHub</a>
 </p>
 
 </div>
