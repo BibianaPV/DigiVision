@@ -1,9 +1,10 @@
 ---
 layout: post
-title: ""
+title: "Proyecto1 Informe"
 date: 2025-10-19
 ---
 <style>
+.post-title { display: none; }
 .page-content {
   max-width: 100% !important;
   width: 100% !important;
