@@ -3,8 +3,8 @@ layout: post
 title: "Informe Proyecto 1"
 date: 2025-10-19
 ---
-<!--Estilos locales -->
 <style>
+/* Índice lateral */
 .toc-container {
   float: left;
   width: 20%;
@@ -15,50 +15,45 @@ date: 2025-10-19
   overflow-y: auto;
 }
 
-.toc-container h3 {
-  margin-top: 0;
+/* Contenido principal */
+.post-content {
+  margin-left: 22%;    /* 👈 reserva espacio para el índice */
+  text-align: justify;
 }
 
+/* Estilos del índice */
 .toc-container ul {
-  list-style-type: none;
-  padding-left: 5px;
+  list-style: none;
+  padding-left: 0;
 }
 
 .toc-container li a {
   text-decoration: none;
-  color: #1a73e8;
-  font-size: 0.95em;
+  color: #004aad;
 }
 
 .toc-container li a:hover {
   text-decoration: underline;
 }
 
-.post-content {
-  width: 85%;
-  float: right;
-  text-align: justify;
-}
-
+/* Adaptación responsive */
 @media (max-width: 800px) {
   .toc-container {
     float: none;
     width: 100%;
-    position: relative;
+    position: static;
     max-height: none;
     overflow: visible;
     margin-bottom: 20px;
   }
 
   .post-content {
-    float: none;
-    width: 100%;
+    margin-left: 0;
   }
 }
 </style>
-
 <div markdown="1" class="toc-container">
-## 📑 Índice
+## Contenido
 * TOC
 {:toc}
 </div>
