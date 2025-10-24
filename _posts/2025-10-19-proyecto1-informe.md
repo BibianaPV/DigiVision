@@ -4,24 +4,33 @@ title: "Informe Proyecto 1"
 date: 2025-10-19
 ---
 <style>
+/* Contenedor principal que aloja índice y contenido */
+.main-container {
+  display: flex;
+  gap: 25px;              /* espacio entre índice y contenido */
+  align-items: flex-start; /* alinea arriba ambos */
+}
+
 /* Índice lateral */
 .toc-container {
-  float: left;
-  width: 20%;
-  padding-right: 20px;
+  flex: 0 0 220px;         /* ancho fijo de 220px */
   position: sticky;
   top: 20px;
   max-height: 90vh;
   overflow-y: auto;
+  background: #f8f9fa;
+  padding: 10px;
+  border-right: 2px solid #ddd;
 }
 
 /* Contenido principal */
 .post-content {
-  margin-left: 22%;    /* 👈 reserva espacio para el índice */
+  flex: 1;                /* ocupa todo el espacio restante */
   text-align: justify;
+  min-width: 0;           /* 👈 evita que el contenido se desborde */
 }
 
-/* Estilos del índice */
+/* Estilo índice */
 .toc-container ul {
   list-style: none;
   padding-left: 0;
@@ -36,22 +45,22 @@ date: 2025-10-19
   text-decoration: underline;
 }
 
-/* Adaptación responsive */
-@media (max-width: 1200px) {
+/* Diseño responsive para pantallas pequeñas */
+@media (max-width: 800px) {
+  .main-container {
+    flex-direction: column;
+  }
   .toc-container {
-    float: none;
     width: 100%;
-    position: static;
+    border-right: none;
+    border-bottom: 2px solid #ddd;
     max-height: none;
     overflow: visible;
-    margin-bottom: 20px;
-  }
-
-  .post-content {
-    margin-left: 0;
   }
 }
 </style>
+
+
 <div markdown="1" class="toc-container">
 ## Contenido
 * TOC
