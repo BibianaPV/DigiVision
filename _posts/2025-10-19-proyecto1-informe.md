@@ -57,11 +57,10 @@ date: 2025-10-19
 }
 </style>
 
-<!-- Índice a la izquierda -->
 <div class="toc-container">
-  <h3>📑 Índice</h3>
-  * TOC
-  {:toc}
+## 📑 Índice
+* TOC
+{:toc}
 </div>
 
 <!-- Contenido principal -->
