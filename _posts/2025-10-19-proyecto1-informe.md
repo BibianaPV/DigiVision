@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Informe Proyecto 1 — Procesamiento de imágenes"
+title: "Informe Proyecto 1"
 date: 2025-10-19
 ---
 
