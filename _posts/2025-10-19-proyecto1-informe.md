@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Informe Proyecto 1"
+title: 
 date: 2025-10-19
 ---
 <style>
@@ -91,6 +91,7 @@ date: 2025-10-19
 <!-- Contenido principal -->
 <div markdown="1" class="post-content">
 
+# **Informe Proyecto 1**
 
 # **1\. Introducción**
 
