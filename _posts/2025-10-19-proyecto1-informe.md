@@ -54,7 +54,7 @@ date: 2025-10-19
 }
 
 /* Diseño responsive para pantallas pequeñas */
-@media (max-width: 800px) {
+@media (max-width: 1200px) {
   .main-container {
     flex-direction: column;
   }
@@ -179,7 +179,7 @@ Utilizando la medida del cuadrado en **mm** como referente, utilizaremos *cv2.ca
 
 ## 3.2 Transformaciones de intensidad 
 
-![image1](proyecto1/support_files/tranformacionIntensidadesMetodologia.jpg)  
+![image1](/proyecto1/support_files/tranformacionIntensidadesMetodologia.jpg)  
 Estas operaciones se realizaron a nivel de píxel y fueron programadas utilizando las librerías de NumPy, Matplotlib y Pillow.
 
 ## 3.3 Transformaciones geométricas
