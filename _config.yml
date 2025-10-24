@@ -1,4 +1,4 @@
-remote_theme: pages-themes/cayman@v0.2.0
+remote_theme: pages-themes/slate@v0.2.0
 plugins:
 - jekyll-remote-theme # add this line to the plugins list if you already have one
 title: "Blog de Proyectos"
@@ -6,5 +6,4 @@ description: "Informes y publicaciones"
 exclude:
   - README.md
   - /proyecto1/Informe.md
-  - docs/
   - /proyecto1/README.md
