@@ -1,4 +1,4 @@
-theme: modernist
+theme: jekyll-theme-modernist
 title: "Blog de Proyectos"
 description: "Informes y publicaciones"
 exclude:
