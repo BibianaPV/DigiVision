@@ -1,8 +1,13 @@
 ---
 layout: post
-title: "Informe Proyecto 1"
+title: "Informe Proyecto 1 — Procesamiento de imágenes"
 date: 2025-10-19
 ---
+
+## Índice
+* TOC
+{:toc}
+
 
 # **1\. Introducción**
 
@@ -103,7 +108,7 @@ Utilizando la medida del cuadrado en **mm** como referente, utilizaremos *cv2.ca
 
 ## 3.2 Transformaciones de intensidad 
 
-![image1](./proyecto1/support_files/tranformacionIntensidadesMetodologia.jpg)  
+![image1](root/proyecto1/support_files/tranformacionIntensidadesMetodologia.jpg)  
 Estas operaciones se realizaron a nivel de píxel y fueron programadas utilizando las librerías de NumPy, Matplotlib y Pillow.
 
 ## 3.3 Transformaciones geométricas
