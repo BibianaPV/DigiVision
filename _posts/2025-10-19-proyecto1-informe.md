@@ -5,15 +5,15 @@ date: 2025-10-19
 ---
 <style>
 .page-content {
-  max-width: 100% !important;
-  width: 100% !important;
+  max-width: 90% !important;
+  width: 90% !important;
   padding: 0 !important;
   margin: 0 !important;
 }
 
 .wrapper {
-  max-width: 100% !important;
-  width: 100% !important;
+  max-width: 90% !important;
+  width: 90% !important;
   padding: 0 !important;
   margin: 0 !important;
 }
@@ -33,7 +33,7 @@ date: 2025-10-19
 
 /* Índice lateral */
 .toc-container {
-  flex: 0 0 220px;         /* ancho fijo de 220px */
+  flex: 0 0 320px;         /* ancho fijo de 220px */
   position: sticky;
   top: 20px;
   max-height: 90vh;
