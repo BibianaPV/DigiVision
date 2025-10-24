@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Blog de Proyectos"
+title: "Blog de Informes DigiVision"
 ---
 
 # 📑 Publicaciones
