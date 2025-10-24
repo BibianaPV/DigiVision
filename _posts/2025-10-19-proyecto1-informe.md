@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 
+title: ""
 date: 2025-10-19
 ---
 <style>
