@@ -1,14 +1,10 @@
-# **DIGIVISION**
-
-## Entrega 2: Registro de Imágenes
-
-# Introducción
+# 1\.Introducción
 
 En el ámbito de la visión por computador, el registro y la fusión de imágenes constituyen procesos esenciales para generar representaciones unificadas de escenas capturadas desde múltiples perspectivas. Este trabajo tiene como objetivo aplicar los principios del registro de imágenes mediante la detección y emparejamiento de características, la estimación de homografías y la aplicación de transformaciones geométricas, con el fin de fusionar tres fotografías de un comedor tomadas desde diferentes ángulos y posiciones. A partir de la imagen fusionada, se realizará una calibración métrica utilizando objetos de referencia con dimensiones para estimar medidas reales de otros elementos de la escena. La ejecución de este ejercicio permitirá analizar cómo la integración de múltiples ángulos o puntos de vista permite obtener una imagen más completa del entorno.
 
-# Marco teórico
+# 2\. Marco teórico
 
-1. ## Validación de Imágenes Sintéticas
+## 2.1. Validación de Imágenes Sintéticas
 
 La validación de algoritmos de registro mediante imágenes sintéticas es utilizada para evaluar el desempeño de métodos de alineación geométrica y comparación de imágenes. Las imágenes sintéticas permiten controlar completamente el contenido visual y las transformaciones aplicadas, lo que facilita la medición directa del error y la precisión del algoritmo. Esta capacidad de control no es posible en imágenes reales, donde la referencia verdadera o *ground truth* suele ser desconocida (Ma, Lukas & Fitzpatrick, 1993).
 
@@ -16,39 +12,35 @@ Para lograr este objetivo, se diseñan imágenes con características definidas 
 
 Las imágenes sintéticas son especialmente útiles en la validación porque:
 
-2. **Permiten aislar variables específicas**  
-    Es posible estudiar el efecto individual de ruido, variación de contraste, deformaciones geométricas o pérdida de información (Fitzpatrick, West & Maurer, 1998).
+*Permiten aislar variables específicas: Es posible estudiar el efecto individual de ruido, variación de contraste, deformaciones geométricas o pérdida de información (Fitzpatrick, West & Maurer, 1998).
 
-3. **Ofrecen reproducibilidad experimental**  
-    La experimentación puede repetirse bajo las mismas condiciones con total precisión, favoreciendo la comparación de algoritmos o configuraciones (Zitová & Flusser, 2003).
+*Ofrecen reproducibilidad experimental: La experimentación puede repetirse bajo las mismas condiciones con total precisión, favoreciendo la comparación de algoritmos o configuraciones (Zitová & Flusser, 2003).
 
-4. **Hacen posible medir error real**  
-    Al conocer la transformación aplicada, se puede calcular de forma explícita el error angular, el error de escala, la traslación recuperada y métricas de intensidad como RMSE, NCC o MI, lo cual permite una evaluación objetiva (Maintz & Viergever, 1998).
+*Hacen posible medir error real: Al conocer la transformación aplicada, se puede calcular de forma explícita el error angular, el error de escala, la traslación recuperada y métricas de intensidad como RMSE, NCC o MI, lo cual permite una evaluación objetiva (Maintz & Viergever, 1998).
 
-5. **Permiten estudiar límites de robustez**  
-    Es posible aumentar gradualmente la magnitud de rotación, la cantidad de ruido o la pérdida de características para determinar los rangos en los que el algoritmo mantiene un desempeño adecuado (Oliveira & Tavares, 2014).
+*Permiten estudiar límites de robustez: Es posible aumentar gradualmente la magnitud de rotación, la cantidad de ruido o la pérdida de características para determinar los rangos en los que el algoritmo mantiene un desempeño adecuado (Oliveira & Tavares, 2014).
 
-6. ## Registro de Imágenes
+## 2.2. Registro de Imágenes
 
-**2.1 Detección de Características**
+**2.2.1 Detección de Características**
 
 La detección de características constituye el primer paso para el registro de imágenes, cuando buscamos combinar **dos o más imágenes** la forma en la que nos tenemos que guiar es la de buscar características comunes entre los planos.
 
 Las características comunes nos serviran como guia ya que cuando somos capaces de encontrarlas ya tenemos puntos específicos en los cuales nos servirán para alinear la imagen, este proceso puede ser llevado a cabo manualmente, seleccionando uno por uno los puntos que consideremos oportunos, sin embargo lo más normal es hacerlo automáticamente con detectores como **(ORB, AKAZE, Sift)**.
 
-**2.2 Estimación de Emparejamiento**
+**2.2.2 Estimación de Emparejamiento**
 
 El emparejamiento de características es un proceso en el cual buscamos identificar y relacionar puntos o patrones similares entre dos o más imágenes de una misma escena, estos puntos, llamados características o features, se detectan mediante los algoritmos anteriormente dichos que son capaces de identificar la apariencia de una región de la imagen independientemente a cambios de escala, rotación o iluminación.
 
 Las estrategias de emparejamiento robustas se enfocan en establecer correspondencias precisas entre estos descriptores, incluso en presencia de ruido, oclusiones o variaciones en la perspectiva. Para lograrlo, se aplican métodos como el ratio test o la verificación cruzada, y técnicas de filtrado como **RANSAC**, que descarta emparejamientos incorrectos para evitar matchings erróneos.
 
-**2.3 Estimación de la Homografía**
+**2.2.3 Estimación de la Homografía**
 
 Una homografía es una matriz 3×3 que muestra cómo los puntos de una imagen se proyectan sobre otra imagen, permitiendo alinear, superponer o registrar imágenes que difieren por traslación, rotación, escala o cambio de punto de vista.
 
 Para estimarla, se emplean las técnicas de matching de características emparejadas entre ambas imágenes. Se puede calcular la matriz de homografía utilizando métodos como la transformación lineal directa (DLT). Sin embargo, debido a que algunas correspondencias pueden ser erróneas, se aplican técnicas robustas como **RANSAC**.
 
-**2.4 Fusión de Imágenes y Optimización**
+**2.2.4 Fusión de Imágenes y Optimización**
 
 Una vez tengamos los puntos y hayamos encontrado la homografía después de haber seleccionado una imagen que permanecerá estática y otra que se moverá, la fusión de imágenes consistirá en registrar ambas imágenes tomando en cuenta su homografía con el fin de lograr una nueva imagen en un nuevo lienzo.
 
@@ -58,7 +50,7 @@ Dado que debimos usar 3 imágenes, en este caso se utilizó una **homografía id
 
 Homografía Identidad \= \[1, 0, 0\] \[0, 1, 0 \] \[1, 0, 0\]
 
-7. ## Calibracion y Medicion de Imágenes
+## 2.3. Calibracion y Medicion de Imágenes
 
 Cuando hablamos de medición de imágenes digitales, tenemos que tener en cuenta que estas están conformadas por pixeles y por tanto, poseemos la incertidumbre de a cuanto equivale un pixel en el contexto de la imagen, considerando que las imágenes tienen distintas dimensiones unas de otras, lo que debemos tener en cuenta primero es como mínimo un objeto de referencia del cual conozcamos una medida específica, luego debemos encontrar una forma de medirlo dentro de la imagen de la misma forma y realizar la siguiente fórmula.
 
@@ -66,9 +58,9 @@ px per cm \= distancia px / distancia cm
 
 Una vez ya tengamos un referente podremos simplemente obtener los píxeles de un **punto a** que lleguen a un **punto b** y ser capaces de conocer cuánto equivale eso en cm reales. 
 
-# Metodología
+# 3\. Metodología
 
-1. ## Validación de Imágenes Sintéticas
+## 3.1 Validación de Imágenes Sintéticas
 
 Se construyó una imagen sintética que sirve como imagen fija de referencia para el proceso de registro. La imagen se compuso mediante figuras geométricas simples (rectángulos y círculos) distribuidas espacialmente para evitar superposiciones, se le adicionó un gradiente de color junto con ruido aleatorio controlado.
 
@@ -76,17 +68,17 @@ Con esta imagen base se generó un conjunto de imágenes transformadas mediante 
 
 Para estimar la transformación entre la imagen fija y cada imagen transformada, se utilizó un algoritmo de registro estructurado en las siguientes etapas:
 
-2. **Detección de características:** Se empleó el método **SIFT** para identificar puntos clave robustos frente a cambios de escala y rotación.
+**Detección de características:** Se empleó el método **SIFT** para identificar puntos clave robustos frente a cambios de escala y rotación.
 
-3. **Emparejamiento:** Los descriptores fueron comparados mediante el **método FLANN** junto con el criterio de **Ratio Test** para descartar correspondencias ambiguas.
+**Emparejamiento:** Los descriptores fueron comparados mediante el **método FLANN** junto con el criterio de **Ratio Test** para descartar correspondencias ambiguas.
 
-4. **Estimación de la transformación:** Se aplicó **RANSAC** para calcular la matriz afín estimada (**M\_est**) y filtrar los inliers que representan correspondencias válidas.
+**Estimación de la transformación:** Se aplicó **RANSAC** para calcular la matriz afín estimada (**M\_est**) y filtrar los inliers que representan correspondencias válidas.
 
-5. **Registro:** Se aplicó la matriz estimada para alinear la imagen transformada respecto a la imagen de referencia.
+**Registro:** Se aplicó la matriz estimada para alinear la imagen transformada respecto a la imagen de referencia.
 
-6. **Evaluación:** La matriz estimada se comparó con la matriz real (**M\_gt**) para obtener métricas geométricas (error angular, error de escala y desplazamientos) y métricas basadas en intensidad (RMSE normalizado, NCC y MI). Estas métricas permiten evaluar tanto la precisión geométrica como la similitud radiométrica tras el registro.
+**Evaluación:** La matriz estimada se comparó con la matriz real (**M\_gt**) para obtener métricas geométricas (error angular, error de escala y desplazamientos) y métricas basadas en intensidad (RMSE normalizado, NCC y MI). Estas métricas permiten evaluar tanto la precisión geométrica como la similitud radiométrica tras el registro.
 
-7. ## Registro de Imagen
+## 3.2 Registro de Imagen
 
 Decidimos usar Orb y Akaze por sus diferentes características, Orb es más rápido y Akaze tiene más capacidades a la hora de detectar profundidad, deseábamos ver cómo estos resultados difieren entre sí.
 
@@ -105,7 +97,7 @@ Donde Hi representa las homografías de las imágenes entrantes que se trasladar
 
 Este proceso da como resultado una imagen única, escalada y alineada respecto a la primera imagen ya que es la que se decidió como referente.
 
-8. ## Calibracion y Medicion de Imágenes
+## 3.3 Calibracion y Medicion de Imágenes
 
 Luego de obtener los resultados con el registro de imágenes, se utilizaron las imágenes generadas tanto por Orb como por Akaze para para probar diferentes métodos de medida, para una de ellas obtuvimos los bordes usando métodos de detección de bordes, en este caso fue exitoso y el proceso fue capaz de detectar los bordes del cuadro.
 
@@ -115,9 +107,9 @@ Para la imagen 2 utilizamos un método más manual, utilizando Image seleccionam
 
 Con la conversión completa utilizamos los métodos de detección de bordes y uno personalizable que permite escribir coordenadas (X, Y) para medir distancias en la imagen.
 
-# Análisis y Resultados
+# 4\. Análisis y Resultados
 
-1. ## Validación de Imágenes Sintéticas
+## 4.1 Validación de Imágenes Sintéticas
 
 Se obtuvo la imagen de referencia:
 
@@ -125,7 +117,7 @@ Después de las transformaciones (Rotación, traslación y escalamiento) se obtu
 
 Se aplicó el algoritmo de registro a cada una, obteniendo:
 
-Rotación:
+**Rotación:**
 
 \=== RESULTADOS DE COMPARACIÓN \===  
 error\_angular  : 0.002°  
@@ -139,7 +131,7 @@ MI             : 1.298
 
 Para la rotación, se recuperó la orientación con alta precisión, evidenciada por un error angular mínimo (0.002°). La escala y la traslación estimadas presentaron variaciones muy pequeñas, dentro del rango subpíxel, lo que indica estabilidad del método. Las métricas de similitud muestran una buena correspondencia estructural (NCC \= 0.938, MI \= 1.298), aunque el RMSE elevado se relaciona principalmente con el gradiente y ruido presentes en la imagen y no con un error geométrico.
 
-Escala:
+**Escala:**
 
 \=== RESULTADOS DE COMPARACIÓN \===  
 error\_angular  : 0.003°  
@@ -153,7 +145,7 @@ MI             : 1.364
 
 En la transformación por escala, la estimación fue altamente precisa, con un error de escala muy bajo (0.126%) y una rotación prácticamente nula. Los errores de traslación se mantuvieron en rango subpíxel, indicando una buena alineación espacial. Las métricas de similitud (NCC \= 0.997 y MI \= 1.364) confirman una alta correspondencia entre las imágenes.
 
-Traslación:
+**Traslación:**
 
 \=== RESULTADOS DE COMPARACIÓN \===  
 error\_angular  : 0.004°  
@@ -166,7 +158,7 @@ MI             : 1.186
 
 El registro para la traslación se estimó correctamente la posición sin introducir rotaciones o deformaciones adicionales, con errores subpíxel en TX y TY y una desviación angular y de escala muy bajas. La alta correlación (NCC \= 0.986) y el valor de MI confirman una buena correspondencia estructural entre las imágenes. El RMSE elevado se atribuye al gradiente y ruido sintético, por lo que no refleja un error geométrico del proceso.  
 
-2. ## Registro de Imagen
+## 4.2 Registro de Imagen
 
 Tanto ORB como Akaze dieron resultados muy similares, la mayor peculiaridad que se nota a simple vista se ve en la parte superior de Akaze y en los objetos que están más alejados como el cuadro o la línea del techo en este caso para akaze fue mucho más fácil encontrar puntos que para orb, en ambos casos pudimos observar como la imagen 3 al ser combinada se expande para compensar su rotación y es allí donde se ven las mayores imperfecciones.
 
@@ -190,7 +182,7 @@ Akaze en conclusión tiende a tener un mejor resultado ya que extrae más puntos
 
 Akaze como podemos ver tiene muchos más matches buenos, pero estos se ven reducidos de una manera más drástica cuando los pasamos por el filtro Ransac que con Orb.
 
-3. ## Calibracion y Medicion de Imágenes
+## 4.3 Calibracion y Medicion de Imágenes
 
 En la calibracion y medicion encontramos que tanto el método de medir manualmente así como el de segmentar la imagen son efectivos de diferentes formas, segmentar la imagen por un lado permite encontrar diferentes bordes sin necesidad de buscar coordenadas específicas, sin embargo el ruido de la imagen especialmente una imagen combinada genera cortes que hacen el proceso de detección de bordes más complejo, sin embargo en este caso con la segmentación del cuadro se pudo hacer una conversión exitosa de los pixeles a centimetros.
 
@@ -198,12 +190,12 @@ Manualmente es más sencillo y más preciso, la única parte compleja se basa en
 
 Ambos métodos presentan sin embargo un desfase, ya que estamos hablando de imágenes digitales tenemos el problema que la calidad de la imagen afectará donde comienza un objeto que buscamos medir, siempre habrá un desfase ya que estamos hablando de una representación digital y el margen de error dependerá en gran medida de la calidad tanto de la imagen como de la detección, en el caso del cuadro la detección de bordes lo hará en base a la calidad de la imagen y en el caso manual a la precisión.
 
-# Conclusiones
+# 5\. Conclusiones
 
 1. La validación con imágenes sintéticas nos permitió comprobar el rendimiento del algoritmo de registro en un entorno controlado, donde conocíamos exactamente las transformaciones aplicadas. Gracias a esto, fue posible comparar directamente la matriz estimada con la matriz real y calcular los errores con precisión. Los resultados mostraron que el algoritmo logró recuperar muy bien las transformaciones, con errores muy pequeños tanto en rotación, traslación y escala. Además, las métricas de similitud indicaron que, a pesar del gradiente y el ruido añadidos a la imagen, la estructura general se mantuvo alineada. En resumen, el uso de imágenes sintéticas fue útil para demostrar que el método de registro es preciso y confiable, y sirve como una etapa previa importante antes de pasar a trabajar con imágenes reales, donde las condiciones son más complejas.  
 2. Las técnicas de registro y mezcla de imágenes nos permitió experimentar con los diferentes tipos de características que contienen las imágenes, observando cómo trabajaban de manera paralela dos detectores de características que normalmente se usan con objetivos distintos, a pesar de esto a la hora de mezclar los detectores fueron capaces de poner los puntos clave de cada imagen y solo fue cuestión de aplicar las transformaciones al canvas necesarias junto con las traslación, permitiéndonos observar fortalezas y debilidades de estos detectores.
 
-# Bibliografía
+# 6\. Bibliografía
 
 Fitzpatrick, J. M., West, J. B., & Maurer, C. R. (1998). *Predicting error in rigid-body point-based registration*. IEEE Transactions on Medical Imaging, 17(5), 694–702. https://doi.org/10.1109/42.736021
 
@@ -219,5 +211,5 @@ Pluim, J. P., Maintz, J. B., & Viergever, M. A. (2003). *Mutual-information-base
 
 Zitová, B., & Flusser, J. (2003). *Image registration methods: A survey*. Image and Vision Computing, 21(11), 977–1000. https://doi.org/10.1016/S0262-8856(03)00137-9
 
-# Reporte Contribución Individual
+# 7\.Reporte Contribución Individual
 
