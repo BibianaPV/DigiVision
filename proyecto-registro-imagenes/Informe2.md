@@ -113,6 +113,8 @@ Con la conversión completa utilizamos los métodos de detección de bordes y un
 
 Se obtuvo la imagen de referencia:
 
+![image1](/DigiVision/proyecto-registro-imagenes/results/01_Imagenes_Sinteticas/imagen_sintetica.png) 
+
 Después de las transformaciones (Rotación, traslación y escalamiento) se obtuvo el dataset con sus respectivas ground truth.
 
 Se aplicó el algoritmo de registro a cada una, obteniendo:
