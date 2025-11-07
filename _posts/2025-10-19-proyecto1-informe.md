@@ -374,7 +374,6 @@ priyarajtt (15 de Julio de 2025). Camera Calibration using Python \- OpenCV. Gee
 Kaustubh Sadekar, Satya Mallick (25 de Febrero del 2020\) Camera Calibration using OpenCV. [https://learnopencv.com/camera-calibration-using-opencv/](https://learnopencv.com/camera-calibration-using-opencv/) 
 
 # **6\. Reporte de Contribución Individual**
-
 | Estudiante | Aporte Personal |
 | :------ | :---- |
 | Leidy Marcela Leal Loaiza | Ejercicio de Transformaciones geométricas|
