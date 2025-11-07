@@ -142,6 +142,9 @@ Para la rotación, se recuperó la orientación con alta precisión, evidenciada
 
 **Escala:**
 
+![image7](./results/01_Imagenes_Sinteticas/scale_0.80_inliner_matches.png)
+![image8](./results/01_Imagenes_Sinteticas/scale_0.80_comparacion.png)
+
 \=== RESULTADOS DE COMPARACIÓN \===  
 error\_angular  : 0.003°  
 error\_escala   : 0.126%  
@@ -155,6 +158,9 @@ MI             : 1.364
 En la transformación por escala, la estimación fue altamente precisa, con un error de escala muy bajo (0.126%) y una rotación prácticamente nula. Los errores de traslación se mantuvieron en rango subpíxel, indicando una buena alineación espacial. Las métricas de similitud (NCC \= 0.997 y MI \= 1.364) confirman una alta correspondencia entre las imágenes.
 
 **Traslación:**
+
+![image9](./results/01_Imagenes_Sinteticas/trans_30_-15_inliner_matches.png)
+![image10](./results/01_Imagenes_Sinteticas/trans_30_-15_comparacion.png)
 
 \=== RESULTADOS DE COMPARACIÓN \===  
 error\_angular  : 0.004°  
@@ -171,11 +177,11 @@ El registro para la traslación se estimó correctamente la posición sin introd
 
 Tanto ORB como Akaze dieron resultados muy similares, la mayor peculiaridad que se nota a simple vista se ve en la parte superior de Akaze y en los objetos que están más alejados como el cuadro o la línea del techo en este caso para akaze fue mucho más fácil encontrar puntos que para orb, en ambos casos pudimos observar como la imagen 3 al ser combinada se expande para compensar su rotación y es allí donde se ven las mayores imperfecciones.
 
-![image](./results/02_Registro_de_Imagenes/resultAkaze.jpg)
+![image11](./results/02_Registro_de_Imagenes/resultAkaze.jpg)
 
 En otro caso, Orb pareció tener mucho más éxito combinando solo dos imágenes que las tres, especialmente en detalles como la mesa se nota que el empalme fue mucho más efectivo. 
 
-![image](./results/02_Registro_de_Imagenes/resultOrb.jpg)
+![image12](./results/02_Registro_de_Imagenes/resultOrb.jpg)
 
 El modelo de imágenes parece tener las mayores discrepancias en puntos donde las tres imágenes se intercalan, especialmente en la silla azul que es uno de los objetos comunes para las tres imágenes.  
 Akaze en conclusión tiende a tener un mejor resultado ya que extrae más puntos y por tanto es capaz de enlazar muchos más, Orb sin embargo es más rápido y detalles rectos.
@@ -199,15 +205,15 @@ Akaze como podemos ver tiene muchos más matches buenos, pero estos se ven reduc
 
 En la calibracion y medicion encontramos que tanto el método de medir manualmente así como el de segmentar la imagen son efectivos de diferentes formas, segmentar la imagen por un lado permite encontrar diferentes bordes sin necesidad de buscar coordenadas específicas, sin embargo el ruido de la imagen especialmente una imagen combinada genera cortes que hacen el proceso de detección de bordes más complejo, sin embargo en este caso con la segmentación del cuadro se pudo hacer una conversión exitosa de los pixeles a centimetros.
 
-![image](./results/03_Calibracion_y_Medicion/border_Img2.png)
+![image13](./results/03_Calibracion_y_Medicion/border_Img2.png)
 
 Manualmente es más sencillo y más preciso, la única parte compleja se basa en encontrar los dos puntos adecuados.
 
-![image](./results/03_Calibracion_y_Medicion/print_Img1.png)
+![image14](./results/03_Calibracion_y_Medicion/print_Img1.png)
 
 Ambos métodos presentan sin embargo un desfase, ya que estamos hablando de imágenes digitales tenemos el problema que la calidad de la imagen afectará donde comienza un objeto que buscamos medir, siempre habrá un desfase ya que estamos hablando de una representación digital y el margen de error dependerá en gran medida de la calidad tanto de la imagen como de la detección, en el caso del cuadro la detección de bordes lo hará en base a la calidad de la imagen y en el caso manual a la precisión.
 
-![image](./results/03_Calibracion_y_Medicion/chair_Img1.png)
+![image15](./results/03_Calibracion_y_Medicion/chair_Img1.png)
 
 # 5\. Conclusiones
 
