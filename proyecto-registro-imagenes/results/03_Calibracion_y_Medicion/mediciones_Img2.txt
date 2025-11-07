@@ -1,0 +1,15 @@
+# Cuadro
+
+Largo detectado: 217.70 px = 117.0 cm
+Escala: 1.8607 px por cm  |  0.5374 cm por px
+Prueba: 117.00 cm
+
+# Ventana
+
+Largo: 34.30548897239918 cm
+Alto: 55.539771742046455 cm
+
+# Cerradura
+
+Largo: 3.0460283765919978 cm
+Alto: 9.281993176115366 cm

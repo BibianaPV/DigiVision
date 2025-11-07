@@ -1,0 +1,11 @@
+# Cuadro
+
+Pixel distance between points: 304.29
+Largo detectado: 304.29 px = 117.0 cm
+Escala: 2.6008 px por cm  |  0.3845 cm por px
+Prueba: 117.00 cm
+
+#Silla
+
+Distancia de la silla en pixeles: 361.33
+Alto de la silla: 138.93239357139166 cm
