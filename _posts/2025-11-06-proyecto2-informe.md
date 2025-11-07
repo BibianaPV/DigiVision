@@ -333,7 +333,11 @@ Pluim, J. P., Maintz, J. B., & Viergever, M. A. (2003). *Mutual-information-base
 Zitová, B., & Flusser, J. (2003). *Image registration methods: A survey*. Image and Vision Computing, 21(11), 977–1000. https://doi.org/10.1016/S0262-8856(03)00137-9
 
 # 7\.Reporte Contribución Individual
-
+| Estudiante | Aporte Personal |
+| :---- | :---- |
+| Leidy Marcela Leal Loaiza | |
+| Juan Felipe Arbelaez | Registro y combinacion de imagenes utilizando Orb y Akaze, Calibracion y medicion de imagenes con segmentacion y por puntos, Redacción del informe y análisis de resultados |
+| Bibiana Andrea Peña V | Validación con Imágenes Sintéticas, registro y combinación de imágenes, redacción del informe y análisis de resultados |
 <p style="text-align:center;">
   <a href="{{ "/" | relative_url }}">⬅ Volver al inicio</a>
   <a href="https://github.com/bibianapv/DigiVision" target="_blank">🌐 Ver en GitHub</a>
