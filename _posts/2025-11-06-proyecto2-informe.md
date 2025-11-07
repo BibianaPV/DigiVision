@@ -334,3 +334,12 @@ Zitová, B., & Flusser, J. (2003). *Image registration methods: A survey*. Image
 
 # 7\.Reporte Contribución Individual
 
+<p style="text-align:center;">
+  <a href="{{ "/" | relative_url }}">⬅ Volver al inicio</a>
+  <a href="https://github.com/bibianapv/DigiVision" target="_blank">🌐 Ver en GitHub</a>
+</p>
+
+</div>
+</div>
+</div>
+
