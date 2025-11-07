@@ -238,3 +238,8 @@ Zitová, B., & Flusser, J. (2003). *Image registration methods: A survey*. Image
 
 # 7\.Reporte Contribución Individual
 
+| Estudiante | Aporte Personal |
+| :---- | :---- |
+| Leidy Marcela Leal Loaiza | |
+| Juan Felipe Arbelaez | Registro y combinacion de imagenes utilizando Orb y Akaze, Calibracion y medicion de imagenes con segmentacion y por puntos |
+| Bibiana Andrea Peña V | |
