@@ -178,11 +178,11 @@ Imagen 2
 Realizamos la busqueda de los bordes con la funcion chesscorner antes de comenzar el proceso de calibracion.
 
 <p align="center">
-  <img src="./results/1.calibracionCamara/1_detected." width="250" />
-  <img src="./results/1.calibracionCamara/2_detected." width="250" />
-  <img src="./results/1.calibracionCamara/3_detected." width="250" />
-  <img src="./results/1.calibracionCamara/4_detected." width="250" />
-  <img src="./results/1.calibracionCamara/5_detected..jpg" width="250" />
+  <img src="./results/1.calibracionCamara/1_detected.jpg" width="250" />
+  <img src="./results/1.calibracionCamara/2_detected.jpg" width="250" />
+  <img src="./results/1.calibracionCamara/3_detected.jpg" width="250" />
+  <img src="./results/1.calibracionCamara/4_detected.jpg" width="250" />
+  <img src="./results/1.calibracionCamara/5_detected.jpg" width="250" />
 </p>
 Imagen 3
 
