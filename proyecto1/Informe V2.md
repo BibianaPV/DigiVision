@@ -39,19 +39,25 @@ Operaciones puntuales que modifican directamente los valores de intensidad de lo
 
 * **Lineales:** como el ajuste de brillo y contraste. El brillo se modifica sumando una constante β a cada píxel, desplazando la distribución de intensidades: 
 
-𝐼o(x,y)=I(x,y)+𝛽
+$$
+I_o(x,y) = I(x,y) + \beta
+$$
 
 donde β es una constante de desplazamiento (positiva para aclarar, negativa para oscurecer).
 
 El contraste se modifica mediante un factor multiplicativo α, que expande o comprime la distribución alrededor de un valor medio.
 
-Io​(x,y)=α⋅(I​(x,y)−m)+m
+$$
+I_o(x,y) = \alpha \cdot (\, I(x,y) - m \,) + m
+$$
 
 Donde, α es el factor de contraste y m es un punto medio que permanece constante. 
 
 * **No lineales:** como la corrección gamma, que ajusta la luminancia percibida aplicando una potencia γ sobre cada valor de intensidad normalizado.
 
-Io(x,y)​=c⋅(I(x,y)​)
+$$
+I_o(x,y) = c \cdot I(x,y)
+$$
 
 Donde c es una constante de escala y γ el exponente de corrección. Si γ\<1, los tonos oscuros se elevan; si γ\>1, los tonos claros se comprimen.
 
@@ -66,21 +72,31 @@ Matemáticamente, estas transformaciones se representan mediante matrices en coo
 
 El histograma de intensidades es una representación estadística que muestra la frecuencia con la que aparecen distintos niveles de intensidad en una imagen (Gonzalez & Woods, 2018). Así,
 
-h(rk​)=nk​
+$$
+h(r_k) = n_k
+$$
 
 donde rk​ es el nivel de intensidad y nk​ el número de píxeles con esa intensidad. Al normalizar se obtiene una función de probabilidad discreta:
 
-p(rk​)=nk/n​​
+$$
+p(r_k) = \frac{n_k}{n}
+$$
 
 La distribución del histograma permite identificar características como brillo, contraste y rango dinámico. Por ejemplo, un histograma agrupado en intensidades bajas indica una imagen oscura; en altas intensidades indica una imagen clara y uno distribuido uniformemente indica buen contraste (Patel et al., 2013).
 
 La función de distribución acumulada (CDF) se obtiene a partir del histograma y representa la probabilidad acumulada de que un píxel tenga una intensidad menor o igual a un cierto valor. Se define como:
 
-CDF(rk​)=∑p(rj​)
+$$
+CDF(r_k) = \sum_j p(r_j)
+$$
+
 
 La CDF es fundamental en técnicas de ecualización de histograma, permitiendo construir una transformación de intensidades que redistribuye los niveles originales de manera más uniforme a lo largo del rango dinámico de la imagen (Gonzalez & Woods, 2018). Para esto se busca construir una función de transformación T(r) que mapee los niveles de intensidad originales r en nuevos niveles s, de manera que la distribución de salida se acerque a una distribución uniforme:
 
-s=T(r)=(L−1)⋅CDF(r)
+$$
+s = T(r) = (L - 1)\cdot CDF(r)
+$$
+
 
 Donde L es el número total de niveles de intensidad.
 
@@ -148,11 +164,23 @@ Una vez segmentadas las regiones de interés, desarrollamos un método personali
 
 ## 4.1 Calibración de la Cámara
 
-El ejercicio de calibración fue llevado a cabo con 5 imágenes con la cámara se un celular modelo Samsung Galaxy S7, los resultados mostraron una deformación en forma de cojín al ver como las imágenes se hunde de cierta forma en el centro de cada lado de la imágen dando la impresión de un cojín.
+El ejercicio de calibración fue llevado a cabo con 5 imágenes con la cámara se un celular modelo Samsung Galaxy S7:
+
+<p align="center">
+  <img src="./img/1.calibracionCamara/1.jpg" width="250" />
+  <img src="./img/1.calibracionCamara/2.jpg" width="250" />
+  <img src="./img/1.calibracionCamara/3.jpg" width="250" />
+  <img src="./img/1.calibracionCamara/4.jpg" width="250" />
+  <img src="./img/1.calibracionCamara/5.jpg" width="250" />
+</p>
+
+Los resultados mostraron una deformación en forma de cojín al ver como las imágenes se hunde de cierta forma en el centro de cada lado de la imágen dando la impresión de un cojín.
 
 A parte de esta deformación que es el aspecto más visual, vamos a encontrar como ciertos valores presentan ligeras variaciones, uno de estos casos es el del *focal length* en el cual tenemos los siguientes resultados: 
 
-(fx \= 3.16386392e+03 , fy \= 3.18629093e+03)
+$$
+(f_x = 3.16386392\times10^{3},\; f_y = 3.18629093\times10^{3})
+$$
 
 Estos valores pueden ser en la mayoría de los casos iguales, estos dos puntos representan las direcciones en **x** y en **y** que podrán diferir dependiendo del tamaño de los píxeles de la cámara, otro valor a tener en cuenta es el de cx y cy los cuales nos dieron como resultado.
 
