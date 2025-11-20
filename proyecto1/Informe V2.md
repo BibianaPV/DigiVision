@@ -173,10 +173,30 @@ El ejercicio de calibración fue llevado a cabo con 5 imágenes con la cámara s
   <img src="./img/1.calibracionCamara/4.jpg" width="250" />
   <img src="./img/1.calibracionCamara/5.jpg" width="250" />
 </p>
+Imagen 2
 
 Realizamos la busqueda de los bordes con la funcion chesscorner antes de comenzar el proceso de calibracion.
 
-![image14](./results/1.calibracionCamara/3_detected.jpg)
+<p align="center">
+  <img src="./results/1.calibracionCamara/1_detected." width="250" />
+  <img src="./results/1.calibracionCamara/2_detected." width="250" />
+  <img src="./results/1.calibracionCamara/3_detected." width="250" />
+  <img src="./results/1.calibracionCamara/4_detected." width="250" />
+  <img src="./results/1.calibracionCamara/5_detected..jpg" width="250" />
+</p>
+Imagen 3
+
+Porteriormente, se determino la matriz K:
+
+$$
+K =
+\begin{bmatrix}
+2.77781002\times 10^{3} & 0 & 2.10654944\times 10^{3} \\
+0 & 2.83647470\times 10^{3} & 1.57907916\times 10^{3} \\
+0 & 0 & 1
+\end{bmatrix}
+$$
+
 
 Los resultados mostraron una deformación en forma de cojín al ver como las imágenes se hunde de cierta forma en el centro de cada lado de la imágen dando la impresión de un cojín.
 
@@ -188,41 +208,59 @@ $$
 
 Estos valores pueden ser en la mayoría de los casos iguales, estos dos puntos representan las direcciones en **x** y en **y** que podrán diferir dependiendo del tamaño de los píxeles de la cámara, otro valor a tener en cuenta es el de cx y cy los cuales nos dieron como resultado.
 
-(cx, cy) \= (2.00104091e+03 , 1.55433682e+03)
+$$
+(c_x, c_y) = (2.00104091\times 10^{3},\; 1.55433682\times 10^{3})
+$$
+
 
 Tenemos que tanto cx y cy que serían las coordenadas del centro óptico que hemos sacado de acuerdo a la calibración, estos dos puntos están relativamente cerca del centro original aunque notamos una mayor variación en los valores de y, lo cual podría deberse al hecho de que son los lados superior e inferior los que presenta una mayor deformación en las imágenes corregidas.
 
-cx \=2.00104091e+03  \=  2.00104091 x 10³ 
+$$
+\begin{aligned}
+c_x &= 2.00104091\times 10^{3} = 2001.04091 \\
+c_y &= 1.55433682\times 10^{3} = 1554.33682 \\
+\\
+(c_x, c_y) &= (2001.04091,\; 1554.33682) \\
+(i_x, i_y) &= (2016,\; 1512)
+\end{aligned}
+$$
 
-cx \= 2001.04091
-
-cy \=1.55433682e+03  \=  1.55433682 x 10³ 
-
-cy \=  1554.33682
-
-(cx, cy) \= 2001.04091, 1554.33682 
-
-(ix, iy) \=2016, 1512 
 
 Tenemos entonces que ix e iy representan el centro según las dimensiones originales de la imagen en este caso estaríamos hablando de que cx está a 14 pixeles a la izquierda del centro de la imagen y que y el cual está más separado, esté 42 pixeles por encima del centro de la imagen.
 
-d \= (cx-ix)2+(cy-iy)2= 44.87 pixeles de diferencia
+$$
+d = \sqrt{(c_x - i_x)^2 + (c_y - i_y)^2} = 44.87
+$$
+
+pixeles de diferencia
 
 Lo más a destacar de los resultados es la variación en y, tanto en la **distancia focal** como en la distancia del centro de la cámara al centro de la imagen que presenta una variación mayor, esto nos hace intuir que los píxeles de la cámara presenta un tamaño mayor en su altura dando lugar a estas variaciones.
 
-![image9](./results/1.calibracionCamara/20251010_160324_undistorted.jpg)
+<p align="center">
+  <img src="./img/1.calibracionCamara/1.jpg" width="40%">
+  <img src="./results/1.calibracionCamara/20251010_160324_undistorted.jpg" width="40%">
+</p>
+Imagen 4: Comparación imagen original vs imagen corregida
+
+
+Finalmente, se determino el error RMS:
+
+$$
+\text{Error RMS de reproyección} = 0.9848851012377567
+$$
+
 
 ## 4.2 Transformaciones de intensidad
 
 **Brillo**  
 
-![image2](./results/2.transformacionesIntensidad/comparacionBrillo.png) 
+![image5](./results/2.transformacionesIntensidad/comparacionBrillo.png) 
 
 Se puede observar en la imagen de la fachada AM al utilizar un beta negativo la imagen se oscurece de manera global, desplazando la distribución de intensidades hacia valores más bajos. Mientras que en la imagen de la fachada PM con un beta positivo se desplazan las intensidades hacia valores más altos, la imagen se aclara, es decir, se produce un aumento del brillo general. 
 
 **Contraste** 
 
-![image3](./results/2.transformacionesIntensidad/compracionContraste.png)  
+![image6](./results/2.transformacionesIntensidad/compracionContraste.png)  
 
 En la fachada AM al aplicar un α=2 y un punto medio de 0.5, se produce una mayor diferencia entre las intensidades, las regiones claras (como el cielo y las fachadas) se vuelven más brillantes, mientras que las zonas oscuras (árboles) se oscurecen aún más. Esto incrementa el contraste global, pero también puede generar pérdida de detalle en zonas oscuras debido a la saturación.
 
@@ -230,7 +268,7 @@ En la fachada PM al aplicar un α=-1 y un punto medio de 0.5, la relación se in
 
 **Corrección Gama**  
 
-![image4](./results/2.transformacionesIntensidad/comparacionGamma.png) 
+![image7](./results/2.transformacionesIntensidad/comparacionGamma.png) 
 
 Para la imagen de la fachada AM, al aplicar un factor gamma γ=2 con una constante c=1 se genera un oscurecimiento. Esto se debe a que los valores de intensidad inferiores a 1 se elevan a una potencia mayor lo que desplaza parte del rango dinámico hacia valores más bajos. Esto produce una pérdida de detalle en las zonas oscuras y del primer plano.
 
@@ -238,7 +276,7 @@ Para la imagen de la fachada PM, al aplicar un factor gamma γ=2 con una constan
 
 **Operaciones aritméticas**
 
-![image5](./results/2.transformacionesIntensidad/operacionesAritmeticas.png) 
+![image8](./results/2.transformacionesIntensidad/operacionesAritmeticas.png) 
 
 La suma de ambas imágenes produce un incremento en la intensidad al combinar los valores de brillo de las dos imágenes. Así, la imagen se ve más clara y brillante, con detalles visibles en los árboles y  la fachada. También, se observa saturación en las regiones más iluminadas como el cielo y reflejos.
 
@@ -254,27 +292,27 @@ Este ejercicio permitió observar cómo las transformaciones geométricas influy
 
 La función **transform** es la que permite ajustar el tamaño mediante escalado, girarla según el ángulo de rotación y desplazarla en el plano mediante traslación. Para evitar que la imagen recortada pierda información, se crea un lienzo del tamaño original donde se pega la versión transformada de la imagen, garantizando que  la imagen permanezca dentro de los límites visibles, siendo esto una herramienta esencial en visión por computadora que permite modelar cómo un sistema percibe los objetos independientemente de su posición, tamaño u orientación.
 
-![image6](./results/3.transformacionesRotaciónTraslación/frames/frame_01.png)
-![image7](./results/3.transformacionesRotaciónTraslación/frames/frame_04.png)
-![image8](./results/3.transformacionesRotaciónTraslación/frames/frame_06.png)
+![image9](./results/3.transformacionesRotaciónTraslación/frames/frame_01.png)
+![image10](./results/3.transformacionesRotaciónTraslación/frames/frame_04.png)
+![image11](./results/3.transformacionesRotaciónTraslación/frames/frame_06.png)
 
 La función **generate_transform_sequence** se encarga de aplicar varias transformaciones a una imagen y crear un GIF animado con todo el proceso. Con la imagen principal (base), le va aplica distintos cambios como moverla, girarla y escalarla, guardando cada paso como una imagen separada (frames). Luego, con la librería imageio, se juntan todos los frames como una animación, mostrando de forma visual cómo la imagen se va transformando poco a poco.
 
 
-![image9](.results/3.transformacionesRotaciónTraslación/frames/transformations.gif)
+![image12](.results/3.transformacionesRotaciónTraslación/frames/transformations.gif)
 
 
 ## 4.4 Distribución de intensidades
 
-![image10](./results/4.distribuciónIntensidad/histogramas.png) 
+![image13](./results/4.distribuciónIntensidad/histogramas.png) 
 
 Para la fachada AM el histograma tiene una distribución a lo largo de todo el rango dinámico con un aumento en valores bajos. Aunque la imagen tiene zonas oscuras como los árboles cuenta con una iluminación más equilibrada que incluye intensidades medias y altas. Por el contrario, en la imagen de la fachada PM el histograma se concentra principalmente en intensidades bajas, lo que refleja una escena predominantemente oscura.
 
-![image11](./results/4.distribuciónIntensidad/CDF%20Normalizada.png)
+![image14](./results/4.distribuciónIntensidad/CDF%20Normalizada.png)
 
 la CDF en el caso  AM el aumento fue más constante con una pequeña meseta \~ 100 y 200 y un aumento casi lineal al final, mientras que en el caso PM se evidenció un cambio más pronunciado al inicio y una meseta \~ desde 100, lo que evidencia un aumento de intensidades en las zonas más oscuras de la imagen.
 
-![image12](./results/4.distribuciónIntensidad/ImágenesEcualizadas.png)
+![image15](./results/4.distribuciónIntensidad/ImágenesEcualizadas.png)
 
 En la imagen AM, la distribución de intensidades ya era amplia y la transformación de ecualización fue más suave, con cambios leves en los niveles de intensidad y un incremento moderado del contraste.
 
@@ -295,7 +333,7 @@ Este comportamiento es posible gracias a la combinación de varias técnicas imp
 
 En conjunto, estos resultados validan que el sistema desarrollado no solo es funcional, sino que es capaz de realizar una **detección y visualización efectiva** de los colores de interés, así como el cálculo de su área y conteo de los bordes detectados.
 
-![image13](./results/5.segmentacion/resultado_segmentacion.jpg)
+![image16](./results/5.segmentacion/resultado_segmentacion.jpg)
 
 # 5\. Referencias Bibliográficas
 
