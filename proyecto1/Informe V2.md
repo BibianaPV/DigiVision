@@ -174,6 +174,10 @@ El ejercicio de calibración fue llevado a cabo con 5 imágenes con la cámara s
   <img src="./img/1.calibracionCamara/5.jpg" width="250" />
 </p>
 
+Realizamos la busqueda de los bordes con la funcion chesscorner antes de comenzar el proceso de calibracion.
+
+![image14](./results/1.calibracionCamara/3_detected.jpg)
+
 Los resultados mostraron una deformación en forma de cojín al ver como las imágenes se hunde de cierta forma en el centro de cada lado de la imágen dando la impresión de un cojín.
 
 A parte de esta deformación que es el aspecto más visual, vamos a encontrar como ciertos valores presentan ligeras variaciones, uno de estos casos es el del *focal length* en el cual tenemos los siguientes resultados: 
