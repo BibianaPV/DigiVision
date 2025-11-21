@@ -121,6 +121,7 @@ Los datos que sacaremos de esta calibración los conoceremos como parámetros in
 * **s**: coeficiente de sesgo (skew), usualmente 0 si los ejes están ortogonales.
 
 <div class="post-content">
+{% raw %}
 $$
 K =
 \begin{bmatrix}
@@ -129,6 +130,7 @@ f_x & s   & c_x \\
 0   & 0   & 1
 \end{bmatrix}
 $$
+{% endraw %}
 </div>
 
 ## 2.2 Transformaciones de intensidad 
