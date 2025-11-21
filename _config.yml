@@ -3,6 +3,7 @@ title: "Blog de Informes DigiVision"
 description: "Procesamiento de imágenes 2025-02"
 exclude:
   - README.md
+  - /proyecto1/Informe V2.md
   - /proyecto1/Informe.md
   - /proyecto1/README.md
   - /proyecto-registro-imagenes/Informe2.md
