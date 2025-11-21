@@ -120,6 +120,7 @@ Los datos que sacaremos de esta calibración los conoceremos como parámetros in
 * **cₓ, cᵧ**: coordenadas del punto principal (centro óptico en la imagen).  
 * **s**: coeficiente de sesgo (skew), usualmente 0 si los ejes están ortogonales.
 
+<div class="post-content">
 $$
 K =
 \begin{bmatrix}
@@ -128,6 +129,7 @@ f_x & s   & c_x \\
 0   & 0   & 1
 \end{bmatrix}
 $$
+</div>
 
 ## 2.2 Transformaciones de intensidad 
 
