@@ -3,6 +3,13 @@ layout: post
 title: "Proyecto1 Informe V2"
 date: 2025-11-20
 ---
+
+<!-- Activar MathJax en Minima -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+
 <style>
 .post-title { display: none; }
 .page-content {
@@ -121,7 +128,6 @@ Los datos que sacaremos de esta calibración los conoceremos como parámetros in
 * **s**: coeficiente de sesgo (skew), usualmente 0 si los ejes están ortogonales.
 
 
-{% raw %}
 $$
 K =
 \begin{bmatrix}
@@ -130,7 +136,6 @@ f_x & s   & c_x \\
 0   & 0   & 1
 \end{bmatrix}
 $$
-{% endraw %}
 
 
 ## 2.2 Transformaciones de intensidad 
