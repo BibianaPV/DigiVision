@@ -312,6 +312,23 @@ Esta operación conserva exclusivamente los píxeles correspondientes a los pulm
 
 #### 3.2.1.2 Fourier Shape Descriptors 
 
+La función fourier_descriptors extrae descriptores de forma de Fourier de un contorno binario de manera sistemática.
+
+Primero, la máscara de entrada se convierte en binaria, donde el fondo es 0 y el objeto es 255, asegurando que los contornos se detecten correctamente. A continuación, se identifican todos los contornos en la máscara y se selecciona el contorno con mayor área, que representa el objeto principal.
+
+Cada punto del contorno $$(xk, yk)$$ se transforma en un número complejo $$zk = xk + i*yk$$, lo que permite manejar conjuntamente las coordenadas x e y. 
+Luego, se centra el contorno en el origen restando la media de todos los puntos:
+
+$$
+zk ← zk - (1/N) * sum{k=0}^{N-1} zk
+$$
+
+Eliminando así la dependencia de la posición dentro de la imagen. Se aplica la transformada discreta de Fourier $$Zn = sum{k=0}^{N-1} zk * exp(-i * 2 * pi * n * k / N)$$, que descompone el contorno en diferentes **“frecuencias de forma”**.
+
+Se seleccionan los primeros n descriptores, coeficientes de baja frecuencia (excluyendo el término DC) y se normalizan por la magnitud del primer coeficiente $$Zn ← Zn / |Z1|$$.
+Dependiendo de la opción, se puede usar solo la magnitud features = |Zn| para que los descriptores sean invariantes a la rotación, o conservar la fase features = [Re(Zn), Im(Zn)] para mantener información de orientación.
+
+El resultado es un vector compacto que representa la forma del objeto, que utilizaremos para comparar y clasificar contornos en análisis de imágenes médicas, evaluando los posibles cambios que puedan surgir en radiografías futuras.
 
 #### 3.2.1.3  Momentos de Hu
 La extracción de Momentos de Hu se realizó a partir de las máscaras pulmonares segmentadas previamente. Cada máscara fue leída en escala de grises y convertida a formato binario mediante un umbral fijo, garantizando una delimitación consistente de la región pulmonar. A partir de esta máscara binaria, se calcularon los momentos espaciales y centrales utilizando cv2.moments(), y posteriormente se obtuvieron los siete Momentos de Hu mediante cv2.HuMoments(). Para mejorar su estabilidad numérica y reducir su rango dinámico, se aplicó la transformación logarítmica estándar a cada descriptor. Finalmente, los vectores de características generados para cada imagen se organizaron por partición del dataset (train, val, test) y se almacenaron en archivos .npz, junto con sus etiquetas y nombres de archivo, permitiendo su uso directo en etapas posteriores de clasificación o análisis morfológico.
@@ -380,6 +397,57 @@ Para cada imagen en escala de grises, se aplicó cada filtro mediante convoluci�
 
 ## 3.3 Clasificación con Descriptores Clásicos
 ### 3.3.1 SVC: Support Vector Machine
+
+La metodología aplicada en el def pipeline para procesar los descriptores, consiste en integrar descriptores de forma y textura provenientes de archivos NPZ, normalizarlos, reducir su dimensionalidad y finalmente clasificarlos mediante un modelo SVM utilizando distintos kernels en este caso: rbf, linear y poly.
+
+Primero se cargan los descriptores: **X_form** y **X_texture**, los cuales representan características geométricas y características basadas en intensidad, respectivamente. Ambos vectores se concatenan para formar un único conjunto de atributos:
+
+$$
+X = [X_form | X_texture]
+$$
+
+Luego, los datos se normalizan mediante StandardScaler, que transforma cada característica usando:
+
+$$
+X_norm = (X − μ) / σ
+$$
+
+Con el objetivo de que todas las variables tengan una media 0 y desviación estándar 1.
+
+Si la opción está activa, se aplica PCA manteniendo el 95% de la varianza. La reducción de dimensionalidad se logra proyectando los datos en nuevos componentes principales definidos por la descomposición en valores propios de la matriz de covarianza. Este proceso genera un espacio donde se preserva la mayor parte de la información relevante. La etapa de clasificación utiliza un SVM (Support Vector Machine), cuya función objetivo es maximizar el margen entre clases. Su forma general es buscar un hiperplano:
+
+$$
+f(x) = w · x + b
+$$
+
+Que separe correctamente los datos, o bien, mediante un kernel, transformarlos a un espacio donde la separación sea posible. Los kernels usados fueron:
+
+**Linear: separación por hiperplano directo.**
+
+**RBF: utiliza $$K(xᵢ, xⱼ) = exp(−γ ||xᵢ − xⱼ||²)$$, permitiendo fronteras no lineales.**
+
+**Poly: $$K(xᵢ, xⱼ) = (γ xᵢ·xⱼ + r)^d$$, que modela relaciones polinomiales.**
+
+La evaluación se realiza mediante validación cruzada de 5 particiones, asegurando que cada fold mantiene la proporción de clases. En cada partición se obtienen predicciones y probabilidades (para la curva ROC). Con ellas se calculan las métricas:
+
+$$
+Accuracy = (TP + TN) / Total
+$$
+
+$$
+Precision = TP / (TP + FP)
+$$
+
+$$
+Recall = TP / (TP + FN)
+$$
+
+$$
+F1 = 2 * (Precisión * Recall) / (Precision + Recall)
+$$
+
+También se genera la matriz de confusión, para visualizar errores entre clases, y la curva ROC, cuya área bajo la curva (AUC) mide la capacidad discriminativa del modelo.
+Finalmente, el pipeline devuelve las variables principales del proceso: datos combinados, datos finales tras normalización y PCA, predicciones, métricas y matriz de confusión, permitiendo comparar el rendimiento de cada kernel de manera consistente y reproducible
 
 
 ### 3.3.2 Random Forest
