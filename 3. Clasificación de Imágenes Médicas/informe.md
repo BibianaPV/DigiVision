@@ -17,8 +17,8 @@ Para el análisis exploratorio, se utiliza la visualización inicial de ejemplos
 Matemáticamente, una normalización min–max típica se formula como:
 
 $$
-I_{\text{norm}} = 
-\frac{\I - I_{\min}\}{\I_{\max} - I_{\min}\}
+I_{\text{norm}} =
+\frac{I - I_{\min}}{I_{\max} - I_{\min}}
 $$
 
 3. Mejora de contraste mediante CLAHE: Ecualización adaptativa de histograma limitada por contraste (CLAHE) tiene la capacidad de realzar contrastes locales sin amplificar excesivamente el ruido. Para esto, se divide la imagen en bloques pequeños, ecualiza cada uno y limita el contraste máximo permitiendo: resaltar estructuras anatómicas relevantes, mejorar bordes y detalles finos, evitar sobreecualización que podría introducir artefactos, preservar características radiológicas sutiles esenciales para diagnóstico.
@@ -39,19 +39,14 @@ Los momentos invariantes de Hu, propuestos por Ming-Kuei Hu en 1962, constituyen
 El enfoque se basa en los momentos geométricos, definidos para una imagen 𝑓(𝑥,𝑦) como:
 
 $$
-m_{pq} = \sum_x \sum_y \left( x^p \, y^q \, f(x, y) \right)
+m_{pq} = \sum_x \sum_y ( x^p * y^q * f(x, y) )
 $$
+
 
 Los momentos centrales, que introducen invariancia a traslación, se expresan como:
 
 $$
-\mu_{pq} =
-\sum_x \sum_y
-\left(
-(x - \bar{x})^{p} \,
-(y - \bar{y})^{q} \,
-f(x, y)
-\right)
+\mu_{pq} = \sum_x \sum_y \big( (x - \bar{x})^p * (y - \bar{y})^q * f(x, y) \big)
 $$
 
 donde:
@@ -109,23 +104,25 @@ Los filtros de Gabor constituyen una familia de operadores lineales diseñados p
 
 $$
 g(x, y) =
-\exp\!\left(
+\exp\left(
 -\frac{x'^{2} + \gamma^{2} y'^{2}}{2\sigma^{2}}
 \right)
 \,
-\cos\\left(
+\cos\left(
 2\pi \frac{x'}{\lambda} + \psi
 \right)
 $$
+
 
 donde las variables rotadas se definen como:
 
 $$
 \begin{aligned}
-x' &= x \cos(\theta) + y \sin(\theta), \\
+x' &= x \cos(\theta) + y \sin(\theta) \\
 y' &= -x \sin(\theta) + y \cos(\theta)
 \end{aligned}
 $$
+
 
 Los parámetros del filtro son:
 lambda: longitud de onda de la función sinusoidal (controla la frecuencia espacial).
@@ -178,8 +175,9 @@ En cada nodo del árbol, se selecciona aleatoriamente un subconjunto de k caract
 Una vez entrenados los B árboles, la predicción final para una instancia x se obtiene mediante votación por mayoría:
 
 $$
-\hat{y} = \{mode}\!\left( T_1(x),\, T_2(x),\, \ldots,\, T_B(x) \right)
+\hat{y} = \operatorname{mode}\left( T_1(x),\, T_2(x),\, \ldots,\, T_B(x) \right)
 $$
+
 
 donde \; T_b(x) \; \text{es la predicción del árbol } b.
 
@@ -266,18 +264,16 @@ Para la caracterización de la textura presente en las radiografías de tórax, 
 El procedimiento implementado realiza la extracción de características de textura a partir de imágenes médicas utilizando la Matriz de Co-ocurrencia de Niveles de Gris (GLCM), para luego generar un dataset listo para clasificación. Primero, cada imagen se convierte a escala de grises y se redimensiona a 256×256 píxeles. Los niveles de gris se reducen a un número fijo L = 16. Esto se hace dividiendo cada valor de píxel por 16 y tomando la parte entera:
 
 $$
-I_{\text{norm}} = \left\lfloor \frac{I}{\,256 / L\,} \right\rfloor
+I_{\text{norm}} = \left\lfloor \frac{I}{256 / L} \right\rfloor
 $$
-
 
 Esto normaliza la intensidad de la imagen y reduce el rango de valores para facilitar el cálculo de la GLCM.
 Para cada distancia d ∈ {1, 2, 4} y cada ángulo θ ∈ {0, π/2, π/4, 3π/4}, se calcula la matriz de co-ocurrencia de niveles de gris, normalizada y simétrica. Cada elemento de la matriz representa la probabilidad de que un píxel con un nivel de gris específico aparezca junto a otro píxel a esa distancia y ángulo dados:
 
 $$
-\text{GLCM}_{d,\theta}[i,j] 
-= P\!\left( I_{\text{norm}}(x, y) = i,\; I_{\text{norm}}(x', y') = j \right)
+\text{GLCM}_{d,\theta}[i,j] =
+P\left( I_{\text{norm}}(x, y) = i, I_{\text{norm}}(x', y') = j \right)
 $$
-
 
 Donde (x', y') es el píxel vecino a distancia d en la dirección θ.
 
@@ -293,7 +289,15 @@ $$
 
 Correlación: 
 
-Correlacion = ( Σ{i,j} (i - μi)(j - μj) * GLCM[i,j] ) / (σi * σj)
+$$
+\text{Correlacion} =
+\frac{
+\sum_{i}\sum_{j} (i - \mu_i)(j - \mu_j)\,\text{GLCM}[i,j]
+}{
+\sigma_i \,\sigma_j
+}
+$$
+
 
 Energía:
  Energia = Σ{i,j} (GLCM[i,j])²
