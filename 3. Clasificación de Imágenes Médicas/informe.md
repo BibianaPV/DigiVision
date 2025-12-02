@@ -418,6 +418,12 @@ Finalmente, se guardan para train/test/val.
 #### 4.2.2.2 Gray Level Co-ocurrence Matrix (GLCM)
 
 #### 4.2.2.3 Filtros de Gabor
+El banco de filtros Gabor utilizado estuvo compuesto por 12 kernels generados mediante la combinación de tres longitudes de onda (λ = 4, 8 y 16) y cuatro orientaciones (θ = 0°, 45°, 90° y 135°), con un tamaño fijo de 31×31 píxeles. Para cada combinación de parámetros, se construyó un kernel conforme a la función Gabor clásica, los parámetros sigma = 0.56·λ, gamma = 0.5 y psi = 0 se mantuvieron constantes para asegurar una respuesta estable entre escalas. Este banco de filtros permitió capturar información textural a múltiples escalas y orientaciones, produciendo un total de 48 características por imagen (media y desviación estándar de cada respuesta filtrada).
+
+![image1](./results/imagenes/comparacionGabor.png)
+
+
+Finalmente, se guardan los descriptores para todo el dataset.
 
 
 
