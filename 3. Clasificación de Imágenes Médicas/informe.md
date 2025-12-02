@@ -18,7 +18,7 @@ Matemáticamente, una normalización min–max típica se formula como:
 
 $$
 I_{\text{norm}} = 
-\frac{\,I - I_{\min}\,}{\,I_{\max} - I_{\min}\,}
+\frac{\I - I_{\min}\}{\I_{\max} - I_{\min}\}
 $$
 
 3. Mejora de contraste mediante CLAHE: Ecualización adaptativa de histograma limitada por contraste (CLAHE) tiene la capacidad de realzar contrastes locales sin amplificar excesivamente el ruido. Para esto, se divide la imagen en bloques pequeños, ecualiza cada uno y limita el contraste máximo permitiendo: resaltar estructuras anatómicas relevantes, mejorar bordes y detalles finos, evitar sobreecualización que podría introducir artefactos, preservar características radiológicas sutiles esenciales para diagnóstico.
@@ -113,7 +113,7 @@ g(x, y) =
 -\frac{x'^{2} + \gamma^{2} y'^{2}}{2\sigma^{2}}
 \right)
 \,
-\cos\!\left(
+\cos\\left(
 2\pi \frac{x'}{\lambda} + \psi
 \right)
 $$
@@ -178,7 +178,7 @@ En cada nodo del árbol, se selecciona aleatoriamente un subconjunto de k caract
 Una vez entrenados los B árboles, la predicción final para una instancia x se obtiene mediante votación por mayoría:
 
 $$
-\hat{y} = \operatorname{mode}\!\left( T_1(x),\, T_2(x),\, \ldots,\, T_B(x) \right)
+\hat{y} = \{mode}\!\left( T_1(x),\, T_2(x),\, \ldots,\, T_B(x) \right)
 $$
 
 donde \; T_b(x) \; \text{es la predicción del árbol } b.
