@@ -378,7 +378,25 @@ Puede observarse que el modelo PsNet logra una segmentación superior; por ello,
 #### 4.2.1.2 Fourier Shape Descriptors 
 
 #### 4.2.1.3 Momentos Hu
+Para los momentos de Hu se utilizaron las máscaras pulmonares, se obtiene como ejemplo:
 
+![image1](./results/imagenes/hu_normal_mask.png)
+
+$$
+\text{Hu}_{\text{log}}(\text{NORMAL}) =
+[\, 3.09518535,\; 7.74283017,\; 9.91124263,\; 11.36732456,\; -12,\; -11.99984012,\; -12 \,]
+$$
+
+![image1](./results/imagenes/imagenMaskHu.png)
+
+$$
+Hu_{log}(PNEUMONIA) =
+[ 3.09793794,\; 8.06061368,\; 9.94164528,\; 11.05105342,\; -12,\; -11.99971903,\; -12 ]
+$$
+
+Posteriormente se guardan todos los momentos para train/test/val.
+
+#### 4.2.1.4 Histogram of Oriented Gradients (HOG)
 
 
 ### 4.2.2 Descriptores de Textura
