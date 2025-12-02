@@ -294,4 +294,53 @@ Posteriormente, se aplicó una reducción de dimensionalidad mediante SelectKBes
 
 El desempeño del modelo se evaluó mediante validación cruzada estratificada de 10 particiones, registrando métricas estándar como accuracy, precisión, sensibilidad, F1-score y AUC. Luego, el modelo final se entrenó con todos los datos de entrenamiento y validación combinados, y se evaluó sobre el conjunto test independiente. Finalmente, se generaron la matriz de confusión, curvas ROC y el análisis de importancia de características, permitiendo interpretar el aporte relativo de cada descriptor en la clasificación.
 
+# 4. Resultados y Análisis
+## 4.1 Análisis Exploratorio y Preprocesamiento
+## 4.2 Extracción de Descriptores Clásicos
+### 4.2.1 Descriptores de Forma
+
+#### 4.2.1.1 Descriptores de contorno
+
+
+#### 4.2.1.2 Fourier Shape Descriptors 
+
+#### 4.2.1.3 Momentos Hu
+
+
+
+### 4.2.2 Descriptores de Textura
+
+#### 4.2.2.1 Local Binary Patterns (LBP)
+ 
+#### 4.2.2.2 Gray Level Co-ocurrence Matrix (GLCM)
+
+#### 4.2.2.3 Filtros de Gabor
+
+
+
+## 4.3 Clasificación con Descriptores Clásicos
+ 
+ 
+ 
+ 
+ 
+
+
+# 5. Referencias Bibliográficas
+Hu, M.-K. (1962). “Visual pattern recognition by moment invariants.” IRE Transactions on Information Theory, 8(2), 179–187. https://doi.org/10.1109/TIT.1962.1057692
+
+Gonzalez, R. C., & Woods, R. E. (2018). Digital Image Processing (4th ed.). Pearson.
+
+Breiman, L. (2001). Random Forests. Machine Learning, 45(1), 5–32. https://doi.org/10.1023/A:1010933404324
+
+
+
+# 6. Reporte de Contribución Individual
+
+
+
+
+
+
+
 
