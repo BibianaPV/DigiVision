@@ -426,8 +426,71 @@ El banco de filtros Gabor utilizado estuvo compuesto por 12 kernels generados me
 Finalmente, se guardan los descriptores para todo el dataset.
 
 
-
 ## 4.3 Clasificación con Descriptores Clásicos
+
+### 4.3.1 SVC: Support Vector Machine
+
+### 4.3.2 Random Forest
+Se utilizó Balanced Random Forest, una variante del algoritmo Random Forest diseñada para manejar desbalances entre clases mediante remuestreo interno. El modelo final empleado en cada experimento se definió con los siguientes parámetros:
+
+BalancedRandomForestClassifier
+**n_estimators = 400**
+ Número total de árboles en el bosque. Un número elevado reduce la varianza y aumenta la estabilidad del modelo.
+**class_weight = "balanced"**
+ Ajusta el peso de cada clase de forma inversamente proporcional a su frecuencia, mitigando el desequilibrio NORMAL–PNEUMONIA.
+**max_depth = 18**
+ Limita la profundidad de los árboles para evitar sobreajuste manteniendo capacidad de modelado.
+**min_samples_split = 4**
+ Número mínimo de muestras para dividir un nodo.
+**min_samples_leaf = 2**
+ Número mínimo de muestras en un nodo.
+**random_state = 42**
+ Garantiza reproducibilidad.
+**n_jobs = -1**
+ Utiliza todos los núcleos disponibles para acelerar el entrenamiento.
+
+
+Adicionalmente, se utilizaron:
+Normalización: MinMaxScaler()
+ Escala cada característica al rango [0, 1], evitando que descriptores de distinta magnitud dominen el clasificador.
+
+Se usó SelectKBest(f_classif) con distintos valores de k según la combinación de descriptores:
+| **Combinación**     | **k seleccionado** |
+|----------------------|--------------------|
+| Hu + Gabor           | k = 30             |
+| Fourier + GLCM       | k = 60             |
+| Contorno + LBP       | k = 50             |
+
+
+Validación cruzada: StratifiedKFold(n_splits=10, shuffle=True)
+Garantiza una evaluación robusta con estratificación por clase.
+
+Se obtienen las siguientes métricas:
+
+| Combinación      | Clase | Precision | Recall | F1-score | Support |
+|------------------|-------|-----------|--------|----------|---------|
+| **Hu + Gabor**   | 0 (NORMAL)   | 0.814 | 0.299 | 0.438 | 234 |
+|                  | 1 (PNEUMONIA)| 0.695 | 0.959 | 0.806 | 390 |
+| **Fourier + GLCM** | 0 (NORMAL) | 0.804 | 0.474 | 0.597 | 234 |
+|                  | 1 (PNEUMONIA)| 0.747 | 0.931 | 0.829 | 390 |
+| **Contorno + LBP** | 0 (NORMAL) | 0.688 | 0.376 | 0.486 | 234 |
+|                  | 1 (PNEUMONIA)| 0.706 | 0.897 | 0.790 | 390 |
+
+
+El mejor comportamiento corresponde a Fourier + GLCM, que logra el equilibrio más adecuado entre sensibilidad y especificidad. Hu+Gabor resulta ideal para maximizar la detección de neumonía, pero genera más falsos positivos. Contorno+LBP aporta información limitada y es menos efectivo como descriptor principal. Se muestra mejor en la matriz de confusión:
+
+![image1](./results/imagenes/comparacionMatrizConfRF.png)
+
+Fourier + GLCM ofrece el mejor equilibrio entre sensibilidad y especificidad.  Hu + Gabor maximiza la detección de neumonía pero penaliza la clase normal.  Contorno + LBP muestra el rendimiento más bajo, especialmente en la correcta identificación de casos normales.
+
+![image1](./results/imagenes/comparacionROCRF.png)
+
+Por otro lado, las curvas ROC obtenidas muestran diferencias importantes en la capacidad discriminativa de cada conjunto de descriptores evaluado. El valor AUC resume esta capacidad global del modelo para separar las clases NORMAL y PNEUMONIA.Fourier + GLCM obtiene el mejor desempeño global (AUC = 0.85) y es la combinación más eficaz para discriminar entre NORMAL y PNEUMONIA. Hu + Gabor alcanza un AUC intermedio (0.80), destacando por su alta sensibilidad. Contorno + LBP presenta la menor capacidad discriminativa (AUC = 0.74).
+
+![image1](./results/imagenes/comparacionTOPRF.png)
+
+Finalmente, en el Top 10 de descriptores Fourier + GLCM presenta la distribución más equilibrada y estructurada de características importantes, lo que respalda su buen desempeño. Hu + Gabor utiliza múltiples patrones texturales, lo que explica su alta sensibilidad. Contorno + LBP depende excesivamente de una sola característica dominante, indicando menor riqueza descriptiva y menor capacidad de generalización. 
+
  
  
  
