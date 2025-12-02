@@ -32,6 +32,21 @@ $$
 
 #### 2.2.1.2 Fourier Shape Descriptors 
 
+Los descriptores de forma de Fourier permiten representar matemáticamente el contorno de un objeto transformándolo en una señal compleja.
+
+$$
+Zk = Xk + iYk
+$$
+
+A través de la Transformada Discreta de Fourier.
+
+$$
+Zn = k=0N-1Zke-i2nk/N
+$$
+
+El contorno se descompone en componentes de distintas “frecuencias de forma”. Las bajas frecuencias describen la estructura global del objeto, mientras que las altas capturan detalles finos. Normalizando los coeficientes se logra invariante la traslación, escala y rotación, de modo que la representación depende únicamente de la forma.
+
+En imágenes médicas, esta técnica permite cuantificar y comparar la geometría de estructuras anatómicas. En radiografías de tórax, los descriptores pueden reflejar cambios en la forma pulmonar asociados a patologías como la neumonía, proporcionando una representación compacta y útil para clasificación o análisis automatizado.
 
 #### 2.2.1.3 Momentos de Hu
 Los momentos invariantes de Hu, propuestos por Ming-Kuei Hu en 1962, constituyen uno de los descriptores de forma más utilizados en visión por computador debido a su capacidad para representar la geometría de un objeto de manera invariante a traslación, rotación y cambio de escala (Hu, 1962). Estos descriptores se derivan de combinaciones algebraicas de los momentos centrales normalizados de segundo y tercer orden, lo que permite capturar características globales de la forma sin depender de su orientación o tamaño.
