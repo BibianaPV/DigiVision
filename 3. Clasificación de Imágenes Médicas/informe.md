@@ -329,15 +329,45 @@ Posteriormente, se aplicó una reducción de dimensionalidad mediante SelectKBes
 El desempeño del modelo se evaluó mediante validación cruzada estratificada de 10 particiones, registrando métricas estándar como accuracy, precisión, sensibilidad, F1-score y AUC. Luego, el modelo final se entrenó con todos los datos de entrenamiento y validación combinados, y se evaluó sobre el conjunto test independiente. Finalmente, se generaron la matriz de confusión, curvas ROC y el análisis de importancia de características, permitiendo interpretar el aporte relativo de cada descriptor en la clasificación.
 
 # 4. Resultados y Análisis
+
 ## 4.1 Análisis Exploratorio y Preprocesamiento
 
-Observación del dataset:
+Primero se realizón la observación del dataset:
 <p align="center">
   <img src="./results/imagenes/normal.png" width="500" />
   <img src="./results/imagenes/neumonia.png" width="500" />
 </p>
 
+Las imágenes del dataset presentan variabilidad en contraste, resolución y condiciones clínicas. El conjunto incluye casos NORMAL, donde la anatomía pulmonar se observa sin alteraciones, y casos PNEUMONIA, caracterizados por opacidades pulmonares, consolidaciones y patrones compatibles con infección.
 
+Luego, La distribución de clases
+
+![image1](./results/imagenes/distClas.png)
+
+Donde puede observarse que para el entrenamiento el conjunto de datos está bastante desbalanceado con un R=2.89, lo que implica que por cada imagen NORMAL hay aproximadamente 2.9 imágenes con PNEUMONIA. 
+
+Posteriormente, se analizó la distribución de tamaños del dataset. 
+
+![image1](./results/imagenes/distSize.png)
+
+Existe una gran variabilidad en estos, por lo que se considera reescalar todas las imágenes a 256 x 256 conservando la información clínica. 
+
+De esta manera, se inicia con el pipeline de preprocesamiento. primero el reescalado y luego la aplicación del CLAHE.
+
+![image1](./results/imagenes/CLAHE.png)
+
+Se observa una mejora en la visibilidad de estructuras anatómicas y en el contraste.
+
+Finalmente, se realizó la segmentación por ambos métodos y se creó el dataset del corte.
+
+<p align="center">
+  <img src="./results/imagenes/segmPsNet.png" width="500" />
+  <img src="./results/imagenes/segmPsNet_pneu.png" width="500" />
+</p>
+
+Puede observarse que el modelo PsNet logra una segmentación superior; por ello, se seleccionaron estas imágenes para la extracción de descriptores y el entrenamiento de los clasificadores.
+
+![image1](./results/imagenes/imagenMaskHu.png)
 
 ## 4.2 Extracción de Descriptores Clásicos
 ### 4.2.1 Descriptores de Forma
