@@ -333,8 +333,8 @@ El desempeño del modelo se evaluó mediante validación cruzada estratificada d
 
 Observación del dataset:
 <p align="center">
-  <img src="./results/imagenes/normal.png" width="250" />
-  <img src="./results/imagenes/neumonia.png" width="250" />
+  <img src="./results/imagenes/normal.png" width="500" />
+  <img src="./results/imagenes/neumonia.png" width="500" />
 </p>
 
 
