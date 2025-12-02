@@ -397,7 +397,19 @@ $$
 Posteriormente se guardan todos los momentos para train/test/val.
 
 #### 4.2.1.4 Histogram of Oriented Gradients (HOG)
+Primero se obtuvieron los descriptores con las imágenes completas y se observó que algunas características, como el texto en las imágenes, generaban descriptores fuertes. 
 
+![image1](./results/imagenes/comparacionParametrosHOG.png)
+
+Por tal motivo, se realizó de nuevo utilizando la zona específica de los pulmones.
+
+![image1](./results/imagenes/comparacionParametrosCropHOG.png)
+
+Posteriormente, se obtuvo el descriptor para ambas clases considerando los mejores paámetros: 
+
+![image1](./results/imagenes/comparacionCropHOG.png)
+
+Finalmente, se guardan para train/test/val.
 
 ### 4.2.2 Descriptores de Textura
 
