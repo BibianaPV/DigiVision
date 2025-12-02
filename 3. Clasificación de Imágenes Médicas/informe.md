@@ -191,6 +191,21 @@ $$
 
 Algunas ventajas que tiene este modelo son, la reducción de la varianza del modelo sin aumentar significativamente el sesgo , es robusto frente a sobreajuste gracias a la aleatorización, maneja bien datos con ruido y características irrelevantes, puede calcular medidas de importancia de variables, funciona adecuadamente aunque los datos no estén escalados.
 
+### 2.3.3 Convolutional Neural Networks
+Las Redes Neuronales Convolucionales (Convolutional Neural Networks, CNN) son modelos de aprendizaje profundo diseñados para procesar datos con estructura espacial, como imágenes médicas. Su funcionamiento se basa en la aplicación de operaciones de convolución, donde filtros aprendidos automáticamente extraen características relevantes del contenido visual. La operación convolucional para un filtro KKK aplicado sobre una imagen se define como:
+
+$$
+Y(i,j) = \sum_{m}\sum_{n} X(i+m, j+n)\, K(m,n)
+$$
+
+Tras cada convolución se aplica una función de activación, habitualmente ReLU, f(x)=max⁡(0,x)f(x) = \max(0, x), que introduce no linealidad y permite modelar relaciones complejas. Posteriormente, operaciones de pooling, como el max pooling, reducen la dimensionalidad y proporcionan invariancia a pequeñas variaciones espaciales. A medida que se apilan capas convolucionales y de pooling, la red aprende representaciones jerárquicas que van desde bordes y texturas hasta estructuras anatómicas complejas.
+
+En la etapa final, las características extraídas se introducen en capas completamente conectadas que realizan la clasificación mediante la función softmax. El entrenamiento se lleva a cabo minimizando la pérdida de entropía cruzada mediante descenso de gradiente, ajustando los pesos del modelo para mejorar la predicción.
+
+![image1](./results/imagenes/CNN.png)
+
+### 2.3.4 k-Nearest Neighbors (k-NN)
+
 # 3. Metodología
 ## 3.1 Análisis Exploratorio y Preprocesamiento
 El procesamiento se estructuró en tres fases principales: (1) análisis exploratorio inicial del dataset, (2) definición del pipeline de preprocesamiento y (3) generación del conjunto de datos normalizado. Todo el procedimiento se llevó a cabo utilizando herramientas de visión por computador, principalmente OpenCV y NumPy, sobre el dataset Chest X-Ray Pneumonia.
