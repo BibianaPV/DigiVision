@@ -17,7 +17,7 @@ Para el análisis exploratorio, se utiliza la visualización inicial de ejemplos
 Matemáticamente, una normalización min–max típica se formula como:
 
 $$
-I_{\text{norm}} = \frac{\,I - I_{\min}\,}{\,I_{\max} - I_{\min}\,}
+I_{\text{norm}} = \frac{\,I - I_{\min}\,}{\,I_{\max} - I_{\min}\}
 $$​
 
 3. Mejora de contraste mediante CLAHE: Ecualización adaptativa de histograma limitada por contraste (CLAHE) tiene la capacidad de realzar contrastes locales sin amplificar excesivamente el ruido. Para esto, se divide la imagen en bloques pequeños, ecualiza cada uno y limita el contraste máximo permitiendo: resaltar estructuras anatómicas relevantes, mejorar bordes y detalles finos, evitar sobreecualización que podría introducir artefactos, preservar características radiológicas sutiles esenciales para diagnóstico.
@@ -142,7 +142,9 @@ La Máquina de Vectores de Soporte (SVM) es un modelo de aprendizaje supervisado
 Su principio se basa en encontrar un hiperplano óptimo que separe de forma máxima las clases en el espacio de características. Para datos no linealmente separables, SVM utiliza funciones núcleo (kernels) que proyectan los datos a un espacio de mayor dimensión donde la separación es posible. Entre los kernels más comunes se encuentran:
 
 **RBF (Radial Basis Function)**: Transforma los datos en un espacio de alta dimensión usando una función gaussiana, permitiendo separar incluso patrones muy complejos y no lineales.
+
 **Polynomial (Poly)**: Proyecta los datos a un espacio de características mediante un polinomio de grado ddd, capturando relaciones no lineales entre las variables.
+
 **Linear:** No realiza transformación, por lo que es útil cuando los datos ya son linealmente separables; su simplicidad hace que sea eficiente y menos propenso a sobreajuste.
 
 El proceso de estandarización de variables es fundamental para SVM, ya que el modelo depende de distancias en el espacio de características.
@@ -151,6 +153,7 @@ El proceso de estandarización de variables es fundamental para SVM, ya que el m
 Método de aprendizaje supervisado basado en la combinación de múltiples árboles de decisión para mejorar la precisión predictiva y la capacidad de generalización del modelo (Leo Breiman, 2001). Random Forest pertenece a la familia de los métodos de ensamble, específicamente al enfoque conocido como bagging (bootstrap aggregating), su objetivo es reducir la varianza del modelo mediante el entrenamiento de múltiples clasificadores sobre subconjuntos aleatorios del conjunto de datos. Cada árbol de decisión dentro del bosque se construye utilizando dos tipos de aleatoriedad:
 
 +Muestreo bootstrap: consiste en seleccionar aleatoriamente, con reemplazo, un subconjunto de las instancias originales para entrenar cada árbol.
+
 +Selección aleatoria de atributos: en cada nodo del árbol, se evalúa únicamente un subconjunto aleatorio de características para determinar la mejor división.
 
 Estas fuentes de aleatoriedad reducen la correlación entre árboles, lo que mejora el desempeño del ensamble
