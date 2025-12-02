@@ -9,6 +9,7 @@ El actual trabajo tiene como fin desarrollar y comparar el desempeño de ambos e
 El preprocesamiento de imágenes es una etapa fundamental en los sistemas de visión por computador,  su objetivo es normalizar las imágenes de entrada, reducir la variabilidad no deseada y garantizar que los algoritmos de extracción de características y clasificación trabajen sobre datos coherentes y comparables.
 
 Para el análisis exploratorio, se utiliza la visualización inicial de ejemplos representativos, esto permite identificar variaciones en calidad, contraste y patrones anatómicos entre clases, lo cual es clave para anticipar posibles retos en la clasificación. El análisis de la distribución de clases revela la presencia de desbalance, un factor crítico que puede influir en el desempeño de los modelos de aprendizaje automático. De igual forma, examinar la distribución de los tamaños originales de las imágenes permite evidenciar la heterogeneidad propia de los estudios radiológicos provenientes de diferentes equipos, lo que justifica la necesidad de normalizar las dimensiones antes de extraer características. Así, se puede obtener una visión global del dataset que permite detectar inconsistencias y orienta la selección adecuada de técnicas de preprocesamiento.
+
 1. Normalización de tamaño, se realiza mediante interpolación y busca unificar resoluciones en modelos que requieren entradas fijas, facilitar la comparación entre imágenes, reducir errores asociados a escalas diferentes, mejorar la reproducibilidad del proceso analítico.
 
 2 Normalización de intensidad:convierte las imágenes a un rango estándar ( [0–255] o [0–1]), reduciendo la influencia de diferencias técnicas y permitiendo una comparación más consistente entre imágenes.
@@ -53,11 +54,13 @@ f(x, y)
 $$
 
 donde:
+
 $$
 \bar{x} = \frac{m_{10}}{m_{00}}
 \qquad
 \bar{y} = \frac{m_{01}}{m_{00}}
 $$
+
 corresponden al centroide del objeto.
 
 Para lograr invariancia a escala, se introducen los momentos centralizados normalizados:
@@ -67,6 +70,7 @@ $$
 $$
 
 donde:
+
 $$
 \gamma = \frac{p + q}{2} + 1
 $$
@@ -199,5 +203,92 @@ Una vez definido el pipeline, se procesaron de forma secuencial todas las imáge
 ### 3.1.2 Segmentación
 Para la segmentación se utilizaron dos metodologías.
 
+#### 3.1.2.1 Juan
+
+
+#### 3.1.2.2 Segmentación automática de los pulmones mediante un modelo PSPNet
+Para segmentar los pulmones, se utilizó un modelo PSPNet preentrenado en el conjunto ChestX-Det, disponible en la librería TorchXRayVision. Este modelo se seleccionó debido a su capacidad para detectar estructuras anatómicas en radiografías de tórax con alta precisión. El modelo produce mapas de probabilidad para diversas estructuras, entre ellas Left Lung y Right Lung, que se integran para obtener una máscara pulmonar final.
+
+Cada imagen radiográfica se sometió a los siguientes pasos:
+
+Lectura de la imagen (RGB o escala de grises).
+Normalización del rango dinámico a [-1024, 1024], siguiendo el estándar de TorchXRayVision.
+Conversión a un solo canal en caso de imágenes RGB, mediante promediado.
+
+Aplicación de transformaciones estándar:
+XRayCenterCrop: centrado anatómico,
+XRayResizer: ajuste a 512×512 píxeles.
+
+Se seleccionaron los canales correspondientes a Left Lung y Right Lung, y se aplicó una función sigmoide para obtener probabilidades por píxel. Finalmente, la máscara pulmonar binaria se generó mediante umbralización (thresh = 0.5). El proceso se automatizó para todo el dataset, creando una estructura de carpetas espejo para almacenar las máscaras generadas según conjunto (train, val, test) y clase (NORMAL, PNEUMONIA). Cada imagen segmentada se almacenó como un archivo independiente en formato JPEG.
+
+Una vez generadas las máscaras, se procedió a recortar las imágenes originales para conservar únicamente la región pulmonar, lo cual mejora el desempeño de descriptores como textura, forma o frecuencia.
+
+Aplicación de la máscara mediante operación bitwise AND:
+
+lung_only = cv2.bitwise_and(img_resized, img_resized, mask=mask)
+
+Esta operación conserva exclusivamente los píxeles correspondientes a los pulmones y elimina el resto de la estructura torácica (costillas, diafragma, tejidos blandos no relevantes).Cada imagen recortada se almacenó en una nueva estructura de carpetas espejo, destinada a contener el dataset final segmentado.
+
+## 3.2 Extracción de Descriptores Clásicos
+### 3.2.1 Descriptores de Forma
+
+#### 3.2.1.1 Descriptores de contorno
+
+
+
+#### 3.2.1.2 Fourier Shape Descriptors 
+
+
+#### 3.2.1.3  Momentos de Hu
+La extracción de Momentos de Hu se realizó a partir de las máscaras pulmonares segmentadas previamente. Cada máscara fue leída en escala de grises y convertida a formato binario mediante un umbral fijo, garantizando una delimitación consistente de la región pulmonar. A partir de esta máscara binaria, se calcularon los momentos espaciales y centrales utilizando cv2.moments(), y posteriormente se obtuvieron los siete Momentos de Hu mediante cv2.HuMoments(). Para mejorar su estabilidad numérica y reducir su rango dinámico, se aplicó la transformación logarítmica estándar a cada descriptor. Finalmente, los vectores de características generados para cada imagen se organizaron por partición del dataset (train, val, test) y se almacenaron en archivos .npz, junto con sus etiquetas y nombres de archivo, permitiendo su uso directo en etapas posteriores de clasificación o análisis morfológico.
+
+### 3.2.2 Descriptores de Textura
+
+#### 3.2.2.1 Local Binary Patterns (LBP)
+Para la caracterización de la textura presente en las radiografías de tórax, uno de los descriptores a probar fueron los Local Binary Patterns (LBP), usados ampliamente en análisis de imágenes médicas por su eficiencia en terminos de iluminación y capacidad para representar texturas relevantes. 
+
+#### 3.2.2.2 Gray Level Co-ocurrence Matrix (GLCM)
+El procedimiento implementado realiza la extracción de características de textura a partir de imágenes médicas utilizando la Matriz de Co-ocurrencia de Niveles de Gris (GLCM), para luego generar un dataset listo para clasificación. Primero, cada imagen se convierte a escala de grises y se redimensiona a 256×256 píxeles. Los niveles de gris se reducen a un número fijo L = 16. Esto se hace dividiendo cada valor de píxel por 16 y tomando la parte entera:
+
+Inorm= floor( I / (256 / L) )
+
+Esto normaliza la intensidad de la imagen y reduce el rango de valores para facilitar el cálculo de la GLCM.
+Para cada distancia d ∈ {1, 2, 4} y cada ángulo θ ∈ {0, π/2, π/4, 3π/4}, se calcula la matriz de co-ocurrencia de niveles de gris, normalizada y simétrica. Cada elemento de la matriz representa la probabilidad de que un píxel con un nivel de gris específico aparezca junto a otro píxel a esa distancia y ángulo dados:
+
+GLCM{d, θ}[i,j] = P( Inorm(x,y) = i,  Inorm(x',y') = j )
+
+Donde (x', y') es el píxel vecino a distancia d en la dirección θ.
+
+A partir de cada GLCM se calculan cuatro propiedades de textura:
+
+Contraste: 
+Contraste =Σ{i,j} (i - j)² * GLCM[i,j]
+
+Correlación: 
+Correlacion = ( Σ{i,j} (i - μi)(j - μj) * GLCM[i,j] ) / (σi * σj)
+
+Energía:
+ Energia = Σ{i,j} (GLCM[i,j])²
+
+Homogeneidad:
+ Homogeneidad = Σ{i,j} GLCM[i,j] / (1 + |i - j|)
+
+Estas características se calculan para cada combinación de distancia y ángulo, generando un vector de características que representa la textura de cada imagen.
+
+#### 3.2.2.3 Filtros de Gabor
+La extracción de descriptores de textura mediante filtros de Gabor se realizó utilizando un banco de filtros multi–escala y multi–orientación aplicado sobre las imágenes pulmonares previamente recortadas. En primer lugar, se definió un conjunto de kernels Gabor utilizando tres longitudes de onda (λ = 4, 8 y 16 píxeles) y cuatro orientaciones uniformemente distribuidas entre 0 y π radianes. Cada kernel se generó mediante la función cv2.getGaborKernel(), empleando valores típicos para los parámetros de la envolvente gaussiana, como sigma = 0.56·λ, gamma = 0.5 y fase psi = 0. Esto permitió crear un banco total de 12 filtros sensibles a distintas frecuencias espaciales y direcciones predominantes de textura.
+
+Para cada imagen en escala de grises, se aplicó cada filtro mediante convolución bidimensional (cv2.filter2D()), obteniendo una respuesta filtrada por combinación de escala y orientación. Con el fin de construir un descriptor compacto y robusto, se extrajeron dos estadísticas por cada respuesta: el valor medio y la desviación estándar. Estos valores se concatenaron para formar un vector final de 48 características por imagen. Posteriormente, dichos vectores se almacenaron en archivos .npz separados para cada partición del dataset (train, val y test), junto con sus respectivas etiquetas y rutas de archivo
+
+## 3.3 Clasificación con Descriptores Clásicos
+### 3.3.1 SVC: Support Vector Machine
+
+
+### 3.3.2 Random Forest
+El modelo fue construido a partir de las matrices de características generadas previamente (Hu, Gabor, Fourier, GLCM, LBP y contornos). En primer lugar, se cargaron los conjuntos train, val y test, combinando los descriptores seleccionados según cada experimento. Para mejorar la comparabilidad entre características heterogéneas, todos los vectores fueron normalizados mediante MinMaxScaler, garantizando que cada variable se encontrara entre 0 y 1.
+
+Posteriormente, se aplicó una reducción de dimensionalidad mediante SelectKBest con el estadístico ANOVA (f-classif), permitiendo conservar únicamente las características más relevantes para la discriminación entre clases. Con el conjunto reducido, se unieron los subconjuntos de entrenamiento y validación para conformar un bloque de entrenamiento robusto. Sobre este conjunto se entrenó un Balanced Random Forest, que incorpora balanceo interno para mitigar el desbalance entre clases, utilizando 400 árboles, profundidad máxima de 18 y criterios de división ajustados para evitar sobreajuste.
+
+El desempeño del modelo se evaluó mediante validación cruzada estratificada de 10 particiones, registrando métricas estándar como accuracy, precisión, sensibilidad, F1-score y AUC. Luego, el modelo final se entrenó con todos los datos de entrenamiento y validación combinados, y se evaluó sobre el conjunto test independiente. Finalmente, se generaron la matriz de confusión, curvas ROC y el análisis de importancia de características, permitiendo interpretar el aporte relativo de cada descriptor en la clasificación.
 
 
