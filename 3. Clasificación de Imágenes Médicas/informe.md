@@ -330,6 +330,15 @@ El desempeño del modelo se evaluó mediante validación cruzada estratificada d
 
 # 4. Resultados y Análisis
 ## 4.1 Análisis Exploratorio y Preprocesamiento
+
+Observación del dataset:
+<p align="center">
+  <img src="./results/imagenes/normal.png" width="250" />
+  <img src="./results/imagenes/neumonia.png" width="250" />
+</p>
+
+
+
 ## 4.2 Extracción de Descriptores Clásicos
 ### 4.2.1 Descriptores de Forma
 
