@@ -202,7 +202,10 @@ Tras cada convolución se aplica una función de activación, habitualmente ReLU
 
 En la etapa final, las características extraídas se introducen en capas completamente conectadas que realizan la clasificación mediante la función softmax. El entrenamiento se lleva a cabo minimizando la pérdida de entropía cruzada mediante descenso de gradiente, ajustando los pesos del modelo para mejorar la predicción.
 
-![image1](./results/imagenes/CNN.png)
+<p align="center">
+  <img src="./results/imagenes/CNN.png" alt="image1" />
+</p>
+(Srivastava et al., 2022)
 
 ### 2.3.4 k-Nearest Neighbors (k-NN)
 
