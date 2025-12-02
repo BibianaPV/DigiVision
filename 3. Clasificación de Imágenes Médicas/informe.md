@@ -107,7 +107,7 @@ g(x, y) =
 \exp\left(
 -\frac{x'^{2} + \gamma^{2} y'^{2}}{2\sigma^{2}}
 \right)
-\,
+\*
 \cos\left(
 2\pi \frac{x'}{\lambda} + \psi
 \right)
@@ -175,7 +175,7 @@ En cada nodo del árbol, se selecciona aleatoriamente un subconjunto de k caract
 Una vez entrenados los B árboles, la predicción final para una instancia x se obtiene mediante votación por mayoría:
 
 $$
-\hat{y} = \operatorname{mode}\left( T_1(x),\, T_2(x),\, \ldots,\, T_B(x) \right)
+\hat{y} = \mathrm{mode}( T_1(x), T_2(x), \ldots, T_B(x) )
 $$
 
 
@@ -298,9 +298,9 @@ $$
 }
 $$
 
-
 Energía:
- Energia = Σ{i,j} (GLCM[i,j])²
+
+ 
 
 Homogeneidad:
 
