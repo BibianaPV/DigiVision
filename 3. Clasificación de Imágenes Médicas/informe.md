@@ -249,8 +249,36 @@ Una vez definido el pipeline, se procesaron de forma secuencial todas las imáge
 ### 3.1.2 Segmentación
 Para la segmentación se utilizaron dos metodologías.
 
-#### 3.1.2.1 Juan
+#### 3.1.2.1 Segmentacion por Umbralizacion
 
+Este enfoque para la segmentación de imágenes médicas, consiste en combinar técnicas de suavizado, umbralización y morfología matemática para obtener máscaras que enfoquen la región de interés. 
+El suavizado aplicado mediante un gaussian blur (G) reduce el ruido aplicando un kernel definido por la ecuación:
+
+$$
+G(x,y) = (1 / (2πσ²)) * exp(-(x² + y²) / (2σ²))
+$$
+
+Lo que mejora la definición de las regiones que se desean separar para su posterior procesamiento, después, se aplica la umbralización automática de Otsu determina un umbral T que maximiza la varianza entre clases. La función objetivo es:
+
+$$
+σ_b²(T) = ω₀(T) * ω₁(T) * ( μ₀(T) − μ₁(T) )²
+$$
+
+En donde ω₀ y ω₁ son las probabilidades de cada clase y μ₀, μ₁ sus medias respectivas, y el resultado $$σ_b²(T)$$ es la varianza entre clases (between-class variance) que utiliza el método de Otsu para evaluar qué tan bien un umbral T separa dos grupos de píxeles.
+
+Con ese umbral se genera una máscara binaria definida como:
+
+$$
+M(x,y) = 1 si I(x,y) ≥ T ; 0 si I(x,y) < T.
+$$
+
+Si la media de intensidades de la región blanca resulta menor que la de la región negra, la máscara se invierte para asegurar que la zona de interés quede destacada.
+
+Finalmente, la máscara se aplica a la imagen original mediante: $$Iseg(x,y) = I(x,y) * M(x,y)$$, y el resultado se normaliza usando, $$Inorm = 255 * (Iseg − Imin) / (Imax − Imin)$$, lo que asegura que la región segmentada quede dentro de un rango uniforme de intensidades, facilitando su análisis posterior.
+
+A pesar de esto nos decantamos finalmente por elegir otro tipo de segmentacion, si bien la segmentacion por umbralizacion funcionaba la mayoria de los casos, notamos como en algunas ocasiones se presentaban huecos en la segmentacion que se implementaban de manera extraña y obstruian el resultado final, aqui podemos ver un ejemplo de ello.
+
+![image1](./results/imagenes/segmentacion_umbralizacion.png)
 
 #### 3.1.2.2 Segmentación automática de los pulmones mediante un modelo PSPNet
 Para segmentar los pulmones, se utilizó un modelo PSPNet preentrenado en el conjunto ChestX-Det, disponible en la librería TorchXRayVision. Este modelo se seleccionó debido a su capacidad para detectar estructuras anatómicas en radiografías de tórax con alta precisión. El modelo produce mapas de probabilidad para diversas estructuras, entre ellas Left Lung y Right Lung, que se integran para obtener una máscara pulmonar final.
