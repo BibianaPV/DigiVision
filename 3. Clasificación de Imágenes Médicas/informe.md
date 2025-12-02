@@ -300,11 +300,15 @@ $$
 
 Energía:
 
- 
+$$
+\text{Energia} = \sum_{i}\sum_{j} (\text{GLCM}[i,j])^{2}
+$$
 
 Homogeneidad:
 
- Homogeneidad = Σ{i,j} GLCM[i,j] / (1 + |i - j|)
+ $$
+\text{Homogeneidad} = \sum_{i}\sum_{j} \frac{\text{GLCM}[i,j]}{1 + |i - j|}
+$$
 
 Estas características se calculan para cada combinación de distancia y ángulo, generando un vector de características que representa la textura de cada imagen.
 
