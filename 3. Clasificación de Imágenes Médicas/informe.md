@@ -17,8 +17,9 @@ Para el análisis exploratorio, se utiliza la visualización inicial de ejemplos
 Matemáticamente, una normalización min–max típica se formula como:
 
 $$
-I_{\text{norm}} = \frac{\,I - I_{\min}\,}{\,I_{\max} - I_{\min}\}
-$$​
+I_{\text{norm}} = 
+\frac{\,I - I_{\min}\,}{\,I_{\max} - I_{\min}\,}
+$$
 
 3. Mejora de contraste mediante CLAHE: Ecualización adaptativa de histograma limitada por contraste (CLAHE) tiene la capacidad de realzar contrastes locales sin amplificar excesivamente el ruido. Para esto, se divide la imagen en bloques pequeños, ecualiza cada uno y limita el contraste máximo permitiendo: resaltar estructuras anatómicas relevantes, mejorar bordes y detalles finos, evitar sobreecualización que podría introducir artefactos, preservar características radiológicas sutiles esenciales para diagnóstico.
 	​
@@ -161,6 +162,11 @@ Estas fuentes de aleatoriedad reducen la correlación entre árboles, lo que mej
 * Construcción de árboles
 Dado un conjunto de entrenamiento D con N instancias, Random Forest genera B subconjuntos bootstrap:
 
+$$
+D_b = \{\, (x_i, y_i) \ \text{seleccionados con reemplazo} \,\},
+\qquad
+b = 1, 2, \ldots, B
+$$
 
 
 Cada subconjunto tiene tamaño N. Sobre cada D_b se entrena un árbol de decisión T_b.
@@ -171,13 +177,19 @@ En cada nodo del árbol, se selecciona aleatoriamente un subconjunto de k caract
 * Proceso de votación en clasificación
 Una vez entrenados los B árboles, la predicción final para una instancia x se obtiene mediante votación por mayoría:
 
-y_pred = mode( T_1(x), T_2(x), ..., T_B(x) )
+$$
+\hat{y} = \operatorname{mode}\!\left( T_1(x),\, T_2(x),\, \ldots,\, T_B(x) \right)
+$$
 
-donde T_b(x) es la predicción del árbol b.
+donde \; T_b(x) \; \text{es la predicción del árbol } b.
+
 
 En regresión, se toma el promedio:
 
-y_pred = (1 / B) * sum( T_b(x) )
+$$
+\hat{y} = \frac{1}{B} \sum_{b=1}^{B} T_b(x)
+$$
+
 
 Algunas ventajas que tiene este modelo son, la reducción de la varianza del modelo sin aumentar significativamente el sesgo , es robusto frente a sobreajuste gracias a la aleatorización, maneja bien datos con ruido y características irrelevantes, puede calcular medidas de importancia de variables, funciona adecuadamente aunque los datos no estén escalados.
 
@@ -253,27 +265,41 @@ Para la caracterización de la textura presente en las radiografías de tórax, 
 #### 3.2.2.2 Gray Level Co-ocurrence Matrix (GLCM)
 El procedimiento implementado realiza la extracción de características de textura a partir de imágenes médicas utilizando la Matriz de Co-ocurrencia de Niveles de Gris (GLCM), para luego generar un dataset listo para clasificación. Primero, cada imagen se convierte a escala de grises y se redimensiona a 256×256 píxeles. Los niveles de gris se reducen a un número fijo L = 16. Esto se hace dividiendo cada valor de píxel por 16 y tomando la parte entera:
 
-Inorm= floor( I / (256 / L) )
+$$
+I_{\text{norm}} = \left\lfloor \frac{I}{\,256 / L\,} \right\rfloor
+$$
+
 
 Esto normaliza la intensidad de la imagen y reduce el rango de valores para facilitar el cálculo de la GLCM.
 Para cada distancia d ∈ {1, 2, 4} y cada ángulo θ ∈ {0, π/2, π/4, 3π/4}, se calcula la matriz de co-ocurrencia de niveles de gris, normalizada y simétrica. Cada elemento de la matriz representa la probabilidad de que un píxel con un nivel de gris específico aparezca junto a otro píxel a esa distancia y ángulo dados:
 
-GLCM{d, θ}[i,j] = P( Inorm(x,y) = i,  Inorm(x',y') = j )
+$$
+\text{GLCM}_{d,\theta}[i,j] 
+= P\!\left( I_{\text{norm}}(x, y) = i,\; I_{\text{norm}}(x', y') = j \right)
+$$
+
 
 Donde (x', y') es el píxel vecino a distancia d en la dirección θ.
 
 A partir de cada GLCM se calculan cuatro propiedades de textura:
 
 Contraste: 
-Contraste =Σ{i,j} (i - j)² * GLCM[i,j]
+
+$$
+\text{Contraste} = 
+\sum_{i}\sum_{j} (i - j)^{2}\, \text{GLCM}[i,j]
+$$
+
 
 Correlación: 
+
 Correlacion = ( Σ{i,j} (i - μi)(j - μj) * GLCM[i,j] ) / (σi * σj)
 
 Energía:
  Energia = Σ{i,j} (GLCM[i,j])²
 
 Homogeneidad:
+
  Homogeneidad = Σ{i,j} GLCM[i,j] / (1 + |i - j|)
 
 Estas características se calculan para cada combinación de distancia y ángulo, generando un vector de características que representa la textura de cada imagen.
