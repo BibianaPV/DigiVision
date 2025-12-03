@@ -827,13 +827,13 @@ Gonzalez, R. C., & Woods, R. E. (2018). Digital Image Processing (4th ed.). Pear
 
 Breiman, L. (2001). Random Forests. Machine Learning, 45(1), 5–32. https://doi.org/10.1023/A:1010933404324
 
-
+Le Mercier, A. (2025). All Best Tabular Classifiers - Comparative Study [Cuaderno de código]. Kaggle. https://www.kaggle.com/code/alexandrelemercier/all-best-tabular-classifiers-comparative-study
 
 # 6. Reporte de Contribución Individual
 | Estudiante | Aporte Personal |
 | :---- | :---- |
 | Leidy Marcela Leal Loaiza | Ejercicio de Transformaciones geométricas|
-| Juan Felipe Arbelaez | Ejercicio de Calibración de Cámara y Segmentación por colores. |
+| Juan Felipe Arbelaez | Segmentacion con Umbralizacion, descriptores de forma (Fourier), descriptores de textura GLMC, Clasificacion SVC y aporte al informe.md |
 | Bibiana Andrea Peña V | transformación de intensidades y la ecualización del histograma para mejorar el contraste de las imágenes, incluyendo la implementación y validación del procedimiento. Además, participé en la redacción del informe final y en la organización de los archivos comunes del proyecto, contribuyendo a mantener una estructura clara y coherente para el trabajo en equipo. |
 
 
