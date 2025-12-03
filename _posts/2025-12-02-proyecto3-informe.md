@@ -951,8 +951,11 @@ Breiman, L. (2001). Random Forests. Machine Learning, 45(1), 5–32. https://doi
 
 
 # 6. Reporte de Contribución Individual
-
-
+| Estudiante | Aporte Personal |
+| :---- | :---- |
+| Leidy Marcela Leal Loaiza | |
+| Juan Felipe Arbelaez | Segmentacion con Umbralizacion, descriptores de forma (Fourier), descriptores de textura GLMC, Clasificacion SVC y aporte al informe.md |
+| Bibiana Andrea Peña V | Preprocesamiento y segmentación con PsNet, descriptores de forma (Hu y HOG), descriptores de textura (filtros de Gabor), clasificación Random Forest y CNN. Además, participé en la redacción del informe final y en la organización de los archivos comunes del proyecto, contribuyendo a mantener una estructura clara y coherente para el trabajo en equipo. |
 
 
 <p style="text-align:center;">
