@@ -100,6 +100,7 @@ date: 2025-12-02
 <div markdown="1" class="post-content">
 
 # **Informe Proyecto 3 **
+
 # 1\.Introducción
 La clasificación automática de imágenes médicas se ha convertido en un apoyo importante para el diagnóstico clínico, especialmente en situaciones donde es necesario identificar patologías a partir de estudios de imágenes. En el caso de las radiografías de tórax, reconocer de manera temprana condiciones como la neumonía es clave en términos de salúd pública. Tradicionalmente, los procesos computacionales se han basado en descriptores de forma, textura e intensidad diseñados manualmente, combinados con clasificadores clásicos como SVM, k-NN o Random Forest. Sin embargo, el avance de la redes neuronales convolucionales (CNN) en los últimos años ha cambiado este panorama, ya que permiten aprender directamente de los datos y superando en muchos casos el desempeño de los métodos clásicos. 
 
