@@ -26,11 +26,16 @@ $$
 4. Segmentación: permite delimitar regiones anatómicas de interés y separar estructuras relevantes del fondo o de tejidos no deseados. En el caso de radiografías de tórax, la creación de máscaras pulmonares facilita el aislamiento del parénquima y reduce la influencia de elementos externos como costillas, tejidos blandos o marcadores técnicos. Este procedimiento no solo mejora la uniformidad del conjunto de datos, sino que también incrementa la precisión de los descriptores de forma y textura al concentrarse exclusivamente en la región anatómica pertinente. Técnicas modernas de segmentación basadas en deep learning —como modelos U-Net entrenados en bases especializadas— permiten generar máscaras robustas incluso ante variabilidad radiológica significativa. En este sentido, la segmentación actúa como un filtro anatómico que optimiza la extracción de características y fortalece el desempeño de los modelos posteriores de clasificación o análisis cuantitativo.
 
 ## 2.2 Extracción de Descriptores Clásicos
+
 ### 2.2.1 Descriptores de Forma
 
 #### 2.2.1.1 Descriptores de contorno
 
+Los descriptores de contorno hacen parte de una categoría fundamental en el análisis de formas, ya que permiten representar objetos a partir de la información contenida únicamente en su borde externo. Este enfoque parte dee que la silueta de un objeto contiene suficientes formas geométricas para diferenciarlo de otros, independientemente de su textura interna o de variaciones locales de iluminación. La extracción del contorno se realiza generalmente después de un proceso de segmentación, por lo que la calidad del descriptor depende en gran medida del desempeño de la etapa de segmentación, como también de la nitidez con la que se identifiquen los límites del objeto.
 
+Existen distintos tipos de descriptores de contorno. Los métodos espaciales consideran el perímetro, la curvatura o las relaciones entre distancias internas al borde. Estos métodos suelen ser conceptualmente sencillos, pero pueden verse afectados por ruido, discretización y cambios de orientación. Por otra parte, los métodos transformacionales expresan el contorno en un espacio alternativo para obtener representaciones más estables. Entre ellos destacan los descriptores de Fourier, propuestos por Zahn y Roskies (1972), quienes demostraron que la aplicación de la transformada de Fourier a la función compleja del contorno permite obtener coeficientes que representan tanto las características globales como las variaciones locales de la forma. Esta aproximación ofrece ventajas notables en la traslación, rotación y escala, siempre que se normalicen adecuadamente los coeficientes iniciales.
+
+Los descriptores de contorno son muy útiles en tareas de reconocimiento morfológico, clasificación de siluetas, comparación de formas biológicas y análisis de objetos cuyas propiedades geométricas son más relevantes que sus características internas.
 
 #### 2.2.1.2 Fourier Shape Descriptors 
 
@@ -100,8 +105,12 @@ A partir de estos valores, Hu desarrolló siete combinaciones invariantes, conoc
 
 #### 2.2.2.1  Local Binary Patterns (LBP)
 
+El método Local Binary Patterns (LBP) se ha consolidado como uno de los descriptores de textura más influyentes en visión por computadora debido a su simplicidad, eficiencia y capacidad para capturar información estructural. Introducido por Ojala, Pietikäinen y Harwood (1994), el LBP opera comparando la intensidad de un píxel central con la de sus vecinos inmediatos. Según esta comparación, cada vecino toma un valor binario (0 o 1), formando un código que caracteriza la microtextura presente en el vecindario. Una de las características más destacadas de LBP es su robustez frente a cambios suaves de iluminación, lo que ha permitido que el descriptor se aplique exitosamente en condiciones reales donde la iluminación puede variar de forma significativa. Además, la generación de histogramas a partir de los códigos LBP proporciona una representación estadística eficiente para tareas de clasificación.
+
+La técnica ha evolucionado considerablemente desde sus inicios. En una nueva onvestigación, Ojala, Pietikäinen y Mäenpää (2002) introdujeron los LBP uniformes, un subconjunto de patrones que conservan las transiciones estructurales más relevantes, como también desarrollaron variantes invariantes a la rotación, útiles en entornos donde la orientación de la textura no se puede controlar. Estas investigaciones fortalecieron aún más su aplicación en áreas como reconocimiento facial, inspección industrial, análisis biométrico, clasificación de suelos y detección de anomalías, siendo esta una de las herramientas destacables por su simplicidad matemática, rendimiento computacional y eficacia en la captura de patrones texturales finos.
 
 #### 2.2.2.2  Gray Level Co-occurrence Matrix (GLCM)
+
 La Matriz de Co-ocurrencia de Niveles de Gris (GLCM) es un método estadístico clásico utilizado para describir la textura en imágenes. En GLCM se calcula la frecuencia con la que pares de píxeles con determinadas intensidades, separados por una distancia específica y en una orientación determinada están presentes en una imagen. Esta información permite capturar patrones de repetición, rugosidad o regularidad de la textura de la imagen.
 
 A partir de la GLCM se pueden extraer varias propiedades que caracterizan la textura de la imagen:
@@ -165,6 +174,7 @@ Su principio se basa en encontrar un hiperplano óptimo que separe de forma máx
 El proceso de estandarización de variables es fundamental para SVM, ya que el modelo depende de distancias en el espacio de características.
 
 ### 2.3.2 Random Forest
+
 Método de aprendizaje supervisado basado en la combinación de múltiples árboles de decisión para mejorar la precisión predictiva y la capacidad de generalización del modelo (Leo Breiman, 2001). Random Forest pertenece a la familia de los métodos de ensamble, específicamente al enfoque conocido como bagging (bootstrap aggregating), su objetivo es reducir la varianza del modelo mediante el entrenamiento de múltiples clasificadores sobre subconjuntos aleatorios del conjunto de datos. Cada árbol de decisión dentro del bosque se construye utilizando dos tipos de aleatoriedad:
 
 +Muestreo bootstrap: consiste en seleccionar aleatoriamente, con reemplazo, un subconjunto de las instancias originales para entrenar cada árbol.
@@ -226,7 +236,19 @@ En la etapa final, las características extraídas se introducen en capas comple
 
 ### 2.3.4 k-Nearest Neighbors (k-NN)
 
+El clasificador k-Nearest Neighbors (kNN) es un método de aprendizaje supervisado no paramétrico cuya lógica se fundamenta en la proximidad, los objetos cercanos en el espacio de características probablemente pertenezcan a la misma clase. Sus bases teóricas fueron establecidas por Fix y Hodges (1951), quienes demostraron la consistencia estadística del enfoque basado en vecinos más cercanos, es decir, que bajo ciertas condiciones el clasificador converge a la mejor regla posible conforme aumenta el tamaño del conjunto de entrenamiento.
+
+La implementación del kNN es conceptualmente sencilla. Dado un punto a clasificar, se calculan sus distancias con todas las muestras etiquetadas del conjunto de entrenamiento y se seleccionan los k vecinos más cercanos. La clase asignada corresponde a la que obtenga mayoría dentro de ese grupo. La métrica más utilizada es la distancia euclidiana, aunque en algunos contextos pueden emplearse otras métricas como Manhattan, Minkowski o distancias basadas en correlación.
+
+A pesar de su simplicidad, el kNN ha mostrado un desempeño competitivo en problemas donde la frontera entre clases presenta geometrías complejas o no lineales. Duda, Hart y Stork (2001) destacan que el método no requiere un modelo explícito ni un proceso de entrenamiento elaborado; sin embargo, es altamente sensible a la dimensionalidad y a la escala de las características, lo que puede afectar negativamente su eficacia. Por este motivo, en aplicaciones reales suele combinarse con técnicas de normalización, selección o reducción de características, así como con descriptores previamente optimizados, entre ellos los descriptores de contorno y los LBP.
+
+Además, el valor elegido para k desempeña un papel crucial: valores pequeños pueden hacer que el modelo sea muy sensible al ruido, mientras que valores demasiado grandes pueden producir decisiones excesivamente suavizadas. Esto convierte la calibración de k en un paso indispensable para garantizar un desempeño balanceado.
+
+En síntesis, el kNN es un clasificador flexible, intuitivo y eficaz, especialmente adecuado para problemas donde la calidad de la representación de las características es alta y donde la forma del espacio de datos no puede capturarse fácilmente mediante modelos paramétricos.
+
+
 # 3. Metodología
+
 ## 3.1 Análisis Exploratorio y Preprocesamiento
 El procesamiento se estructuró en tres fases principales: (1) análisis exploratorio inicial del dataset, (2) definición del pipeline de preprocesamiento y (3) generación del conjunto de datos normalizado. Todo el procedimiento se llevó a cabo utilizando herramientas de visión por computador, principalmente OpenCV y NumPy, sobre el dataset Chest X-Ray Pneumonia.
 
@@ -302,11 +324,31 @@ lung_only = cv2.bitwise_and(img_resized, img_resized, mask=mask)
 Esta operación conserva exclusivamente los píxeles correspondientes a los pulmones y elimina el resto de la estructura torácica (costillas, diafragma, tejidos blandos no relevantes).Cada imagen recortada se almacenó en una nueva estructura de carpetas espejo, destinada a contener el dataset final segmentado.
 
 ## 3.2 Extracción de Descriptores Clásicos
-### 3.2.1 Descriptores de Forma
 
+### 3.2.1 Descriptores de Forma
 #### 3.2.1.1 Descriptores de contorno
 
+Para caracterizar la geometría de las regiones pulmonares segmentadas, se implementó un procedimiento de extracción de descriptores de contorno a partir de las máscaras binarias generadas en la etapa previa de segmentación. Este proceso se sistematizó mediante una función dedicada que permitió obtener, para cada imagen, cuatro medidas morfológicas fundamentales: área, perímetro, circularidad y excentricidad.
 
+En primer lugar, cada máscara fue asegurada como una imagen estrictamente binaria mediante la aplicación de un umbral fijo (127), garantizando que los valores de fondo y región de interés se encontraran codificados como 0 y 255, respectivamente. Una vez binarizada la imagen, se identificaron los contornos mediante la función findContours de OpenCV, utilizando el modo de recuperación de contornos externos (RETR_EXTERNAL) con el fin de evitar interferencias de posibles estructuras internas. Cuando múltiples contornos estaban presentes, se seleccionó únicamente aquel con mayor área, asumiendo que correspondía al pulmón dominante dentro de la máscara. A partir de dicho contorno se calcularon las medidas geométricas básicas. El área se obtuvo mediante contourArea, mientras que el perímetro se determinó con arcLength, considerando el contorno como cerrado.
+
+La circularidad se estimó mediante la expresión  
+
+$$
+C = \frac{4\pi A}{P^2}
+$$
+
+Lo queo permitió evaluar cuán cercana era la forma a una circunferencia perfecta. En los casos donde el perímetro era nulo o degenerado, se asignó el valor cero para evitar inestabilidades numéricas. Finalmente, la excentricidad se calculó ajustando una elipse al contorno mediante fitEllipse, obteniendo los ejes mayor y menor de la figura. A partir de estos valores se derivó la excentricidad como 
+
+ $$
+e = \sqrt{1 - \left(\frac{b}{a}\right)^2}
+$$
+
+donde 𝑎 corresponde al eje mayor y 𝑏 al menor, procedimiento que permitió capturar el grado de elongación de la estructura.
+
+Una vez definida la función encargada de la extracción de características, se aplicó de forma sistemática a todas las máscaras del conjunto de datos, organizadas por subconjuntos (entrenamiento, validación y prueba) y por clase. Para cada imagen se generó un vector de cuatro atributos, el cual fue almacenado junto con su etiqueta correspondiente y la ruta del archivo procesado. Al finalizar la iteración para cada subconjunto, los descriptores fueron consolidados en matrices de características y guardados en formato .npz, con el fin de facilitar su uso en las etapas posteriores de entrenamiento y evaluación de modelos.
+
+Este procedimiento aseguró una caracterización homogénea y reproducible de la morfología pulmonar, proporcionando un conjunto de descriptores que complementan adecuadamente la información de textura obtenida con otros métodos utilizados en el estudio.
 
 #### 3.2.1.2 Fourier Shape Descriptors 
 
@@ -334,7 +376,14 @@ La extracción de Momentos de Hu se realizó a partir de las máscaras pulmonare
 ### 3.2.2 Descriptores de Textura
 
 #### 3.2.2.1 Local Binary Patterns (LBP)
-Para la caracterización de la textura presente en las radiografías de tórax, uno de los descriptores a probar fueron los Local Binary Patterns (LBP), usados ampliamente en análisis de imágenes médicas por su eficiencia en terminos de iluminación y capacidad para representar texturas relevantes. 
+
+Para la caracterización de la textura presente en las radiografías de tórax, uno de los descriptores a probar fueron los Local Binary Patterns (LBP), usados ampliamente en análisis de imágenes médicas por su eficiencia en terminos de iluminación y capacidad para representar texturas relevantes. El procedimiento de extracción se basó en la generación de histogramas LBP bajo diferentes configuraciones de vecindarios, con el propósito de obtener una representación más completa y robusta de las texturas presentes en cada imagen. En primer lugar, se definieron tres configuraciones de parámetros correspondientes al número de **puntos vecinos (P)** y al **radio (R)** utilizados en el cálculo del patrón binario local: (8,1), (16,2) y (24,3). Estas combinaciones permiten analizar texturas a distintas escalas, desde patrones finos hasta estructuras de mayor tamaño. Para cada imagen, convertida previamente a escala de grises y redimensionada a 256×256 píxeles, se aplicó la función **local_binary_pattern** con el método **“uniform”**, que favorece la obtención de histogramas más compactos y estables.
+
+Posteriormente, se calculó el histograma correspondiente a cada configuración (P,R). Cada histograma se generó a partir de los valores LBP obtenidos, empleando un número de bins igual a P + 2, tal como se sugiere para el método uniforme. Cada histograma se normalizó dividiendo por el número total de píxeles, lo cual permite comparar imágenes con independencia de su escala de intensidad. Los histogramas producidos para las tres configuraciones se concatenaron en un único vector de características, conformando así la representación final de cada imagen.
+
+Con el fin de verificar la correcta extracción de características, se realizó una inspección visual aleatoria de imágenes pertenecientes a ambas clases (NORMAL y PNEUMONIA). Para cada imagen seleccionada se mostraron tanto la versión preprocesada como las dimensiones y los valores asociados a cada uno de los histogramas parciales. Esta revisión permitió asegurar que las configuraciones LBP producían vectores coherentes y consistentes entre sí.
+
+Una vez validado el proceso, se procedió a generar los conjuntos de características correspondientes a los tres splits del dataset (entrenamiento, validación y prueba). Para cada subconjunto y para ambas clases se extrajeron los vectores LBP siguiendo el mismo esquema, y se almacenaron en archivos en formato .npz junto con las etiquetas y los nombres de archivo originales. Este formato permitió organizar de forma eficiente los datos y facilitar su posterior uso en el pipeline de clasificación. Finalmente, este procedimiento garantizó una extracción sistemática y reproducible de los descriptores LBP, proporcionando una base sólida para el análisis comparativo de los clasificadores aplicados en etapas posteriores.
 
 #### 3.2.2.2 Gray Level Co-ocurrence Matrix (GLCM)
 El procedimiento implementado realiza la extracción de características de textura a partir de imágenes médicas utilizando la Matriz de Co-ocurrencia de Niveles de Gris (GLCM), para luego generar un dataset listo para clasificación. Primero, cada imagen se convierte a escala de grises y se redimensiona a 256×256 píxeles. Los niveles de gris se reducen a un número fijo L = 16. Esto se hace dividiendo cada valor de píxel por 16 y tomando la parte entera:
@@ -449,6 +498,7 @@ También se genera la matriz de confusión, para visualizar errores entre clases
 Finalmente, el pipeline devuelve las variables principales del proceso: datos combinados, datos finales tras normalización y PCA, predicciones, métricas y matriz de confusión, permitiendo comparar el rendimiento de cada kernel de manera consistente y reproducible.
 
 ### 3.3.2 Random Forest
+
 El modelo fue construido a partir de las matrices de características generadas previamente (Hu, Gabor, Fourier, GLCM, LBP y contornos). En primer lugar, se cargaron los conjuntos train, val y test, combinando los descriptores seleccionados según cada experimento. Para mejorar la comparabilidad entre características heterogéneas, todos los vectores fueron normalizados mediante MinMaxScaler, garantizando que cada variable se encontrara entre 0 y 1.
 
 Posteriormente, se aplicó una reducción de dimensionalidad mediante SelectKBest con el estadístico ANOVA (f-classif), permitiendo conservar únicamente las características más relevantes para la discriminación entre clases. Con el conjunto reducido, se unieron los subconjuntos de entrenamiento y validación para conformar un bloque de entrenamiento robusto. Sobre este conjunto se entrenó un Balanced Random Forest, que incorpora balanceo interno para mitigar el desbalance entre clases, utilizando 400 árboles, profundidad máxima de 18 y criterios de división ajustados para evitar sobreajuste.
@@ -456,12 +506,18 @@ Posteriormente, se aplicó una reducción de dimensionalidad mediante SelectKBes
 El desempeño del modelo se evaluó mediante validación cruzada estratificada de 10 particiones, registrando métricas estándar como accuracy, precisión, sensibilidad, F1-score y AUC. Luego, el modelo final se entrenó con todos los datos de entrenamiento y validación combinados, y se evaluó sobre el conjunto test independiente. Finalmente, se generaron la matriz de confusión, curvas ROC y el análisis de importancia de características, permitiendo interpretar el aporte relativo de cada descriptor en la clasificación.
 
 ### 3.3.3 Convolutional Neural Networks
+
 En una primera etapa se entrenó una red neuronal convolucional (CNN) utilizando el conjunto de datos original, manteniendo el desbalance natural entre las clases NORMAL y PNEUMONIA. Las imágenes fueron organizadas en carpetas por clase y partición (train, val, test) y cargadas mediante ImageDataGenerator de Keras, aplicando un preprocesamiento consistente en cambio de tamaño a 256×256 píxeles, conversión a RGB y normalización de intensidades al rango [0,1]. La arquitectura de la CNN incluyó cuatro bloques convolucionales secuenciales con filtros 3×3 (32, 64, 64 y 128 filtros respectivamente), seguidos de capas de max pooling 2×2, una capa de aplanamiento (Flatten), una capa totalmente conectada de 128 neuronas con activación ReLU y Dropout del 25 %, y una capa de salida con una neurona y activación sigmoide para clasificación binaria. El modelo se compiló con el optimizador Adam (learning rate = 1×10⁻⁴) y función de pérdida binary_crossentropy, monitorizando la métrica de exactitud (accuracy). El entrenamiento se realizó durante un máximo de 20 épocas, utilizando early stopping sobre la pérdida de validación para evitar sobreajuste. Finalmente, el desempeño del modelo se evaluó sobre el conjunto de prueba mediante métricas clásicas (accuracy, sensibilidad, especificidad), matriz de confusión, reporte de clasificación y análisis de la curva ROC y el AUC.
 
 En una segunda etapa se repitió el experimento introduciendo un paso explícito de balanceo de clases en el conjunto de entrenamiento. Para ello, se listaron por separado las rutas de las imágenes de las clases NORMAL y PNEUMONIA en la partición de entrenamiento y se determinó el número mínimo de ejemplos entre ambas. A partir de este valor se generó un subconjunto balanceado mediante undersampling: se seleccionó aleatoriamente el mismo número de imágenes de cada clase, se concatenaron las rutas en un único arreglo y se asignaron etiquetas 0 (NORMAL) y 1 (PNEUMONIA). Posteriormente, se construyó un DataFrame con las columnas filename y class, que se utilizó como entrada de flow_from_dataframe para generar los lotes de entrenamiento y validación, manteniendo una partición interna del 80 % para entrenamiento y 20 % para validación.
 
 ### 3.3.4  k-Nearest Neighbors (k-NN)
 
+El proceso de entrenamiento del clasificador **k-NN** se desarrolló a partir de tres combinaciones de descriptores clásicos de textura y de forma: LBP+Contorno, GLCM+Gabor y LBP+Gabor. Para cada una de ellas se integraron los descriptores previamente procesados en una única matriz de características. A partir de esta matriz se construyó un pipeline de entrenamiento conformado por tres etapas: normalización, selección de características y clasificación. En la primera etapa, las características fueron escaladas mediante **MinMaxScaler** con el propósito de homogeneizar sus rangos y evitar que atributos con valores más altos dominaran el comportamiento del modelo. Luego, se aplicó **SelectKBest** como método de selección univariada, lo que permitió reducir la dimensionalidad del conjunto de datos y conservar únicamente los atributos con mayor capacidad discriminante, disminuyendo así el ruido y la redundancia.
+
+Para la clasificación se utilizó el algoritmo k-Nearest Neighbors (k-NN), cuyo rendimiento depende directamente del número de vecinos considerados. Tanto el valor óptimo de k como el número adecuado de características seleccionadas fueron determinados mediante **GridSearch** incorporada dentro del pipeline. Cada configuración se evaluó mediante validación cruzada estratificada, lo que permitió obtener estimaciones más estables del desempeño y reducir el riesgo de sobreajuste.
+
+Una vez identificado el mejor conjunto de hiperparámetros para cada combinación de descriptores, el modelo correspondiente se entrenó nuevamente y se evaluó sobre un conjunto de prueba independiente. Para ello se emplearon métricas como accuracy, precisión, sensibilidad (recall), F1-score y el área bajo la curva ROC (AUC-ROC). Además, se analizó la matriz de confusión para examinar de manera más detallada el comportamiento del clasificador en cada categoría.
 
 # 4. Resultados y Análisis
 
@@ -519,6 +575,13 @@ Puede observarse que el modelo PsNet logra una segmentación superior; por ello,
 
 #### 4.2.1.1 Descriptores de contorno
 
+Para caracterizar la forma de las estructuras pulmonares segmentadas, se implementó una función destinada a calcular cuatro descriptores clásicos de contorno: área, perímetro, circularidad y excentricidad. Estos parámetros permitieron capturar propiedades geométricas relevantes de la región pulmonar, aportando información complementaria a los descriptores de textura utilizados en otras etapas del proyecto.
+
+La función definida inicia asegurando que la máscara suministrada corresponda a una imagen binaria. Posteriormente, los contornos externos se identifican mediante findContours, seleccionando el de mayor tamaño como representación principal de la región pulmonar. A partir de este contorno se calcula el área y el perímetro, que constituyen medidas básicas de extensión y complejidad de la forma. La circularidad se obtiene mediante la relación estándar, cuyos valores cercanos a 1 indican formas más compactas y aproximadamente circulares. Finalmente, la excentricidad se estima ajustando una elipse al contorno y evaluando la relación entre sus ejes mayor y menor; valores elevados reflejan formas más alargadas u ovaladas.
+
+Se analizó una máscara pulmonar individual, la cual permitió verificar la correcta segmentación de la región de interés. Los valores obtenidos para esta muestra fueron: un área de 53 970 píxeles, un perímetro de aproximadamente 1092.7 píxeles, una circularidad de 0.568 y una excentricidad de 0.915. Estos valores indican una estructura relativamente elongada y alejada de la circularidad ideal, lo cual coincide con la morfología natural de los pulmones en una radiografía. Después de la validación inicial de la función, se procedió a su aplicación sobre la totalidad del conjunto de datos segmentados, abarcando las particiones train, val y test. Para cada máscara se extrajeron los cuatro descriptores, junto con la etiqueta correspondiente. En el conjunto de entrenamiento se procesaron 5216 muestras, distribuidas entre 1341 casos normales y 3875 casos de neumonía. En la partición de validación se obtuvieron 16 muestras (8 por clase), mientras que el conjunto de prueba incluyó 624 imágenes segmentadas. 
+
+Finalmente, los resultados de este proceso confirman la correcta implementación de los descriptores de contorno como complemento para el análisis y clasificación morfológico de las imágenes pulmonares segmentadas.
 
 #### 4.2.1.2 Fourier Shape Descriptors 
 
@@ -578,6 +641,18 @@ Finalmente, se guardan para train/test/val.
 ### 4.2.2 Descriptores de Textura
 
 #### 4.2.2.1 Local Binary Patterns (LBP)
+
+La extracción de características mediante LBP permitió obtener una representación de la textura pulmonar a partir de tres configuraciones multiescala (P=8,16,24). En los histogramas generados se observó, de manera consistente, un bin con valores superiores a 0.60, asociado a patrones uniformes, lo cual es esperable en radiografías donde predominan variaciones suaves de intensidad. Al comparar las dos clases, las imágenes normales mostraron histogramas más concentrados y con menor variabilidad entre muestras, reflejando una textura pulmonar más homogénea. En contraste, las imágenes de pneumonia presentaron una ligera mayor dispersión en bins secundarios, especialmente en las configuraciones con vecindarios amplios. Esto sugiere la presencia de texturas más irregulares vinculadas a zonas de consolidación o inflamación.
+
+![image1](./results/imagenes/LBP_clase_normal.png)
+
+La diferencia entre ambas clases no es tan marcada, el comportamiento observado indica que LBP sí captura ciertas variaciones texturales relevantes. Sin embargo, las imágenes de la **clase normal**, tienden a mostrar histogramas más estables y con menor variabilidad entre muestras. Los valores fuera del bin dominante suelen ser relativamente bajos y consistentes, lo que refleja una textura más homogénea del tejido pulmonar cuando no existe patología evidente. Particularmente, para P=8 se observa que el bin uniforme supera frecuentemente valores de 0.70, manteniendo el resto de bins en rangos pequeños y similares entre imágenes.
+
+![image1](./results/imagenes/LBP_clase_neumonia.png)
+
+Las imágenes para la **clase pneumonia** presentan histogramas con una distribución ligeramente más dispersa, con bins secundarios alcanzando valores un poco superiores respecto a la clase normal. Esta dispersión puede asociarse a la presencia de patrones anómalos en la radiografía como zonas de mayor densidad, que generan transiciones locales más marcadas, incrementando la aparición de códigos LBP no uniformes. Aunque la diferencia no es muy relevante, sí es consistente. Las imágenes de neumonía tienden a mostrar mayor activación en bins intermedios, particularmente en las configuraciones P=16 y P=24. Esto sugiere que las texturas patológicas introducen complejidad local que es captada por vecindades mayores.
+  
+El uso de múltiples configuraciones (P,R) aporta mayor robustez, permitiendo capturar texturas a distintas escalas. Este diseño mejora la capacidad discriminativa del descriptor respecto a una única configuración LBP. Sin embargo, es impotante destacar que, aunque existan diferencias entre ambas clases, el grado de solapamiento entre histogramas es considerable. Esto implica que, el descriptor LBP por sí solo no podría ser suficiente para obtener una separación clara, Su efectividad aumentará al combinarlo con técnicas de clasificación adecuadas.
  
 #### 4.2.2.2 Gray Level Co-ocurrence Matrix (GLCM)
 
@@ -798,6 +873,31 @@ Por otro lado, las curvas ROC obtenidas muestran diferencias importantes en la c
 
 Finalmente, en el Top 10 de descriptores Fourier + GLCM presenta la distribución más equilibrada y estructurada de características importantes, lo que respalda su buen desempeño. Hu + Gabor utiliza múltiples patrones texturales, lo que explica su alta sensibilidad. Contorno + LBP depende excesivamente de una sola característica dominante, indicando menor riqueza descriptiva y menor capacidad de generalización. 
 
+### 4.3.2 Clasificador k-Nearest Neighbors (k-NN)
+
+Se evaluó el desempeño del clasificador **k-Nearest Neighbors (k-NN)** utilizando tres combinaciones de descriptores clásicos LBP + Contorno, LBP + GLCM y GLCM + Gabor. Las evaluaciones se realizaron empleando normalización MinMaxScaler, selección de características mediante SelectKBest y validación cruzada de cinco particiones.
+
+
+![image1](./results/imagenes/comparación_matrix_kNN.png)
+
+
+La evaluación a partir de las matrices de confusión permite identificar el comportamiento del modelo frente a falsos positivos y falsos negativos. En primer lugar, la matriz de confusión para la combinación **LBP + Contorno**, muestra un desempeño consistente y un número moderado de falsos negativos. Aunque el clasificador logra una correcta identificación de la mayoría de casos positivos, la información dada por los descriptores de contorno no es suficiente para reducir en su totalidad los errores en la clase más compleja. La combinación **LBP + GLCM** presenta la matriz de confusión más equilibrada entre las tre, ya que, se observa una reducción considerable tanto de falsos positivos como de falsos negativos, indicando la mayor eficiencia para discriminar entre las clases. Finalmente, la matriz de confusión de la combinación **GLCM + Gabor** indica un aumento en falsos negativos respecto a las otras combinaciones, indicando que la detección de la clase negativa es aceptable, sin embargo, el clasificador muestra dificultades al identificar correctamente ciertos patrones positivos, lo que evidencia un menor poder discriminativo para esta combinación. 
+
+
+![image1](./results/imagenes/comparación_AUC_kNN.png)
+
+
+El análisis de las curvas ROC y del área bajo la curva (AUC) permite evaluar la capacidad discriminativa global del modelo. La curva ROC para combinación **LBP + Contorno** alcanza un AUC superior a 0.90, reflejando un buen nivel de separación entre clases. El resultado confirma que los histogramas LBP aportan información relevante pese a la limitada contribución de los contornos. La combinación con el valor AUC más alto entre las tres fue para la combinación **LBP + GLCM**, en la curva ROC se observa un ascenso levemente más pronunciado, lo que indica una mejor sensibilidad y especificidad simultáneas. Esto sugiere que los descriptores LBP y GLCM capturan variaciones texturales complementarias que fortalecen el modelo. El valor más bajo de AUC fue para la combinación **GLCM + Gabor**, lo que indica una menor capacidad discriminativa. El comportamiento puede deberse a la sensibilidad de los filtros Gabor frente a variaciones de orientación y escala, generando ruido para un clasificador basado en distancias como k-NN.
+
+
+![image1](./results/imagenes/comparación_features_kNN.png)
+
+
+El análisis de las características seleccionadas por SelectKBest permite entender qué tipos de descriptores aportan mayor información al modelo. Los Top-20 features seleccionados para la combinación **LBP + Contorno**
+se concentran mayoritariamente en histogramas de LBP, mientras que los derivados de contorno son menos frecuentes. Esto indica que la textura local es el elemento más informativo de esta combinación, lo que explica su buen desempeño a pesar de la baja contribución morfológica. Para la combinación **LBP + GLCM**, la selección de características es más equilibrada, ya que, aparecen de manera destacada tanto patrones LBP como métricas GLCM (contrast, homogeneity, entropy, energy). La integración de distintos tipos de información permite alcanzar un desempeño superior en las métricas globales. Por otra parte, los Top-20 features para la combinación **GLCM + Gabor** se concentran principalmente en descriptores GLCM, mientras que los derivados de Gabor son minoritarios. Esto sugiere que, aunque los filtros Gabor generan patrones orientados y frecuenciales, su aporte informativo fue limitado.
+
+Finalmente, según los resultados obtenidos, la combinación **LBP + GLCM** presenta procesos más óptimos para la representar las imágenes del dataset de imágenes médicas, roporcionando una descripción más precisa y discriminativa para el clasificador k-NN.
+
 ### 4.3.3 Convolutional Neural Networks
 
 ![image1](./results/imagenes/lossCNN.png)
@@ -821,24 +921,40 @@ Por otro lado, en el score el modelo muestra un rendimiento moderado con una acc
 
 El desequilibrio entre clases y la mayor variabilidad visual en la categoría Normal contribuyen a esta asimetría. Esto se observa también en la diferencia entre las métricas macro y weighted, lo que confirma que la clase mayoritaria domina el aprendizaje. En conjunto, el modelo es sensible para detectar neumonía, pero presenta baja especificidad y requiere técnicas adicionales de balanceo, aumento de datos o ajuste de arquitectura para mejorar la discriminación entre clases. Esto se puede evidenciar  mejor en la matriz de confusión, donde se tiene una mayor cantidad de falsos positivos.
 
-4.4 Conclusiones de los Resultados
+## 4.4 Conclusiones de los Resultados
 
-Basados en los resultados obtenidos con los diferentes modelos podriamos intuir que una combinacion de Fourier y GLCM, presenta por lo menos con este conjunto de datos los resultados estables y que parecen mantenerse a pesar del cambio de patrones de clasificacion, es uno de los que se mantiene mas estable de los que hemos trabajado en este informe, respecto a SVC, este ejercicio nos ha demostrado que el kernel de poly parace no funcionar con la mejor eficacia ya que tiende a sobreajustar todos los descriptores y presenta inconsistencias donde linear y rbf a pesar de resultados diferentes, parece mantenerse estable en la mayor parte de los datos.
+A partir de los resultados obtenidos con los distintos modelos, se observa que la combinación Fourier + GLCM es una de las que muestra un comportamiento más estable en este conjunto de datos. Sus métricas se mantienen relativamente constantes incluso cuando cambian las configuraciones de clasificación, lo que la convierte en una opción sólida dentro de las evaluadas.
+
+En cuanto al SVC, los experimentos evidencian que el kernel polynomial no se adapta bien a este problema, este tiende a sobreajustar y sus resultados fluctúan bastante según el descriptor. En cambio, los kernels linear y rbf muestran un comportamiento más estable y consistente, aunque sus resultados no sean exactamente los mismos.
+
+Por otra parte, los resultados también señalan que la combinación de descriptores LBP + GLCM es la que mejor representa las imágenes del dataset. La unión entre texturas locales y medidas estadísticas aporta información complementaria y más completa, lo que se traduce en un mejor rendimiento del clasificador k-NN frente a las demás combinaciones probadas.
 
 # 5. Referencias Bibliográficas
-Hu, M.-K. (1962). “Visual pattern recognition by moment invariants.” IRE Transactions on Information Theory, 8(2), 179–187. https://doi.org/10.1109/TIT.1962.1057692
-
-Gonzalez, R. C., & Woods, R. E. (2018). Digital Image Processing (4th ed.). Pearson.
 
 Breiman, L. (2001). Random Forests. Machine Learning, 45(1), 5–32. https://doi.org/10.1023/A:1010933404324
 
+Duda, R. O., Hart, P. E., & Stork, D. G. (2001). Pattern Classification (2nd ed.). Wiley.
+
+Fix, E., & Hodges, J. L. (1951). Discriminatory Analysis: Nonparametric Discrimination—Consistency Properties. U.S. Air Force School of Aviation Medicine.
+
+Gonzalez, R. C., & Woods, R. E. (2018). Digital Image Processing (4th ed.). Pearson.
+
+Hu, M.-K. (1962). “Visual pattern recognition by moment invariants.” IRE Transactions on Information Theory, 8(2), 179–187. https://doi.org/10.1109/TIT.1962.1057692
+
 Le Mercier, A. (2025). All Best Tabular Classifiers - Comparative Study [Cuaderno de código]. Kaggle. https://www.kaggle.com/code/alexandrelemercier/all-best-tabular-classifiers-comparative-study
 
+Ojala, T., Pietikäinen, M., & Harwood, D. (1994). Performance evaluation of texture measures with classification based on Kullback discrimination of distributions. Proceedings of the 12th IAPR International Conference on Pattern Recognition.
+
+Ojala, T., Pietikäinen, M., & Mäenpää, T. (2002). Multiresolution gray-scale and rotation invariant texture classification with local binary patterns. IEEE Transactions on Pattern Analysis and Machine Intelligence, 24(7), 971–987.
+
+Zahn, C. T., & Roskies, R. Z. (1972). Fourier descriptors for plane closed curves. IEEE Transactions on Computers, C-21(3), 269–281.
+
 # 6. Reporte de Contribución Individual
+
 | Estudiante | Aporte Personal |
 | :---- | :---- |
-| Leidy Marcela Leal Loaiza | |
 | Juan Felipe Arbelaez | Segmentacion con Umbralizacion, descriptores de forma (Fourier), descriptores de textura GLMC, Clasificacion SVC y aporte al informe.md |
+| Leidy Marcela Leal Loaiza | Descriptores de forma (contorno), descriptores de textura (LBP), clasificación kNN. Como también aporte y redacción de informe final|
 | Bibiana Andrea Peña V | Preprocesamiento y segmentación con PsNet, descriptores de forma (Hu y HOG), descriptores de textura (filtros de Gabor), clasificación Random Forest y CNN. Además, participé en la redacción del informe final y en la organización de los archivos comunes del proyecto, contribuyendo a mantener una estructura clara y coherente para el trabajo en equipo. |
 
 
