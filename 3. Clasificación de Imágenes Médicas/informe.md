@@ -603,6 +603,127 @@ Finalmente, se guardan los descriptores para todo el dataset.
 
 ### 4.3.1 SVC: Support Vector Machine
 
+### Resultados de Clasificación con Diferentes Descriptores y Kernels
+
+#### Resultados para RBF
+
+### Test
+
+| Descriptor   | Accuracy | Precisión | Recall | F1     | AUC    |
+|-------------|----------|-----------|--------|--------|--------|
+| FourierxGLMC | 0.8478   | 0.8624    | 0.9000 | 0.8808 | 0.9064 |
+| HuGabor      | 0.8381   | 0.8568    | 0.8897 | 0.8730 | 0.9210 |
+| LBPContour   | 0.7580   | 0.7581    | 0.9000 | 0.8230 | 0.8080 |
+
+Los descriptores FourierxGLMC y HuGabor tienen buen desempeño, similares en accuracy y recall, con AUC altos (> 0.90), indicando buena discriminación entre clases. LBPContour tiene un accuracy más bajo (0.758), aunque mantiene un recall alto (0.9), lo que sugiere que detecta correctamente la mayoría de casos positivos, pero también genera más falsos positivos, reflejado en menor precisión y AUC (0.808).
+
+### Train
+
+| Descriptor   | Accuracy | Precisión | Recall | F1     | AUC    |
+|-------------|----------|-----------|--------|--------|--------|
+| FourierxGLMC | 0.9158   | 0.9392    | 0.9481 | 0.9436 | 0.9696 |
+| HuGabor      | 0.9327   | 0.9562    | 0.9530 | 0.9546 | 0.9771 |
+| LBPContour   | 0.8758   | 0.9005    | 0.9363 | 0.9180 | 0.9295 |
+
+Todos los descriptores muestran resultados más altos que en test, lo esperado en el entrenamiento. HuGabor lidera en casi todas las métricas, seguido por FourierxGLMC. LBPContour mejora sus métricas pero sigue siendo ligeramente inferior en comparación con los otros dos.
+
+### Validación
+
+| Descriptor   | Accuracy | Precisión | Recall | F1     | AUC    |
+|-------------|----------|-----------|--------|--------|--------|
+| FourierxGLMC | 0.7500   | 0.7000    | 0.8750 | 0.7778 | 0.1719 |
+| HuGabor      | 0.8125   | 0.7778    | 0.8750 | 0.8235 | 0.9062 |
+| LBPContour   | 0.7500   | 0.8333    | 0.6250 | 0.7143 | 0.1875 |
+
+FourierxGLMC y LBPContour muestran AUC muy bajos (< 0.2), indicando que el modelo clasifica mal en validación, probablemente por sobreajuste o sensibilidad a datos nuevos. HuGabor mantiene buen desempeño (accuracy 0.8125 y AUC 0.9062), mostrando mejor generalización. LBPContour tiene alta precisión pero bajo recall, indicando que falla en detectar varios casos positivos.
+
+**Conclusión para RBF:**  
+HuGabor es el descriptor más robusto, con buena generalización en test y validación. FourierxGLMC y LBPContour presentan sobreajuste, con buen desempeño en train y test pero caída fuerte en validación. LBPContour muestra buena detección (recall alto) pero menor precisión y generalización.
+
+### Resultados para Linear
+
+### Test
+
+| Descriptor   | Accuracy | Precisión | Recall | F1     | AUC    |
+|-------------|----------|-----------|--------|--------|--------|
+| FourierxGLMC | 0.8301   | 0.8550    | 0.8769 | 0.8658 | 0.8987 |
+| HuGabor      | 0.8654   | 0.8844    | 0.9026 | 0.8934 | 0.9301 |
+| LBPContour   | 0.7564   | 0.7793    | 0.8513 | 0.8137 | 0.8050 |
+
+HuGabor lidera en test con mejor accuracy, F1 y AUC. LBPContour tiene menor desempeño, aunque mantiene recall relativamente alto.
+
+### Train
+
+| Descriptor   | Accuracy | Precisión | Recall | F1     | AUC    |
+|-------------|----------|-----------|--------|--------|--------|
+| FourierxGLMC | 0.8978   | 0.9285    | 0.9345 | 0.9314 | 0.9543 |
+| HuGabor      | 0.9275   | 0.9540    | 0.9481 | 0.9511 | 0.9718 |
+| LBPContour   | 0.8434   | 0.8794    | 0.9146 | 0.8966 | 0.9032 |
+
+El entrenamiento muestra que HuGabor y FourierxGLMC se ajustan bien, mientras que LBPContour es más débil.
+
+### Validación
+
+| Descriptor   | Accuracy | Precisión | Recall | F1     | AUC    |
+|-------------|----------|-----------|--------|--------|--------|
+| FourierxGLMC | 0.6875   | 0.6667    | 0.7500 | 0.7059 | 0.6875 |
+| HuGabor      | 0.8750   | 1.0000    | 0.7500 | 0.8571 | 0.9062 |
+| LBPContour   | 0.8750   | 0.8750    | 0.8750 | 0.8750 | 0.5938 |
+
+FourierxGLMC sufre sobreajuste (AUC < 0.7). HuGabor mantiene buen desempeño y generalización (AUC 0.9062). LBPContour tiene recall alto pero baja AUC, indicando baja precisión en algunos casos negativos.
+
+**Conclusión para Linear:**  
+HuGabor es el descriptor más estable y confiable en test y validación. FourierxGLMC y LBPContour muestran sobreajuste, especialmente en validación. Comparado con RBF, Linear tiene comportamientos similares con ligeras diferencias.
+
+### Resultados para Poly
+
+### Test
+
+| Descriptor   | Accuracy | Precisión | Recall | F1     | AUC    |
+|-------------|----------|-----------|--------|--------|--------|
+| FourierxGLMC | 0.7580   | 0.7348    | 0.9590 | 0.8320 | 0.8819 |
+| HuGabor      | 0.7788   | 0.7636    | 0.9359 | 0.8410 | 0.8919 |
+| LBPContour   | 0.6619   | 0.6578    | 0.9564 | 0.7795 | 0.7657 |
+
+HuGabor tiene la mejor combinación de accuracy, F1 y AUC. LBPContour es más débil, aunque mantiene recall alto.
+
+### Train
+
+| Descriptor   | Accuracy | Precisión | Recall | F1     | AUC    |
+|-------------|----------|-----------|--------|--------|--------|
+| FourierxGLMC | 0.8551   | 0.8532    | 0.9721 | 0.9088 | 0.9451 |
+| HuGabor      | 0.8871   | 0.8830    | 0.9775 | 0.9279 | 0.9638 |
+| LBPContour   | 0.6619   | 0.6578    | 0.9564 | 0.7795 | 0.7657 |
+
+HuGabor y FourierxGLMC muestran buen ajuste en entrenamiento. LBPContour tiene desempeño débil.
+
+### Validación
+
+| Descriptor   | Accuracy | Precisión | Recall | F1     | AUC    |
+|-------------|----------|-----------|--------|--------|--------|
+| FourierxGLMC | 0.5000   | 0.5000    | 0.6250 | 0.5556 | 0.3125 |
+| HuGabor      | 0.6250   | 0.6667    | 0.5000 | 0.5714 | 0.4688 |
+| LBPContour   | 0.5000   | 0.5000    | 0.2500 | 0.3333 | 0.4688 |
+
+Todos los descriptores muestran fuerte sobreajuste, especialmente FourierxGLMC. HuGabor mantiene ligera ventaja, pero la generalización es limitada.
+
+**Conclusión para Poly:**  
+Poly tiene buen desempeño en entrenamiento y test, pero falla en generalización (validación). HuGabor sigue siendo el descriptor más robusto, aunque sufre sobreajuste. Comparado con Linear y RBF, Poly es más propenso a sobreajustar, especialmente FourierxGLMC y LBPContour.
+
+---
+
+**Resumen General**
+
+- RBF es mejor en entrenamiento y test para FourierxGLMC y LBPContour, con validación decente.  
+- Linear tiene mejor generalización en HuGabor y LBPContour, especialmente en validación.  
+- Poly sobreajusta demasiado y presenta malos resultados en validación y test.  
+
+**Recomendaciones:**
+
+- Para HuGabor → usar Linear  
+- Para FourierxGLMC → usar RBF  
+- Para LBPContour → usar Linear (mejor validación), aunque RBF tiene mejor test  
+
 ### 4.3.2 Random Forest
 Se utilizó Balanced Random Forest, una variante del algoritmo Random Forest diseñada para manejar desbalances entre clases mediante remuestreo interno. El modelo final empleado en cada experimento se definió con los siguientes parámetros:
 
