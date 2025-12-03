@@ -72,7 +72,8 @@ En la carpeta `notebooks/` encontrarás versiones en Jupyter de cada ejercicio, 
 - `2A_descriptores_Forma.ipynb` Aqui estan presente todos lod descriptores de forma HOG, Hu, Contorno y Fourier
 - `2B_Descriptores_De_Textura.ipynb` Aqui estan presentes los descriptores de textura LBP, GLCM y Filtro de Gabor
 - `3A_Clasificacion_SVC.ipynb` Clasificacion con SVC y tres kernels (RBF, Poly y Linear)
-- `3B_Clasificacion_RandomForest.ipynb` Clasificacion usando Random Forest 
+- `3B_Clasificacion_RandomForest.ipynb` Clasificacion usando Random Forest
+- `3C_Clasificacion_k-NearestNeighbors(k-NN).ipynb` Clasificacion de combinaciones usando k-NN
 - `3D_clasificacion_CNN.ipynb` Clasificacion de Redes convolucionales
 
 
