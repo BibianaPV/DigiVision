@@ -392,6 +392,7 @@ La extracción de descriptores de textura mediante filtros de Gabor se realizó 
 Para cada imagen en escala de grises, se aplicó cada filtro mediante convolución bidimensional (cv2.filter2D()), obteniendo una respuesta filtrada por combinación de escala y orientación. Con el fin de construir un descriptor compacto y robusto, se extrajeron dos estadísticas por cada respuesta: el valor medio y la desviación estándar. Estos valores se concatenaron para formar un vector final de 48 características por imagen. Posteriormente, dichos vectores se almacenaron en archivos .npz separados para cada partición del dataset (train, val y test), junto con sus respectivas etiquetas y rutas de archivo
 
 ## 3.3 Clasificación con Descriptores Clásicos
+
 ### 3.3.1 SVC: Support Vector Machine
 
 La metodología aplicada en el def pipeline para procesar los descriptores, consiste en integrar descriptores de forma y textura provenientes de archivos NPZ, normalizarlos, reducir su dimensionalidad y finalmente clasificarlos mediante un modelo SVM utilizando distintos kernels en este caso: rbf, linear y poly.
@@ -452,6 +453,14 @@ Posteriormente, se aplicó una reducción de dimensionalidad mediante SelectKBes
 
 El desempeño del modelo se evaluó mediante validación cruzada estratificada de 10 particiones, registrando métricas estándar como accuracy, precisión, sensibilidad, F1-score y AUC. Luego, el modelo final se entrenó con todos los datos de entrenamiento y validación combinados, y se evaluó sobre el conjunto test independiente. Finalmente, se generaron la matriz de confusión, curvas ROC y el análisis de importancia de características, permitiendo interpretar el aporte relativo de cada descriptor en la clasificación.
 
+### 3.3.3 Convolutional Neural Networks
+En una primera etapa se entrenó una red neuronal convolucional (CNN) utilizando el conjunto de datos original, manteniendo el desbalance natural entre las clases NORMAL y PNEUMONIA. Las imágenes fueron organizadas en carpetas por clase y partición (train, val, test) y cargadas mediante ImageDataGenerator de Keras, aplicando un preprocesamiento consistente en cambio de tamaño a 256×256 píxeles, conversión a RGB y normalización de intensidades al rango [0,1]. La arquitectura de la CNN incluyó cuatro bloques convolucionales secuenciales con filtros 3×3 (32, 64, 64 y 128 filtros respectivamente), seguidos de capas de max pooling 2×2, una capa de aplanamiento (Flatten), una capa totalmente conectada de 128 neuronas con activación ReLU y Dropout del 25 %, y una capa de salida con una neurona y activación sigmoide para clasificación binaria. El modelo se compiló con el optimizador Adam (learning rate = 1×10⁻⁴) y función de pérdida binary_crossentropy, monitorizando la métrica de exactitud (accuracy). El entrenamiento se realizó durante un máximo de 20 épocas, utilizando early stopping sobre la pérdida de validación para evitar sobreajuste. Finalmente, el desempeño del modelo se evaluó sobre el conjunto de prueba mediante métricas clásicas (accuracy, sensibilidad, especificidad), matriz de confusión, reporte de clasificación y análisis de la curva ROC y el AUC.
+
+En una segunda etapa se repitió el experimento introduciendo un paso explícito de balanceo de clases en el conjunto de entrenamiento. Para ello, se listaron por separado las rutas de las imágenes de las clases NORMAL y PNEUMONIA en la partición de entrenamiento y se determinó el número mínimo de ejemplos entre ambas. A partir de este valor se generó un subconjunto balanceado mediante undersampling: se seleccionó aleatoriamente el mismo número de imágenes de cada clase, se concatenaron las rutas en un único arreglo y se asignaron etiquetas 0 (NORMAL) y 1 (PNEUMONIA). Posteriormente, se construyó un DataFrame con las columnas filename y class, que se utilizó como entrada de flow_from_dataframe para generar los lotes de entrenamiento y validación, manteniendo una partición interna del 80 % para entrenamiento y 20 % para validación.
+
+### 3.3.4  k-Nearest Neighbors (k-NN)
+
+
 # 4. Resultados y Análisis
 
 ## 4.1 Análisis Exploratorio y Preprocesamiento
@@ -484,6 +493,14 @@ Se observa una mejora en la visibilidad de estructuras anatómicas y en el contr
 
 Finalmente, se realizó la segmentación por ambos métodos y se creó el dataset del corte.
 
+Primero se utilizó umbralizacion, la cual, fue finalmente implementada de acuerdo a las formulas de la metodologia, veremos como las partes no necesarias oscurecidas por recuadros negros.
+
+A pesar de esto nos decantamos finalmente por elegir otro tipo de segmentacion, si bien la segmentacion por umbralizacion funcionaba la mayoria de los casos, notamos como en 1 de cada 10 ocasiones se presentaban huecos en la segmentacion o directamente oscurecian la mayor parte de la imagen, que se implementaban de manera extraña y obstruian el resultado final, aqui podemos ver un ejemplo de ello.
+
+![image1](./results/imagenes/segmentacion_umbralizacion.png)
+
+Luego, se uso el modelo PsNet:
+
 <p align="center">
   <img src="./results/imagenes/segmPsNet.png" width="500" />
   <img src="./results/imagenes/segmPsNet_pneu.png" width="500" />
@@ -493,15 +510,9 @@ Puede observarse que el modelo PsNet logra una segmentación superior; por ello,
 
 ![image1](./results/imagenes/imagenMaskHu.png)
 
-## 4.1.2 Segmentacion por Umbralizacion
-
-La umbralizacion fue finalmente implementada de acuerdo a las formulas de la metodologia, veremos como las partes no necesarias oscurecidas por recuadros negros.
-
-A pesar de esto nos decantamos finalmente por elegir otro tipo de segmentacion, si bien la segmentacion por umbralizacion funcionaba la mayoria de los casos, notamos como en 1 de cada 10 ocasiones se presentaban huecos en la segmentacion o diractamente oscurecian la mayor parte de la imaghen, que se implementaban de manera extraña y obstruian el resultado final, aqui podemos ver un ejemplo de ello.
-
-![image1](./results/imagenes/segmentacion_umbralizacion.png)
 
 ## 4.2 Extracción de Descriptores Clásicos
+
 ### 4.2.1 Descriptores de Forma
 
 #### 4.2.1.1 Descriptores de contorno
