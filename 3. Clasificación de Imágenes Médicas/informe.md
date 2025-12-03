@@ -830,7 +830,11 @@ Breiman, L. (2001). Random Forests. Machine Learning, 45(1), 5–32. https://doi
 
 
 # 6. Reporte de Contribución Individual
-
+| Estudiante | Aporte Personal |
+| :---- | :---- |
+| Leidy Marcela Leal Loaiza | Ejercicio de Transformaciones geométricas|
+| Juan Felipe Arbelaez | Ejercicio de Calibración de Cámara y Segmentación por colores. |
+| Bibiana Andrea Peña V | transformación de intensidades y la ecualización del histograma para mejorar el contraste de las imágenes, incluyendo la implementación y validación del procedimiento. Además, participé en la redacción del informe final y en la organización de los archivos comunes del proyecto, contribuyendo a mantener una estructura clara y coherente para el trabajo en equipo. |
 
 
 
