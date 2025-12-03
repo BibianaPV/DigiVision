@@ -276,10 +276,6 @@ Si la media de intensidades de la región blanca resulta menor que la de la regi
 
 Finalmente, la máscara se aplica a la imagen original mediante: $$Iseg(x,y) = I(x,y) * M(x,y)$$, y el resultado se normaliza usando, $$Inorm = 255 * (Iseg − Imin) / (Imax − Imin)$$, lo que asegura que la región segmentada quede dentro de un rango uniforme de intensidades, facilitando su análisis posterior.
 
-A pesar de esto nos decantamos finalmente por elegir otro tipo de segmentacion, si bien la segmentacion por umbralizacion funcionaba la mayoria de los casos, notamos como en algunas ocasiones se presentaban huecos en la segmentacion que se implementaban de manera extraña y obstruian el resultado final, aqui podemos ver un ejemplo de ello.
-
-![image1](./results/imagenes/segmentacion_umbralizacion.png)
-
 #### 3.1.2.2 Segmentación automática de los pulmones mediante un modelo PSPNet
 Para segmentar los pulmones, se utilizó un modelo PSPNet preentrenado en el conjunto ChestX-Det, disponible en la librería TorchXRayVision. Este modelo se seleccionó debido a su capacidad para detectar estructuras anatómicas en radiografías de tórax con alta precisión. El modelo produce mapas de probabilidad para diversas estructuras, entre ellas Left Lung y Right Lung, que se integran para obtener una máscara pulmonar final.
 
@@ -447,8 +443,7 @@ F1 = 2 * (Precisión * Recall) / (Precision + Recall)
 $$
 
 También se genera la matriz de confusión, para visualizar errores entre clases, y la curva ROC, cuya área bajo la curva (AUC) mide la capacidad discriminativa del modelo.
-Finalmente, el pipeline devuelve las variables principales del proceso: datos combinados, datos finales tras normalización y PCA, predicciones, métricas y matriz de confusión, permitiendo comparar el rendimiento de cada kernel de manera consistente y reproducible
-
+Finalmente, el pipeline devuelve las variables principales del proceso: datos combinados, datos finales tras normalización y PCA, predicciones, métricas y matriz de confusión, permitiendo comparar el rendimiento de cada kernel de manera consistente y reproducible.
 
 ### 3.3.2 Random Forest
 El modelo fue construido a partir de las matrices de características generadas previamente (Hu, Gabor, Fourier, GLCM, LBP y contornos). En primer lugar, se cargaron los conjuntos train, val y test, combinando los descriptores seleccionados según cada experimento. Para mejorar la comparabilidad entre características heterogéneas, todos los vectores fueron normalizados mediante MinMaxScaler, garantizando que cada variable se encontrara entre 0 y 1.
@@ -498,6 +493,14 @@ Puede observarse que el modelo PsNet logra una segmentación superior; por ello,
 
 ![image1](./results/imagenes/imagenMaskHu.png)
 
+## 4.1.2 Segmentacion por Umbralizacion
+
+La umbralizacion fue finalmente implementada de acuerdo a las formulas de la metodologia, veremos como las partes no necesarias oscurecidas por recuadros negros.
+
+A pesar de esto nos decantamos finalmente por elegir otro tipo de segmentacion, si bien la segmentacion por umbralizacion funcionaba la mayoria de los casos, notamos como en 1 de cada 10 ocasiones se presentaban huecos en la segmentacion o diractamente oscurecian la mayor parte de la imaghen, que se implementaban de manera extraña y obstruian el resultado final, aqui podemos ver un ejemplo de ello.
+
+![image1](./results/imagenes/segmentacion_umbralizacion.png)
+
 ## 4.2 Extracción de Descriptores Clásicos
 ### 4.2.1 Descriptores de Forma
 
@@ -505,6 +508,25 @@ Puede observarse que el modelo PsNet logra una segmentación superior; por ello,
 
 
 #### 4.2.1.2 Fourier Shape Descriptors 
+
+El descriptor de Fourier calculado representa la forma del objeto en la máscara binaria de manera compacta e invariante a rotación y traslación. 
+
+Los primeros coeficientes (de baja frecuencia) capturan la estructura general del contorno, mientras que los coeficientes más pequeños (de alta frecuencia) reflejan los detalles finos o irregularidades. 
+
+Al normalizar por el primer coeficiente, se elimina la escala, y al usar solo magnitudes, se asegura que la representación no dependa de la orientación del objeto. Así, el vector resultante de 20 valores resume de manera eficiente la geometría del contorno para análisis o clasificación de formas.
+
+$$
+FSD: [1, 0.20798111, 0.16755065, 0.12457743, 0.07452007, 0.0438846, 0.02566708, 0.01921481, 0.01981973, 0.0112455 , 0.00689003, 0.00988536, 0.00642878, 0.00976752, 0.00664809, 0.00710578, 0.00352025, 0.00157852, 0.00208309, 0.00229794]
+$$
+
+El vector de 20 coeficientes muestra que la forma del contorno está principalmente definida por características de baja frecuencia, capturando la estructura general del objeto.
+
+El primer valor, normalizado a 1, indica la escala de referencia, mientras que los coeficientes siguientes disminuyen rápidamente, lo que refleja que las frecuencias más altas aportan menos a la forma global. 
+Los valores pequeños hacia el final representan detalles finos y rugosidades del contorno, mostrando que la geometría general domina la representación y sólo los últimos coeficientes codifican irregularidades menores.
+
+Hay una forma en la cual es posible visualizar las formas que se crean con los datos de fourier, si bien esto finalmente tiene un menor impacto ya que, lo importante son los datos extraidos para su procesamiento posterior esta visualizacion nos da una idea de las formas que se crean a partir de las imagenes originales.
+
+![image1](./results/imagenes/visualizacion_Fourier.png)
 
 #### 4.2.1.3 Momentos Hu
 Para los momentos de Hu se utilizaron las máscaras pulmonares, se obtiene como ejemplo:
@@ -545,6 +567,28 @@ Finalmente, se guardan para train/test/val.
 #### 4.2.2.1 Local Binary Patterns (LBP)
  
 #### 4.2.2.2 Gray Level Co-ocurrence Matrix (GLCM)
+
+En las cinco imágenes analizadas de pulmones normales, los valores de correlación permanecen altos (entre 0.91 y 0.98 en la mayoría de los casos), lo cual indica una fuerte relación lineal entre los pares de píxeles. Por lo que podemos intuir que esto es típico en regiones pulmonares sanas por lo menos detectadas con GLMC, donde la distribución de intensidades cambia suavemente y no existen patrones abruptos.
+El contraste, que mide la variación local, se mantiene mayormente bajo en las primeras mediciones (≈ 0.8 a 2.5) y solo aumenta en las últimas filas (≈ 4 a 7). La energía, asociada al orden y repetición de patrones, se encuentra en rangos moderados a altos (≈ 0.58 a 0.74) y parece mantenerse estable durante las 5 imágenes. La homogeneidad, que evalúa qué tan uniforme es la matriz de coocurrencias, también se mantiene elevada (≈ 0.82 a 0.91 en la mayoría de los desplazamientos). Estos comportamientos podrían intuir la presencia de un pulmón sano ya que no difieren tanto como lo veremos en las de neumonía.
+
+En conjunto, los cinco casos presentan un patrón muy similar: alta correlación, homogeneidad elevada, energía moderada-alta y contraste bajo en los primeros desplazamientos y mayor en los últimos.
+
+Los valores obtenidos a partir de los descriptores GLCM para las 5 imágenes con neumonía muestran unos resultados más irregulares en comparación con las imágenes de pulmones normales. En la mayoría de las muestras, los valores de contraste son más elevados y varían en rangos amplios. 
+
+Mientras que las primeras filas muestran contrastes relativamente bajos (≈ 0.5 a 2), las últimas mediciones aumentan notablemente (≈ 3 a 9). Podemos concluir que esto se debe a los posibles cambios en las texturas que puedan presentar los pulmones debido a la gravedad de la enfermedad.
+
+La correlación, aunque aún presenta valores relativamente altos en algunos desplazamientos (≈ 0.94 a 0.98), disminuye más frecuentemente que en los casos normales, llegando incluso a valores alrededor de 0.78 a 0.84 en las filas donde el contraste es mayor. Esta reducción indica que los pares de píxeles presentan menor relación lineal, En cuanto a la energía, los valores promedio (≈ 0.52 a 0.63) son consistentemente más bajos que los observados en pulmones normales. La homogeneidad también presenta valores reducidos, especialmente en los últimos desplazamientos, donde oscila entre 0.70 y 0.80. En imágenes normales, la homogeneidad típica supera el 0.85–0.90.
+
+En conjunto, las imágenes con neumonía muestran un patrón claro: contraste más alto, correlación más variable, energía más baja y homogeneidad reducida.
+
+Podemos entonces concluir que los pulmones normales plantean valores más consistentes aunque no iguales entre sí, pero cuando pasamos a hablar de una neumonía que puede tener distintas causas y posibles afectaciones dependiendo de la persona, veremos cómo ciertos valores son más erráticos entre las distintas imágenes de las 5 muestras. 
+
+| Descriptor   | Imagen Normal | Imagen con Neumonía |
+|--------------|---------------|---------------------|
+| Contraste    | ~4.12         | ~7.62               |
+| Correlación  | ~0.81         | ~0.82               |
+| Energía      | ~0.71         | ~0.50               |
+| Homogeneidad | ~0.82         | ~0.70               |
 
 #### 4.2.2.3 Filtros de Gabor
 El banco de filtros Gabor utilizado estuvo compuesto por 12 kernels generados mediante la combinación de tres longitudes de onda (λ = 4, 8 y 16) y cuatro orientaciones (θ = 0°, 45°, 90° y 135°), con un tamaño fijo de 31×31 píxeles. Para cada combinación de parámetros, se construyó un kernel conforme a la función Gabor clásica, los parámetros sigma = 0.56·λ, gamma = 0.5 y psi = 0 se mantuvieron constantes para asegurar una respuesta estable entre escalas. Este banco de filtros permitió capturar información textural a múltiples escalas y orientaciones, produciendo un total de 48 características por imagen (media y desviación estándar de cada respuesta filtrada).
