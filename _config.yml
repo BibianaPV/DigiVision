@@ -8,5 +8,5 @@ exclude:
   - /proyecto1/README.md
   - /proyecto-registro-imagenes/Informe2.md
   - /proyecto-registro-imagenes/README.md
-  - /3.Clasificación de Imágenes Médicas/informe.md
-  - /3.Clasificación de Imágenes Médicas/README.md
+  - "3.Clasificación de Imágenes Médicas/informe.md"
+  - "3.Clasificación de Imágenes Médicas/README.md"
