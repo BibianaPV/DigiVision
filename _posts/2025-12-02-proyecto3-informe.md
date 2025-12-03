@@ -99,7 +99,7 @@ date: 2025-12-02
 <!-- Contenido principal -->
 <div markdown="1" class="post-content">
 
-# **Informe Proyecto 3 **
+# Informe Proyecto 3 
 
 # 1\.Introducción
 La clasificación automática de imágenes médicas se ha convertido en un apoyo importante para el diagnóstico clínico, especialmente en situaciones donde es necesario identificar patologías a partir de estudios de imágenes. En el caso de las radiografías de tórax, reconocer de manera temprana condiciones como la neumonía es clave en términos de salúd pública. Tradicionalmente, los procesos computacionales se han basado en descriptores de forma, textura e intensidad diseñados manualmente, combinados con clasificadores clásicos como SVM, k-NN o Random Forest. Sin embargo, el avance de la redes neuronales convolucionales (CNN) en los últimos años ha cambiado este panorama, ya que permiten aprender directamente de los datos y superando en muchos casos el desempeño de los métodos clásicos. 
@@ -225,7 +225,7 @@ g(x, y) =
 \exp\left(
 -\frac{x'^{2} + \gamma^{2} y'^{2}}{2\sigma^{2}}
 \right)
-\*
+*
 \cos\left(
 2\pi \frac{x'}{\lambda} + \psi
 \right)
@@ -297,7 +297,7 @@ $$
 $$
 
 
-donde \; T_b(x) \; \text{es la predicción del árbol } b.
+donde T_b(x) es la prediccion del arbol b.
 
 
 En regresión, se toma el promedio:
@@ -321,7 +321,7 @@ Tras cada convolución se aplica una función de activación, habitualmente ReLU
 En la etapa final, las características extraídas se introducen en capas completamente conectadas que realizan la clasificación mediante la función softmax. El entrenamiento se lleva a cabo minimizando la pérdida de entropía cruzada mediante descenso de gradiente, ajustando los pesos del modelo para mejorar la predicción.
 
 <p align="center">
-  <img src="./results/imagenes/CNN.png" alt="image1" />
+  <img src="/DigiVision/3. Clasificación de Imágenes Médicas/results/imagenes/CNN.png" alt="image1" />
 </p>
 (Srivastava et al., 2022)
 
@@ -424,8 +424,14 @@ $$
 
 Eliminando así la dependencia de la posición dentro de la imagen. Se aplica la transformada discreta de Fourier $$Zn = sum{k=0}^{N-1} zk * exp(-i * 2 * pi * n * k / N)$$, que descompone el contorno en diferentes **“frecuencias de forma”**.
 
-Se seleccionan los primeros n descriptores, coeficientes de baja frecuencia (excluyendo el término DC) y se normalizan por la magnitud del primer coeficiente $$Zn ← Zn / |Z1|$$.
-Dependiendo de la opción, se puede usar solo la magnitud features = |Zn| para que los descriptores sean invariantes a la rotación, o conservar la fase features = [Re(Zn), Im(Zn)] para mantener información de orientación.
+Se seleccionan los primeros n descriptores, correspondientes a los coeficientes de baja frecuencia
+(excluyendo el término DC), y luego se normalizan usando la magnitud del primer coeficiente:
+
+$$
+Z_n = Z_n \, / \, |Z_1|
+$$
+
+Dependiendo de la opción elegida, se pueden usar solo las magnitudes features = |Z_n| para obtener descriptores invariantes a la rotación, o conservar la fase utilizando features = [ Re(Z_n), Im(Z_n) ] para mantener la información de orientación.
 
 El resultado es un vector compacto que representa la forma del objeto, que utilizaremos para comparar y clasificar contornos en análisis de imágenes médicas, evaluando los posibles cambios que puedan surgir en radiografías futuras.
 
@@ -524,9 +530,19 @@ Que separe correctamente los datos, o bien, mediante un kernel, transformarlos a
 
 **Linear: separación por hiperplano directo.**
 
-**RBF: utiliza $$K(xᵢ, xⱼ) = exp(−γ ||xᵢ − xⱼ||²)$$, permitiendo fronteras no lineales.**
+**RBF: utiliza**  
+$$
+K(x_i, x_j) = \exp(-\gamma \, ||x_i - x_j||^2)
+$$  
+**lo que permite fronteras no lineales.**
 
-**Poly: $$K(xᵢ, xⱼ) = (γ xᵢ·xⱼ + r)^d$$, que modela relaciones polinomiales.**
+
+**Poly:**  
+$$
+K(x_i, x_j) = (\gamma\, x_i x_j + r)^d
+$$  
+**modela relaciones polinomiales.**
+
 
 La evaluación se realiza mediante validación cruzada de 5 particiones, asegurando que cada fold mantiene la proporción de clases. En cada partición se obtienen predicciones y probabilidades (para la curva ROC). Con ellas se calculan las métricas:
 
@@ -570,27 +586,27 @@ En una segunda etapa se repitió el experimento introduciendo un paso explícito
 
 Primero se realizón la observación del dataset:
 <p align="center">
-  <img src="./results/imagenes/normal.png" width="500" />
-  <img src="./results/imagenes/neumonia.png" width="500" />
+  <img src="/DigiVision/3. Clasificación de Imágenes Médicas/results/imagenes/normal.png" width="500" />
+  <img src="/DigiVision/3. Clasificación de Imágenes Médicas/results/imagenes/neumonia.png" width="500" />
 </p>
 
 Las imágenes del dataset presentan variabilidad en contraste, resolución y condiciones clínicas. El conjunto incluye casos NORMAL, donde la anatomía pulmonar se observa sin alteraciones, y casos PNEUMONIA, caracterizados por opacidades pulmonares, consolidaciones y patrones compatibles con infección.
 
 Luego, La distribución de clases
 
-![image1](./results/imagenes/distClas.png)
+![image1](/DigiVision/3.%20Clasificaci%C3%B3n%20de%20Im%C3%A1genes%20M%C3%A9dicas/results/imagenes/distClas.png)
 
 Donde puede observarse que para el entrenamiento el conjunto de datos está bastante desbalanceado con un R=2.89, lo que implica que por cada imagen NORMAL hay aproximadamente 2.9 imágenes con PNEUMONIA. 
 
 Posteriormente, se analizó la distribución de tamaños del dataset. 
 
-![image1](./results/imagenes/distSize.png)
+![image1](/DigiVision/3.%20Clasificaci%C3%B3n%20de%20Im%C3%A1genes%20M%C3%A9dicas/results/imagenes/distSize.png)
 
 Existe una gran variabilidad en estos, por lo que se considera reescalar todas las imágenes a 256 x 256 conservando la información clínica. 
 
 De esta manera, se inicia con el pipeline de preprocesamiento. primero el reescalado y luego la aplicación del CLAHE.
 
-![image1](./results/imagenes/CLAHE.png)
+![image1](/DigiVision/3.%20Clasificaci%C3%B3n%20de%20Im%C3%A1genes%20M%C3%A9dicas/results/imagenes/CLAHE.png)
 
 Se observa una mejora en la visibilidad de estructuras anatómicas y en el contraste.
 
@@ -600,18 +616,18 @@ Primero se utilizó umbralizacion, la cual, fue finalmente implementada de acuer
 
 A pesar de esto nos decantamos finalmente por elegir otro tipo de segmentacion, si bien la segmentacion por umbralizacion funcionaba la mayoria de los casos, notamos como en 1 de cada 10 ocasiones se presentaban huecos en la segmentacion o directamente oscurecian la mayor parte de la imagen, que se implementaban de manera extraña y obstruian el resultado final, aqui podemos ver un ejemplo de ello.
 
-![image1](./results/imagenes/segmentacion_umbralizacion.png)
+![image1](/DigiVision/3.%20Clasificaci%C3%B3n%20de%20Im%C3%A1genes%20M%C3%A9dicas/results/imagenes/segmentacion_umbralizacion.png)
 
 Luego, se uso el modelo PsNet:
 
 <p align="center">
-  <img src="./results/imagenes/segmPsNet.png" width="500" />
-  <img src="./results/imagenes/segmPsNet_pneu.png" width="500" />
+  <img src="/DigiVision/3. Clasificación de Imágenes Médicas/results/imagenes/segmPsNet.png" width="500" />
+  <img src="/DigiVision/3. Clasificación de Imágenes Médicas/results/imagenes/segmPsNet_pneu.png" width="500" />
 </p>
 
 Puede observarse que el modelo PsNet logra una segmentación superior; por ello, se seleccionaron estas imágenes para la extracción de descriptores y el entrenamiento de los clasificadores.
 
-![image1](./results/imagenes/imagenMaskHu.png)
+![image1](/DigiVision/3.%20Clasificaci%C3%B3n%20de%20Im%C3%A1genes%20M%C3%A9dicas/results/imagenes/imagenMaskHu.png)
 
 
 ## 4.2 Extracción de Descriptores Clásicos
@@ -640,19 +656,19 @@ Los valores pequeños hacia el final representan detalles finos y rugosidades de
 
 Hay una forma en la cual es posible visualizar las formas que se crean con los datos de fourier, si bien esto finalmente tiene un menor impacto ya que, lo importante son los datos extraidos para su procesamiento posterior esta visualizacion nos da una idea de las formas que se crean a partir de las imagenes originales.
 
-![image1](./results/imagenes/visualizacion_Fourier.png)
+![image1](/DigiVision/3.%20Clasificaci%C3%B3n%20de%20Im%C3%A1genes%20M%C3%A9dicas/results/imagenes/visualizacion_Fourier.png)
 
 #### 4.2.1.3 Momentos Hu
 Para los momentos de Hu se utilizaron las máscaras pulmonares, se obtiene como ejemplo:
 
-![image1](./results/imagenes/hu_normal_mask.png)
+![image1](/DigiVision/3. Clasificación de Imágenes Médicas/results/imagenes/hu_normal_mask.png)
 
 $$
 \text{Hu}_{\text{log}}(\text{NORMAL}) =
 [\, 3.09518535,\; 7.74283017,\; 9.91124263,\; 11.36732456,\; -12,\; -11.99984012,\; -12 \,]
 $$
 
-![image1](./results/imagenes/imagenMaskHu.png)
+![image1](/DigiVision/3. Clasificación de Imágenes Médicas/results/imagenes/imagenMaskHu.png)
 
 $$
 Hu_{log}(PNEUMONIA) =
@@ -664,15 +680,15 @@ Posteriormente se guardan todos los momentos para train/test/val.
 #### 4.2.1.4 Histogram of Oriented Gradients (HOG)
 Primero se obtuvieron los descriptores con las imágenes completas y se observó que algunas características, como el texto en las imágenes, generaban descriptores fuertes. 
 
-![image1](./results/imagenes/comparacionParametrosHOG.png)
+![image1](/DigiVision/3.%20Clasificaci%C3%B3n%20de%20Im%C3%A1genes%20M%C3%A9dicas/results/imagenes/comparacionParametrosHOG.png)
 
 Por tal motivo, se realizó de nuevo utilizando la zona específica de los pulmones.
 
-![image1](./results/imagenes/comparacionParametrosCropHOG.png)
+![image1](/DigiVision/3.%20Clasificaci%C3%B3n%20de%20Im%C3%A1genes%20M%C3%A9dicas/results/imagenes/comparacionParametrosCropHOG.png)
 
 Posteriormente, se obtuvo el descriptor para ambas clases considerando los mejores paámetros: 
 
-![image1](./results/imagenes/comparacionCropHOG.png)
+![image1](/DigiVision/3.%20Clasificaci%C3%B3n%20de%20Im%C3%A1genes%20M%C3%A9dicas/results/imagenes/comparacionCropHOG.png)
 
 Finalmente, se guardan para train/test/val.
 
@@ -707,7 +723,7 @@ Podemos entonces concluir que los pulmones normales plantean valores más consis
 #### 4.2.2.3 Filtros de Gabor
 El banco de filtros Gabor utilizado estuvo compuesto por 12 kernels generados mediante la combinación de tres longitudes de onda (λ = 4, 8 y 16) y cuatro orientaciones (θ = 0°, 45°, 90° y 135°), con un tamaño fijo de 31×31 píxeles. Para cada combinación de parámetros, se construyó un kernel conforme a la función Gabor clásica, los parámetros sigma = 0.56·λ, gamma = 0.5 y psi = 0 se mantuvieron constantes para asegurar una respuesta estable entre escalas. Este banco de filtros permitió capturar información textural a múltiples escalas y orientaciones, produciendo un total de 48 características por imagen (media y desviación estándar de cada respuesta filtrada).
 
-![image1](./results/imagenes/comparacionGabor.png)
+![image1](/DigiVision/3.%20Clasificaci%C3%B3n%20de%20Im%C3%A1genes%20M%C3%A9dicas/results/imagenes/comparacionGabor.png)
 
 
 Finalmente, se guardan los descriptores para todo el dataset.
@@ -887,15 +903,15 @@ Se obtienen las siguientes métricas:
 
 El mejor comportamiento corresponde a Fourier + GLCM, que logra el equilibrio más adecuado entre sensibilidad y especificidad. Hu+Gabor resulta ideal para maximizar la detección de neumonía, pero genera más falsos positivos. Contorno+LBP aporta información limitada y es menos efectivo como descriptor principal. Se muestra mejor en la matriz de confusión:
 
-![image1](./results/imagenes/comparacionMatrizConfRF.png)
+![image1](/DigiVision/3.%20Clasificaci%C3%B3n%20de%20Im%C3%A1genes%20M%C3%A9dicas/results/imagenes/comparacionMatrizConfRF.png)
 
 Fourier + GLCM ofrece el mejor equilibrio entre sensibilidad y especificidad.  Hu + Gabor maximiza la detección de neumonía pero penaliza la clase normal.  Contorno + LBP muestra el rendimiento más bajo, especialmente en la correcta identificación de casos normales.
 
-![image1](./results/imagenes/comparacionROCRF.png)
+![image1](/DigiVision/3.%20Clasificaci%C3%B3n%20de%20Im%C3%A1genes%20M%C3%A9dicas/results/imagenes/comparacionROCRF.png)
 
 Por otro lado, las curvas ROC obtenidas muestran diferencias importantes en la capacidad discriminativa de cada conjunto de descriptores evaluado. El valor AUC resume esta capacidad global del modelo para separar las clases NORMAL y PNEUMONIA.Fourier + GLCM obtiene el mejor desempeño global (AUC = 0.85) y es la combinación más eficaz para discriminar entre NORMAL y PNEUMONIA. Hu + Gabor alcanza un AUC intermedio (0.80), destacando por su alta sensibilidad. Contorno + LBP presenta la menor capacidad discriminativa (AUC = 0.74).
 
-![image1](./results/imagenes/comparacionTOPRF.png)
+![image1](/DigiVision/3.%20Clasificaci%C3%B3n%20de%20Im%C3%A1genes%20M%C3%A9dicas/results/imagenes/comparacionTOPRF.png)
 
 Finalmente, en el Top 10 de descriptores Fourier + GLCM presenta la distribución más equilibrada y estructurada de características importantes, lo que respalda su buen desempeño. Hu + Gabor utiliza múltiples patrones texturales, lo que explica su alta sensibilidad. Contorno + LBP depende excesivamente de una sola característica dominante, indicando menor riqueza descriptiva y menor capacidad de generalización. 
 
