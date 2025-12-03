@@ -30,6 +30,8 @@ $$
 
 #### 2.2.1.1 Descriptores de contorno
 
+
+
 #### 2.2.1.2 Fourier Shape Descriptors 
 
 Los descriptores de forma de Fourier permiten representar matemáticamente el contorno de un objeto transformándolo en una señal compleja.
