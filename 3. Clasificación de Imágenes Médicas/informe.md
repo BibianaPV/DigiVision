@@ -796,11 +796,28 @@ Por otro lado, las curvas ROC obtenidas muestran diferencias importantes en la c
 
 Finalmente, en el Top 10 de descriptores Fourier + GLCM presenta la distribución más equilibrada y estructurada de características importantes, lo que respalda su buen desempeño. Hu + Gabor utiliza múltiples patrones texturales, lo que explica su alta sensibilidad. Contorno + LBP depende excesivamente de una sola característica dominante, indicando menor riqueza descriptiva y menor capacidad de generalización. 
 
- 
- 
- 
- 
- 
+### 4.3.3 Convolutional Neural Networks
+
+![image1](./results/imagenes/lossCNN.png)
+
+Las curvas de entrenamiento muestran que el modelo alcanza una alta precisión tanto en entrenamiento como en validación, superando el 95 %. La pérdida disminuye de forma consistente y se mantiene baja en ambos conjuntos, aunque con ligeras oscilaciones en validación. La cercanía entre las curvas de accuracy y loss indica buena generalización y ausencia de sobreajuste significativo. En conjunto, el modelo aprende de manera estable.
+
+| Clase             | Precisión | Recall | F1-score | Soporte |
+| ----------------- | --------- | ------ | -------- | ------- |
+| **0 (Normal)**    | 0.42      | 0.22   | 0.29     | 234     |
+| **1 (Pneumonia)** | 0.64      | 0.82   | 0.72     | 390     |
+| **Accuracy**      | —         | —      | **0.59** | 624     |
+| **Macro avg**     | 0.53      | 0.52   | 0.50     | 624     |
+| **Weighted avg**  | 0.56      | 0.59   | 0.56     | 624     |
+
+Por otro lado, en el score el modelo muestra un rendimiento moderado con una accuracy global del 59 %, lo que indica dificultades para generalizar en datos no vistos. La clase Pneumonia obtiene mejores resultados (recall = 0.82, f1-score = 0.72), lo que significa que el modelo identifica correctamente la mayoría de los casos positivos. Sin embargo, el desempeño en la clase Normal es bajo (recall = 0.22), revelando que el modelo tiende a clasificar erróneamente radiografías normales como neumonía.
+
+<p align="center">
+  <img src="./results/imagenes/matrizCNN.png" width="500" />
+  <img src="./results/imagenes/ROCCNN.png" width="500" />
+</p>
+
+El desequilibrio entre clases y la mayor variabilidad visual en la categoría Normal contribuyen a esta asimetría. Esto se observa también en la diferencia entre las métricas macro y weighted, lo que confirma que la clase mayoritaria domina el aprendizaje. En conjunto, el modelo es sensible para detectar neumonía, pero presenta baja especificidad y requiere técnicas adicionales de balanceo, aumento de datos o ajuste de arquitectura para mejorar la discriminación entre clases. Esto se puede evidenciar  mejor en la matriz de confusión, donde se tiene una mayor cantidad de falsos positivos.
 
 
 # 5. Referencias Bibliográficas
