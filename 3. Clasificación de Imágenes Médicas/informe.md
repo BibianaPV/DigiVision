@@ -819,6 +819,9 @@ Por otro lado, en el score el modelo muestra un rendimiento moderado con una acc
 
 El desequilibrio entre clases y la mayor variabilidad visual en la categoría Normal contribuyen a esta asimetría. Esto se observa también en la diferencia entre las métricas macro y weighted, lo que confirma que la clase mayoritaria domina el aprendizaje. En conjunto, el modelo es sensible para detectar neumonía, pero presenta baja especificidad y requiere técnicas adicionales de balanceo, aumento de datos o ajuste de arquitectura para mejorar la discriminación entre clases. Esto se puede evidenciar  mejor en la matriz de confusión, donde se tiene una mayor cantidad de falsos positivos.
 
+4.4 Conclusiones de los Resultados
+
+Basados en los resultados obtenidos con los diferentes modelos podriamos intuir que una combinacion de Fourier y GLCM, presenta por lo menos con este conjunto de datos los resultados estables y que parecen mantenerse a pesar del cambio de patrones de clasificacion, es uno de los que se mantiene mas estable de los que hemos trabajado en este informe, respecto a SVC, este ejercicio nos ha demostrado que el kernel de poly parace no funcionar con la mejor eficacia ya que tiende a sobreajustar todos los descriptores y presenta inconsistencias donde linear y rbf a pesar de resultados diferentes, parece mantenerse estable en la mayor parte de los datos.
 
 # 5. Referencias Bibliográficas
 Hu, M.-K. (1962). “Visual pattern recognition by moment invariants.” IRE Transactions on Information Theory, 8(2), 179–187. https://doi.org/10.1109/TIT.1962.1057692
