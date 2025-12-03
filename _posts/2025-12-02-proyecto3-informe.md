@@ -879,6 +879,7 @@ Normalización: MinMaxScaler()
  Escala cada característica al rango [0, 1], evitando que descriptores de distinta magnitud dominen el clasificador.
 
 Se usó SelectKBest(f_classif) con distintos valores de k según la combinación de descriptores:
+
 | **Combinación**     | **k seleccionado** |
 |----------------------|--------------------|
 | Hu + Gabor           | k = 30             |
