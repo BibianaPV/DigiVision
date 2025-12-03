@@ -837,7 +837,7 @@ Le Mercier, A. (2025). All Best Tabular Classifiers - Comparative Study [Cuadern
 | :---- | :---- |
 | Leidy Marcela Leal Loaiza | Ejercicio de Transformaciones geométricas|
 | Juan Felipe Arbelaez | Segmentacion con Umbralizacion, descriptores de forma (Fourier), descriptores de textura GLMC, Clasificacion SVC y aporte al informe.md |
-| Bibiana Andrea Peña V | transformación de intensidades y la ecualización del histograma para mejorar el contraste de las imágenes, incluyendo la implementación y validación del procedimiento. Además, participé en la redacción del informe final y en la organización de los archivos comunes del proyecto, contribuyendo a mantener una estructura clara y coherente para el trabajo en equipo. |
+| Bibiana Andrea Peña V | Preprocesamiento y segmentación con PsNet, descriptores de forma (Hu y HOG), descriptores de textura (filtros de Gabor), clasificación Random Forest y CNN. Además, participé en la redacción del informe final y en la organización de los archivos comunes del proyecto, contribuyendo a mantener una estructura clara y coherente para el trabajo en equipo. |
 
 
 
