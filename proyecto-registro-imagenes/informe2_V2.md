@@ -256,9 +256,24 @@ $$
 
 De donde,
 
+$$
+\frac{\partial k}{\partial L} = \frac{1}{N}
+$$
 
+$$
+\frac{\partial k}{\partial N} = -\frac{L}{N^2}
+$$
 
+Por tanto,
 
+$$
+u_k = \sqrt{
+\frac{u_L^2}{N^2} +
+\frac{L^2}{N^4}u_N^2
+}
+$$
+
+Ahora bien, si consideramos 
 
 
 ![image15](./results/03_Calibracion_y_Medicion/chair_Img1.png)
