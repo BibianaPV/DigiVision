@@ -239,6 +239,10 @@ $$
 
 Ambos métodos presentan sin embargo un desfase, ya que estamos hablando de imágenes digitales tenemos el problema que la calidad de la imagen afectará donde comienza un objeto que buscamos medir, siempre habrá un desfase ya que estamos hablando de una representación digital y el margen de error dependerá en gran medida de la calidad tanto de la imagen como de la detección, en el caso del cuadro la detección de bordes lo hará en base a la calidad de la imagen y en el caso manual a la precisión.
 
+Para el análisis de incertidumbre se consideró la propagación de incertidumbre de primer orden para variables independientes:
+
+
+
 
 
 ![image15](./results/03_Calibracion_y_Medicion/chair_Img1.png)
