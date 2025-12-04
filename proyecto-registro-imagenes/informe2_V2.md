@@ -278,10 +278,17 @@ u_N = 1\ px, \qquad u_L = 0.1\ cm
 $$
 
 $$
-\[
 k = 0.3846\ \text{cm/pixel} \ \pm\ 0.0013\ \text{cm/pixel}
-\]
 $$
+
+Para realizar medidas utilizando esta calibración podemos tomar,
+
+$$
+x = k * n
+$$
+
+
+
 
 ![image15](./results/03_Calibracion_y_Medicion/chair_Img1.png)
 
