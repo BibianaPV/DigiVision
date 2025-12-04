@@ -3,6 +3,12 @@ layout: post
 title: "Proyecto2 Informe V2"
 date: 2025-12-04
 ---
+<!-- Activar MathJax en Minima -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+
 <style>
 .post-title { display: none; }
 .page-content {
@@ -92,7 +98,7 @@ date: 2025-12-04
 <!-- Contenido principal -->
 <div markdown="1" class="post-content">
 
-# **Informe Proyecto 2: Registro de imágenes**
+# **Informe Proyecto 2: Registro de imágenes V2**
 
 # 1\.Introducción
 
@@ -303,13 +309,142 @@ En la calibracion y medicion encontramos que tanto el método de medir manualmen
 
 ![image13](/DigiVision/proyecto-registro-imagenes/results/03_Calibracion_y_Medicion/border_Img2.png)
 
+**Calculo realizado con deteccion de bordes del cuadro**
+
+$$
+Largo\_detectado: \ 217.70\ px = 117.0\ cm
+$$
+
+
+ $$
+Escala:\ k = 0.5374\ cm/px
+$$
+
+
 Manualmente es más sencillo y más preciso, la única parte compleja se basa en encontrar los dos puntos adecuados.
 
 ![image14](/DigiVision/proyecto-registro-imagenes/results/03_Calibracion_y_Medicion/print_Img1.png)
 
+**Calculo realizando al seleccionar 2 puntos en la imagen**
+
+**Distancia entre punto A y punto B: 304.29**
+
+$$
+Largo\_detectado:\ 304.29\ px = 117.0\ cm
+$$
+
+
+$$
+Escala:\ k = 0.3845\ cm/px
+$$
+
+
 Ambos métodos presentan sin embargo un desfase, ya que estamos hablando de imágenes digitales tenemos el problema que la calidad de la imagen afectará donde comienza un objeto que buscamos medir, siempre habrá un desfase ya que estamos hablando de una representación digital y el margen de error dependerá en gran medida de la calidad tanto de la imagen como de la detección, en el caso del cuadro la detección de bordes lo hará en base a la calidad de la imagen y en el caso manual a la precisión.
 
+Para el análisis de incertidumbre se consideró la propagación de incertidumbre de primer orden para variables independientes, donde:
+
+$$
+k = \frac{L}{N}\ cm/px
+$$
+
+$$
+u_k^2 = 
+\left( \frac{\partial L}{\partial k} \right)^2 u_L^2
++
+\left( \frac{\partial N}{\partial k} \right)^2 u_N^2
+$$
+
+De donde,
+
+$$
+\frac{\partial k}{\partial L} = \frac{1}{N}
+$$
+
+$$
+\frac{\partial k}{\partial N} = -\frac{L}{N^2}
+$$
+
+Por tanto,
+
+$$
+u_k = \sqrt{
+\frac{u_L^2}{N^2} +
+\frac{L^2}{N^4}u_N^2
+}
+$$
+
+Ahora bien, si consideramos 
+
+$$
+u_N = 1\ px, \qquad u_L = 0.1\ cm
+$$
+
+$$
+k = 0.385\ \text{cm/pixel} \ \pm\ 0.001\ \text{cm/pixel}
+$$
+
+Para realizar medidas utilizando esta calibración podemos tomar,
+
+$$
+x = k * n
+$$
+
+La determinación de la incertidumbre de x,
+
+$$
+u_x^2 =
+\left(\frac{\partial x}{\partial k}\right)^2 u_k^2 +
+\left(\frac{\partial x}{\partial n}\right)^2 u_n^2
+$$
+
+derivadas,
+
+$$
+\frac{\partial x}{\partial k} = n
+\frac{\partial x}{\partial n} = k
+$$
+
+Así,
+
+$$
+u_x =
+\sqrt{
+n^2 u_k^2 +
+k^2 u_n^2
+}
+$$
+
+De esta manera podemos aproximar:
+
 ![image15](/DigiVision/proyecto-registro-imagenes/results/03_Calibracion_y_Medicion/chair_Img1.png)
+
+Alto de la silla en pixeles: 361.33
+
+$$
+\[
+x = 138.5\ \text{cm} \ \pm\ 0.6\ \text{cm}
+\]
+$$
+
+![image15](/DigiVision/proyecto-registro-imagenes/results/03_Calibracion_y_Medicion/table_img1.png)
+
+Largo de la mesa en pixeles: 262.94
+
+$$
+\[
+x = 101.2\ \text{cm} \ \pm\ 0.5\ \text{cm}
+\]
+$$
+
+![image15](/DigiVision/proyecto-registro-imagenes/results/03_Calibracion_y_Medicion/window_Img1.png)
+
+Largo de la ventana en pixeles: 138.03
+
+$$
+\[
+x = 53.1\ \text{cm} \ \pm\ 0.4\ \text{cm}
+\]
+$$
 
 # 5\. Conclusiones
 
