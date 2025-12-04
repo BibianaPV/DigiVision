@@ -215,7 +215,7 @@ $$
 
 
  $$
-Escala:\ k = 1.8607\ px/cm
+Escala:\ k = 0.5374\ cm/px
 $$
 
 
@@ -233,7 +233,7 @@ $$
 
 
 $$
-Escala:\ k = 2.6008\ px/cm
+Escala:\ k = 0.3845\ cm/px
 $$
 
 
