@@ -312,6 +312,7 @@ k^2 u_n^2
 }
 $$
 
+De esta manera podemos aproximar:
 
 ![image15](./results/03_Calibracion_y_Medicion/chair_Img1.png)
 
