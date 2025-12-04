@@ -207,13 +207,30 @@ En la calibracion y medicion encontramos que tanto el método de medir manualmen
 
 ![image13](./results/03_Calibracion_y_Medicion/border_Img2.png)
 
+**Calculo realizado con deteccion de bordes del cuadro**
+
+Largo_Detectado: 217.70 pixeles = 117.0 cm
+
+Escala: 1.8607 px_por_cm  |  0.5374 cm_por_px
+
 Manualmente es más sencillo y más preciso, la única parte compleja se basa en encontrar los dos puntos adecuados.
 
 ![image14](./results/03_Calibracion_y_Medicion/print_Img1.png)
 
+**Calculo realizando al seleccionar 2 puntos en la imagen**
+
+**Distancia entre punto A y punto B: 304.29**
+
+Largo detectado: 304.29 px = 117.0 cm
+
+Escala: 2.6008 px por cm  |  0.3845 cm por px
+
 Ambos métodos presentan sin embargo un desfase, ya que estamos hablando de imágenes digitales tenemos el problema que la calidad de la imagen afectará donde comienza un objeto que buscamos medir, siempre habrá un desfase ya que estamos hablando de una representación digital y el margen de error dependerá en gran medida de la calidad tanto de la imagen como de la detección, en el caso del cuadro la detección de bordes lo hará en base a la calidad de la imagen y en el caso manual a la precisión.
 
 ![image15](./results/03_Calibracion_y_Medicion/chair_Img1.png)
+
+Distancia de la silla en pixeles: 361.33
+Alto de la silla: 138.93239357139166 cm
 
 # 5\. Conclusiones
 
