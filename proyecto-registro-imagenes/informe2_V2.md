@@ -278,7 +278,7 @@ u_N = 1\ px, \qquad u_L = 0.1\ cm
 $$
 
 $$
-k = 0.3846\ \text{cm/pixel} \ \pm\ 0.0013\ \text{cm/pixel}
+k = 0.385\ \text{cm/pixel} \ \pm\ 0.001\ \text{cm/pixel}
 $$
 
 Para realizar medidas utilizando esta calibración podemos tomar,
@@ -287,26 +287,63 @@ $$
 x = k * n
 $$
 
+La determinación de la incertidumbre de x,
 
+$$
+u_x^2 =
+\left(\frac{\partial x}{\partial k}\right)^2 u_k^2 +
+\left(\frac{\partial x}{\partial n}\right)^2 u_n^2
+$$
 
+derivadas,
+
+$$
+\frac{\partial x}{\partial k} = n
+\frac{\partial x}{\partial n} = k
+$$
+
+Así,
+
+$$
+u_x =
+\sqrt{
+n^2 u_k^2 +
+k^2 u_n^2
+}
+$$
+
+De esta manera podemos aproximar:
 
 ![image15](./results/03_Calibracion_y_Medicion/chair_Img1.png)
 
-Distancia de la silla en pixeles: 361.33
+Alto de la silla en pixeles: 361.33
 
-Alto de la silla: 138.93239357139166 cm
+$$
+\[
+x = 138.5\ \text{cm} \ \pm\ 0.6\ \text{cm}
+\]
+$$
 
 ![image15](./results/03_Calibracion_y_Medicion/table_img1.png)
 
-Distancia de la mesa en pixeles: 262.94
+Largo de la mesa en pixeles: 262.94
 
-Largo de la mesa: 101.10240151717166 cm
+$$
+\[
+x = 101.2\ \text{cm} \ \pm\ 0.5\ \text{cm}
+\]
+$$
 
-![image15](./results/03_Calibracion_y_Medicion/window_Img2.png)
+![image15](./results/03_Calibracion_y_Medicion/window_Img1.png)
 
-Largo de la ventana: 34.30548897239918 cm
+Largo de la ventana en pixeles: 138.03
 
-Alto de la ventana: 55.539771742046455 cm
+$$
+\[
+x = 53.1\ \text{cm} \ \pm\ 0.4\ \text{cm}
+\]
+$$
+
 
 # 5\. Conclusiones
 
