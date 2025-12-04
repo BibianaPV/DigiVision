@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Proyecto2 InformeV2"
+title: "Proyecto2 Informe V2"
 date: 2025-12-04
 ---
 <style>
