@@ -210,12 +210,12 @@ En la calibracion y medicion encontramos que tanto el método de medir manualmen
 **Calculo realizado con deteccion de bordes del cuadro**
 
 $$
-Largo\_Detectado: \ 217.70\ \text{pixeles} = 117.0\ \text{cm}
+Largo\_detectado: \ 217.70\ px = 117.0\ cm
 $$
 
 
  $$
-Escala:\ k = 1.8607\ \text{px/cm}
+Escala:\ k = 1.8607\ px/cm
 $$
 
 
