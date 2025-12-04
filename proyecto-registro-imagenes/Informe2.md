@@ -205,11 +205,24 @@ Akaze como podemos ver tiene muchos más matches buenos, pero estos se ven reduc
 
 En la calibracion y medicion encontramos que tanto el método de medir manualmente así como el de segmentar la imagen son efectivos de diferentes formas, segmentar la imagen por un lado permite encontrar diferentes bordes sin necesidad de buscar coordenadas específicas, sin embargo el ruido de la imagen especialmente una imagen combinada genera cortes que hacen el proceso de detección de bordes más complejo, sin embargo en este caso con la segmentación del cuadro se pudo hacer una conversión exitosa de los pixeles a centimetros.
 
+$$
+Escala = Pixeles / Centimetros
+$$
+
 ![image13](./results/03_Calibracion_y_Medicion/border_Img2.png)
+
+Calculo realizado con deteccion de bordes del cuadro
+Largo detectado: 217.70 pixeles = 117.0 cm
+Escala: 1.8607 px por cm  |  0.5374 cm por px
 
 Manualmente es más sencillo y más preciso, la única parte compleja se basa en encontrar los dos puntos adecuados.
 
 ![image14](./results/03_Calibracion_y_Medicion/print_Img1.png)
+
+Calculo realizando al seleccionar 2 puntos en la imagen.
+Distancia entre punto A y punto B: 304.29
+Largo detectado: 304.29 px = 117.0 cm
+Escala: 2.6008 px por cm  |  0.3845 cm por px
 
 Ambos métodos presentan sin embargo un desfase, ya que estamos hablando de imágenes digitales tenemos el problema que la calidad de la imagen afectará donde comienza un objeto que buscamos medir, siempre habrá un desfase ya que estamos hablando de una representación digital y el margen de error dependerá en gran medida de la calidad tanto de la imagen como de la detección, en el caso del cuadro la detección de bordes lo hará en base a la calidad de la imagen y en el caso manual a la precisión.
 
