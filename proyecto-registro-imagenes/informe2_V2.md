@@ -302,11 +302,11 @@ Distancia de la mesa en pixeles: 262.94
 
 Largo de la mesa: 101.10240151717166 cm
 
-![image15](./results/03_Calibracion_y_Medicion/window_Img2.png)
+![image15](./results/03_Calibracion_y_Medicion/window_Img1.png)
 
-Largo de la ventana: 34.30548897239918 cm
+Distancia de la ventana en pixeles: 138.03
 
-Alto de la ventana: 55.539771742046455 cm
+Largo de la ventana: 53.073590321869546 cm
 
 # 5\. Conclusiones
 
