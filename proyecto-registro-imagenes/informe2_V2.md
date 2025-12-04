@@ -242,10 +242,8 @@ Ambos métodos presentan sin embargo un desfase, ya que estamos hablando de imá
 Para el análisis de incertidumbre se consideró la propagación de incertidumbre de primer orden para variables independientes, donde:
 
 $$
-k = \frac{N}{L}\ cm7px
+k = \frac{L}{N}\ cm/px
 $$
-
-Por tanto,
 
 $$
 u_k^2 = 
@@ -275,6 +273,15 @@ $$
 
 Ahora bien, si consideramos 
 
+$$
+u_N = 1\ px, \qquad u_L = 0.1\ cm
+$$
+
+$$
+\[
+k = 0.3846\ \text{cm/pixel} \ \pm\ 0.0013\ \text{cm/pixel}
+\]
+$$
 
 ![image15](./results/03_Calibracion_y_Medicion/chair_Img1.png)
 
