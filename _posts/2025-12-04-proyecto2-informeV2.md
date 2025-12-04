@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "Proyecto2 Informe"
-date: 2025-11-06
+title: "Proyecto2 InformeV2"
+date: 2025-12-04
 ---
 <style>
 .post-title { display: none; }
