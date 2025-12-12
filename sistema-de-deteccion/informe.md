@@ -1,4 +1,4 @@
-## **1\. Introducción**
+# **1\. Introducción**
 
 El análisis automático del fútbol mediante técnicas de visión por computador ha adquirido un papel fundamental en áreas como el análisis táctico, la evaluación del rendimiento deportivo y el desarrollo de sistemas inteligentes de apoyo al arbitraje y a la transmisión deportiva. En este contexto, la detección y el seguimiento de jugadores y del balón constituyen tareas clave, ya que permiten describir la dinámica del juego a partir de información espacial y temporal extraída directamente de secuencias de vídeo.
 
@@ -8,17 +8,17 @@ El desarrollo del proyecto incluye la preparación del dataset en formato YOLO, 
 
 # **2\. Marco Teórico**
 
-2.1 Aplicación Práctica: Seguimiento deportivo  
+## 2.1 Aplicación Práctica: Seguimiento deportivo  
 El seguimiento automático (player & ball tracking) es un componente fundamental en los sistemas modernos de análisis de rendimiento deportivo, arbitraje asistido por tecnología y generación de estadísticas avanzadas en fútbol. Este tipo de seguimiento permite identificar, en cada fotograma, la posición, trayectoria e interacción espacio-temporal de jugadores y del balón, lo cual es crucial para comprender la dinámica del juego, evaluar estrategias y medir el comportamiento táctico de equipos y deportistas (Gudmundsson & Horton, 2017).
 
 El seguimiento del balón es especialmente desafiante debido a su tamaño pequeño, alta velocidad, oclusiones frecuentes y cambios bruscos de dirección, por lo que los sistemas basados en aprendizaje profundo y detección multi-objeto (como YOLO) han mostrado mejoras significativas frente a métodos tradicionales basados en filtros o heurísticas (Cioppa et al., 2019; Ren et al., 2015). Asimismo, el seguimiento de jugadores permite obtener métricas clave como velocidad, distancia recorrida, ocupación del espacio, presión defensiva y patrones tácticos, lo cual es ampliamente utilizado en la analítica profesional de clubes y federaciones (Mackenzie & Cushion, 2013).
 
 Bases de datos como SoccerNet MOT han impulsado el desarrollo de algoritmos estandarizados, proporcionando secuencias con anotaciones consistentes para detección, seguimiento e identificación. La combinación de detección con redes neuronales, YOLOv8, y métodos de asociación temporal constituye una metodología para alcanzar un seguimiento robusto en escenarios deportivos complejos (Deliège et al., 2021).
 
-2.2 Detección de Objetos: YOLO  
+## 2.2 Detección de Objetos: YOLO  
 La detección de objetos es una tarea fundamental de la visión por computador que consiste en identificar y localizar instancias de objetos de interés dentro de una imagen o secuencia de video, generalmente mediante cajas delimitadoras (bounding boxes) y una etiqueta de clase asociada. A diferencia de la clasificación de imágenes, la detección requiere no sólo reconocer la presencia de un objeto, sino también estimar su posición espacial.
 
-2.2.1 YOLO (You Only Look Once)  
+### 2.2.1 YOLO (You Only Look Once)  
 YOLO (You Only Look Once) es una familia de modelos de detección de objetos basados en aprendizaje profundo que plantean la detección como un problema de regresión directa, resolviendo en una sola pasada de la red neuronal la localización y clasificación de los objetos presentes en la imagen (Redmon et al., 2016). Este enfoque contrasta con métodos de dos etapas como Faster R-CNN, donde primero se generan regiones candidatas y luego se clasifican.
 
 En YOLO, la imagen de entrada se divide en una cuadrícula y, para cada celda, la red predice un conjunto de cajas delimitadoras, cada una caracterizada por sus coordenadas normalizadas   
@@ -40,10 +40,10 @@ De esta manera, YOLO destaca por su alta velocidad de inferencia, su capacidad p
 
 En el contexto del fútbol, YOLO se ha utilizado ampliamente para la detección de jugadores y balón, sirviendo como etapa inicial en sistemas de seguimiento multi-objeto (tracking by detection), donde las detecciones frame a frame son posteriormente asociadas a lo largo del tiempo para mantener la identidad de cada objeto.
 
-2.3 Seguimiento de Objetos  
+## 2.3 Seguimiento de Objetos  
 En escenarios dinámicos como el fútbol, el seguimiento de jugadores y del balón es especialmente desafiante debido a factores como movimientos rápidos, oclusiones frecuentes, cambios de escala, variaciones de iluminación y similitud visual entre objetos. Por esta razón, los sistemas modernos de seguimiento suelen combinar técnicas de detección robustas con modelos de asociación temporal.
 
-2.3.1 Seguimiento basado en detección (Tracking by Detection)  
+### 2.3.1 Seguimiento basado en detección (Tracking by Detection)  
 El enfoque predominante en aplicaciones reales es el denominado tracking by detection, en el cual un detector de objetos , YOLO, se aplica de manera independiente a cada fotograma para obtener las posiciones de los objetos, y posteriormente un algoritmo de seguimiento se encarga de asociar las detecciones entre fotogramas consecutivos, manteniendo un identificador único (ID) para cada objeto (Bewley et al., 2016).
 
 Este enfoque separa el problema en dos etapas:
@@ -53,7 +53,7 @@ Este enfoque separa el problema en dos etapas:
 
 Su principal ventaja es la modularidad, ya que permite mejorar la detección o el seguimiento de manera independiente.
 
-2.3.2 Métodos de asociación temporal  
+### 2.3.2 Métodos de asociación temporal  
 La asociación temporal puede realizarse mediante distintos métodos, entre los que destacan:
 
 **\* Flujo óptico (Optical Flow):** estima el desplazamiento de píxeles o puntos característicos entre fotogramas consecutivos, permitiendo predecir la nueva posición de un objeto a partir de su movimiento previo. Métodos como Lucas–Kanade o Farnebäck han sido ampliamente utilizados para seguimiento a corto plazo.
@@ -96,9 +96,9 @@ El entrenamiento se realizó durante un número determinado de épocas, empleand
 
 Una vez finalizado el entrenamiento, se seleccionó el modelo con mejor desempeño según la métrica mAP en validación. Finalmente, se realizó una evaluación cualitativa mediante la visualización de detecciones sobre imágenes de validación, verificando la correcta localización de jugadores y balón. Las detecciones obtenidas en esta etapa constituyen la entrada para la fase posterior de seguimiento multi-objeto, donde se analiza la evolución temporal de los objetos detectados.
 
-3.3 Detección y Seguimiento con YOLOv 8l
+## 3.3 Detección y Seguimiento con YOLOv8l
 
-Para la detección de jugadores utilizando YOLOv 8l se utilizó al igual que en las anteriores el dataset de SoccerNet, para este ejercicio se tomó un partido en específico descargado desde el dataset y guardado en el content local del collab..
+Para la detección de jugadores utilizando YOLOv8l se utilizó al igual que en las anteriores el dataset de SoccerNet, para este ejercicio se tomó un partido en específico descargado desde el dataset y guardado en el content local del collab..
 
 El procedimiento se llevó a cabo dividiendo el video completo en múltiples segmentos para reducir la carga computacional, cada segmento se procesa de manera independiente a petición del usuario, generando una salida donde se almacenará el clip resultante con las anotaciones visuales.
 
@@ -147,7 +147,7 @@ El resultado final consiste en clips procesados con detección y seguimiento int
 
 ## 4.1 Análisis Exploratorio 
 
-## Primero se realizó la inspección visual del dataset. 
+Primero se realizó la inspección visual del dataset. 
 
 imagen 
 
@@ -178,7 +178,7 @@ Finalmente, se reconstruye una de las secuencias como ejemplo.
 
 video
 
-## 4.1.2 Creación Dataset formato YOLO
+### 4.1.2 Creación Dataset formato YOLO
 
 se realizó la conversión de las anotaciones al formato YOLO, en el cual cada objeto es representado mediante una línea que contiene el identificador de clase y las coordenadas normalizadas de la caja delimitadora (𝑥𝑐,𝑦𝑐,𝑤,ℎ). Se guardó en la carpeta */data* para ser utilizado posteriormente.
 
@@ -186,11 +186,11 @@ Se realiza la visualización de ejemplos tanto de train como de val para verific
 
 imagenes 
 
-## 4.3 Detección de objetos: YOLO
+## 4.2 Detección y seguimiento de Objetos: YOLOv8n
 
-4.4 Seguimiento de Objetos
 
-## 4.5 Detección y seguimiento de Objetos: YOLOv 8l
+
+## 4.3 Detección y seguimiento de Objetos: YOLOv8l
 
 En base a la metodología aplicada se obtuvieron tres clips de 40 segundos cada uno. En estos se aprecia claramente la detección de los distintos jugadores durante el partido con un recuadro verde, así como una adecuada detección del balón, el cual es marcado con un recuadro amarillo.
 
