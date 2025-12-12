@@ -149,7 +149,9 @@ El resultado final consiste en clips procesados con detección y seguimiento int
 
 Primero se realizó la inspección visual del dataset. 
 
-imagen 
+<p align="center">
+  <img src="./results/Ejemplo IMG.png" alt="image1" />
+</p> 
 
 Se realizó un muestreo de la distribución de cada una de las secuencias:
 
@@ -170,13 +172,17 @@ Todas las secuencias tienen la misma distribución.
 
 Se realiza la distribución de clase. Puede notarse un gran desbalance entre la clase jugadores y la clase balón. Esto dificulta el buen desempeño del modelo al realizar la detección de las clases en cada uno de los frames.
 
-imagen
+<p align="center">
+  <img src="./results/Clases.png" alt="image1" />
+</p>
 
 player: 56203 | ball: 3564 | ratio (player/ball): 15.769640852974186
 
 Finalmente, se reconstruye una de las secuencias como ejemplo.
 
-video
+<p align="center">
+  <img src="./results/SNMOT-64_preview.mp4" alt="image1" />
+</p>
 
 ### 4.1.2 Creación Dataset formato YOLO
 
@@ -184,7 +190,10 @@ se realizó la conversión de las anotaciones al formato YOLO, en el cual cada o
 
 Se realiza la visualización de ejemplos tanto de train como de val para verificar el funcionamiento de las nuevas anotaciones.
 
-imagenes 
+<p align="center">
+  <img src="./results/ejmTrain.png" width="500" />
+  <img src="./results/ejmVal.png" width="500" />
+</p> 
 
 ## 4.2 Detección y seguimiento de Objetos: YOLOv8n
 
