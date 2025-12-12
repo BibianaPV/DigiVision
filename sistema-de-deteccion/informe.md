@@ -213,9 +213,15 @@ Si nos dirigimos a la siguiente tabla veremos que por cada frame analizado estam
 | 4 | 384x640 | 2 persons, 1 sports ball | 38.4 | 2.9 | 38.4 | 2.0 | (1, 3, 384, 640\) |
 | 5 | 384x640 | 2 persons, 1 sports ball | 38.3 | 4.5 | 38.3 | 2.0 | (1, 3, 384, 640\) |
 
+<p align="center">
+  <img src="./results/YOLOv8l/detecciones_clip_25.png" alt="image1" />
+</p>
+
 Los datos muestran consistencia en la velocidad del modelo, especialmente en la etapa de **inferencia**, que oscila entre 38.3 y 40.5 ms sin depender demasiado del número de objetos detectados.
 
-imagen
+<p align="center">
+  <img src="./results/YOLOv8l/ClipScreenYolo8vl.png" alt="image1" />
+</p>
 
 La variación más grande se observa en los tiempos de **preprocesamiento**, lo cual indica que esta etapa está más sujeta a fluctuaciones posiblemente por carga del sistema. 
 
@@ -225,9 +231,20 @@ No obstante, también fue posible identificar algunas limitaciones. En el caso d
 
 En lo referente al balón, cuando éste acelera de forma brusca tiende a perderse la localización, recuperándola únicamente cuando disminuye su velocidad o cuando un jugador realiza una parada.
 
-imagen errores 
+<p align="center">
+  <img src="./results/YOLOv8l/ErrorScreenYolo8vl.png" alt="image1" />
+</p>
 
 Es probable que, con una mayor capacidad de cómputo o con videos grabados desde ángulos más cercanos o con mayor definición, estas problemáticas pueden mitigarse. Sin embargo, dado que el dataset SoccerNet solo ofrece videos en resoluciones de 244p o 720p, y que un escalado a resoluciones superiores incrementa significativamente los tiempos de procesamiento, los resultados obtenidos corresponden a las condiciones reales de entrada y se reflejan en los clips generados.
+
+Video 1:
+[Ver video](./results/YOLOv8l/clip_15.mp4)
+
+Video 2:
+[Ver video](./results/YOLOv8l/clip_25.mp4)
+
+Video 3:
+[Ver video](./results/YOLOv8l/clip_35.mp4)
 
 # 5\. Referencias Bibliográficas
 
