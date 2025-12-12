@@ -181,7 +181,9 @@ player: 56203 | ball: 3564 | ratio (player/ball): 15.769640852974186
 Finalmente, se reconstruye una de las secuencias como ejemplo.
 
 <p align="center">
-  <img src="./results/SNMOT-64_preview.mp4" alt="image1" />
+ <video width="600" autoplay loop muted playsinline>
+  <source src="./results/SNMOT-64_preview.mp4" type="video/mp4">
+</video>
 </p>
 
 ### 4.1.2 Creación Dataset formato YOLO
