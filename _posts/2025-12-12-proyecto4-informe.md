@@ -367,7 +367,7 @@ Secuencia 62 y 64 :
 
 Puede observarse que existen cambios en los Ids y se hace dificil el seguimiento. Por tal motivo, para cada track se utilizó predicción Kalman (centro y velocidad), desplazamiento por flujo óptico LK (mueve la caja según píxeles), combinación de ambas predicciones, asociación con Hungarian (como SORT) usando costo 1 - IoU y Umbrales distintos por clase (player vs ball). Al final, se obtuvo  video con IDs.
 
-Secuencia 62 y 64 :
+Secuencia 62 
 <iframe
   src="https://drive.google.com/file/d/1u1ek9N67C-r_ToLKnjkz6Lb6cVisWoDN/preview"
   width="720"
@@ -375,13 +375,30 @@ Secuencia 62 y 64 :
   allow="autoplay">
 </iframe>
 
+=== PLAYERS (IoU ≥ 0.5) ===
+Secuencia	MOTA	IDF1	Num. switches	Precisión	Recall	Falsos positivos	Misses
+SNMOT-062	0.405443	0.364119	224	0.644354	0.948078	6057	601
+
+=== BALL (IoU ≥ 0.3) ===
+Secuencia	MOTA	IDF1	Num. switches	Precisión	Recall	Falsos positivos	Misses
+SNMOT-062	0.000000	0.000000	0	NaN	0.000000	0	750
+
 <iframe
-  src="https://drive.google.com/file/d/1A3PnXaEeTomFPfBYTevv1mSOHXHlkdHY/preview"
+  src="https://drive.google.com/file/d/1MVhxkK1w_AxfrQtPZcQTgfhwKlL-J-yc/preview"
   width="720"
   height="405"
   allow="autoplay">
 </iframe>
 
+=== PLAYERS (IoU ≥ 0.5) ===
+Secuencia	MOTA	IDF1	Num. switches	Precisión	Recall	Falsos positivos	Misses
+SNMOT-062	-0.042748	0.217297	708	0.502567	0.811563	11143	2614
+
+=== BALL (IoU ≥ 0.3) ===
+Secuencia	MOTA	IDF1	Num. switches	Precisión	Recall	Falsos positivos	Misses
+SNMOT-062	0.000000	0.000000	0	NaN	0.000000	0	590
+
+Aunque pueden seguirse los jugadores, no es posible con este entrenamiento de detección seguir el balón.
 
 ## 4.3 Detección y seguimiento de Objetos: YOLOv8l
 
