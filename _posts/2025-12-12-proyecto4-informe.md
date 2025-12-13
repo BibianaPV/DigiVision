@@ -348,7 +348,7 @@ Este comportamiento evidencia una limitación común en modelos de detección cu
   <img src="/DigiVision/sistema-de-deteccion/results/YOLOv8n/runs/detect/val2/val_batch0_labels.jpg" width="700" />
 </p> 
 
-Posteriormente, se realizó un seguimiento de los objetos detectados asignando un ID
+Posteriormente, se realizó un seguimiento , el seguimiento se realizó utilizando una estrategia basada en asociación espacial mediante Intersection over Union (IoU) entre las cajas detectadas en fotogramas consecutivos. Para cada detección actual, se compara su superposición con las detecciones del fotograma anterior y se asigna el mismo identificador (ID) al objeto cuya IoU supera un umbral predefinido. En caso contrario, se crea un nuevo ID.
 
 Secuencia 62 y 64 :
 <iframe
@@ -364,6 +364,24 @@ Secuencia 62 y 64 :
   height="405"
   allow="autoplay">
 </iframe>
+
+Puede observarse que existen cambios en los Ids y se hace dificil el seguimiento. Por tal motivo, para cada track se utilizó predicción Kalman (centro y velocidad), desplazamiento por flujo óptico LK (mueve la caja según píxeles), combinación de ambas predicciones, asociación con Hungarian (como SORT) usando costo 1 - IoU y Umbrales distintos por clase (player vs ball). Al final, se obtuvo  video con IDs.
+
+Secuencia 62 y 64 :
+<iframe
+  src="https://drive.google.com/file/d/1u1ek9N67C-r_ToLKnjkz6Lb6cVisWoDN/preview"
+  width="720"
+  height="405"
+  allow="autoplay">
+</iframe>
+
+<iframe
+  src="https://drive.google.com/file/d/1A3PnXaEeTomFPfBYTevv1mSOHXHlkdHY/preview"
+  width="720"
+  height="405"
+  allow="autoplay">
+</iframe>
+
 
 ## 4.3 Detección y seguimiento de Objetos: YOLOv8l
 
