@@ -11,4 +11,6 @@ exclude:
   - /proyecto-registro-imagenes/README.md
   - /3. Clasificación de Imágenes Médicas/README.md
   - /3. Clasificación de Imágenes Médicas/informe.md
+  - /sistema-de-deteccion/README.md
+  - /sistema-de-deteccion/informe.md
   
