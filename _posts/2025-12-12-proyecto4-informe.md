@@ -327,6 +327,27 @@ Se realiza la visualización de ejemplos tanto de train como de val para verific
 </p> 
 
 ## 4.2 Detección y seguimiento de Objetos: YOLOv8n
+Primero se realizó la detección con YOLOv8n en 5 épocas y se tomó el mejor modelo, /results. Se puede observar que con el subset tan bajo y el poco entrenamiento no se alcanza a detectar el balón.
+
+Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 32/32 1.3it/s 24.1s
+all        500       7504      0.444      0.405      0.432      0.201
+player        500       7056      0.887       0.81      0.865      0.403
+ball        438        448          0          0          0          0
+
+Esto puede observarse en la matriz de confusión donde el balón se confunde con el fondo o no es detectado. 
+
+<p align="center">
+  <img src="/DigiVision/sistema-de-deteccion/results/YOLOv8n/runs/detect/val2/confusion_matrix.png" width="500" />
+  <img src="/DigiVision/sistema-de-deteccion/results/YOLOv8n/runs/detect/val2/BoxR_curve.png" width="500" />
+</p> 
+
+Los resultados obtenidos muestran que el modelo YOLO presenta un alto desempeño en la detección de jugadores, alcanzando valores elevados de precisión, recall y mAP, lo que confirma su capacidad para identificar objetos de gran tamaño y alta frecuencia en escenas de fútbol. Sin embargo, el desempeño global del modelo se ve afectado por la detección nula del balón, una clase minoritaria y visualmente más compleja debido a su reducido tamaño, oclusiones frecuentes y movimiento rápido.
+Este comportamiento evidencia una limitación común en modelos de detección cuando se enfrentan a fuertes desbalances de clase y objetos pequeños, incluso al emplear técnicas de transferencia de aprendizaje.
+
+<p align="center">
+  <img src="/DigiVision/sistema-de-deteccion/results/YOLOv8n/runs/detect/val2/val_batch0_labels.jpg" width="700" />
+</p> 
+
 
 
 
