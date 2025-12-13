@@ -214,7 +214,7 @@ Los resultados obtenidos muestran que el modelo YOLO presenta un alto desempeño
 Este comportamiento evidencia una limitación común en modelos de detección cuando se enfrentan a fuertes desbalances de clase y objetos pequeños, incluso al emplear técnicas de transferencia de aprendizaje.
 
 <p align="center">
-  <img src="./results/YOLOv8n/runs/detect/val2/val_batch0_labels.png" width="700" />
+  <img src="./results/YOLOv8n/runs/detect/val2/val_batch0_labels.jpg" width="700" />
 </p> 
 
 
