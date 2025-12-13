@@ -374,7 +374,13 @@ Video 2:
 [Ver video](/DigiVision/sistema-de-deteccion/results/YOLOv8l/clip_25.mp4)
 
 Video 3:
-[Ver video](/DigiVision/sistema-de-deteccion/results/YOLOv8l/clip_35.mp4)
+<iframe
+  src="https://drive.google.com/file/d/1awXv5OFX08el6dbBZDFmD8HHYr2m7K_o/preview"
+  width="720"
+  height="405"
+  allow="autoplay">
+</iframe>
+
 
 # 5\. Referencias Bibliográficas
 
