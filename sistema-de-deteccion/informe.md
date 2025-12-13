@@ -186,7 +186,7 @@ Finalmente, se reconstruye una de las secuencias como ejemplo.
 
 ### 4.1.2 Creación Dataset formato YOLO
 
-se realizó la conversión de las anotaciones al formato YOLO, en el cual cada objeto es representado mediante una línea que contiene el identificador de clase y las coordenadas normalizadas de la caja delimitadora (𝑥𝑐,𝑦𝑐,𝑤,ℎ). Se guardó en la carpeta */data* para ser utilizado posteriormente.
+se realizó la conversión de las anotaciones al formato YOLO, en el cual cada objeto es representado mediante una línea que contiene el identificador de clase y las coordenadas normalizadas de la caja delimitadora (𝑥𝑐,𝑦𝑐,𝑤,ℎ). Se guardó en la carpeta *[/data](https://drive.google.com/drive/folders/1fHlZdzffsMKoR8RoTJ6lrVCPH4ihi5EG?usp=drive_link)* para ser utilizado posteriormente.
 
 Se realiza la visualización de ejemplos tanto de train como de val para verificar el funcionamiento de las nuevas anotaciones.
 
