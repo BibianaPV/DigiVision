@@ -341,12 +341,13 @@ Esto puede observarse en la matriz de confusión donde el balón se confunde con
   <img src="/DigiVision/sistema-de-deteccion/results/YOLOv8n/runs/detect/val2/BoxR_curve.png" width="500" />
 </p> 
 
-Los resultados obtenidos muestran que el modelo YOLO presenta un alto desempeño en la detección de jugadores, alcanzando valores elevados de precisión, recall y mAP, lo que confirma su capacidad para identificar objetos de gran tamaño y alta frecuencia en escenas de fútbol. Sin embargo, el desempeño global del modelo se ve afectado por la detección nula del balón, una clase minoritaria y visualmente más compleja debido a su reducido tamaño, oclusiones frecuentes y movimiento rápido.
-Este comportamiento evidencia una limitación común en modelos de detección cuando se enfrentan a fuertes desbalances de clase y objetos pequeños, incluso al emplear técnicas de transferencia de aprendizaje.
+
+Los resultados obtenidos muestran que el modelo YOLO presenta un alto desempeño en la detección de jugadores, alcanzando valores elevados de precisión, recall y mAP, lo que confirma su capacidad para identificar objetos de gran tamaño y alta frecuencia en escenas de fútbol. Sin embargo, el desempeño global del modelo se ve afectado por la detección nula del balón, una clase minoritaria y visualmente más compleja debido a su reducido tamaño, oclusiones frecuentes y movimiento rápido. Este comportamiento evidencia una limitación común en modelos de detección cuando se enfrentan a fuertes desbalances de clase y objetos pequeños, incluso al emplear técnicas de transferencia de aprendizaje.
 
 <p align="center">
   <img src="/DigiVision/sistema-de-deteccion/results/YOLOv8n/runs/detect/val2/val_batch0_labels.jpg" width="700" />
 </p> 
+
 
 Posteriormente, se realizó un seguimiento , el seguimiento se realizó utilizando una estrategia basada en asociación espacial mediante Intersection over Union (IoU) entre las cajas detectadas en fotogramas consecutivos. Para cada detección actual, se compara su superposición con las detecciones del fotograma anterior y se asigna el mismo identificador (ID) al objeto cuya IoU supera un umbral predefinido. En caso contrario, se crea un nuevo ID.
 
@@ -365,6 +366,7 @@ Secuencia 62 y 64 :
   allow="autoplay">
 </iframe>
 
+
 Puede observarse que existen cambios en los Ids y se hace dificil el seguimiento. Por tal motivo, para cada track se utilizó predicción Kalman (centro y velocidad), desplazamiento por flujo óptico LK (mueve la caja según píxeles), combinación de ambas predicciones, asociación con Hungarian (como SORT) usando costo 1 - IoU y Umbrales distintos por clase (player vs ball). Al final, se obtuvo  video con IDs.
 
 Secuencia 62 
@@ -375,6 +377,7 @@ Secuencia 62
   allow="autoplay">
 </iframe>
 
+
 === PLAYERS (IoU ≥ 0.5) ===
 Secuencia	MOTA	IDF1	Num. switches	Precisión	Recall	Falsos positivos	Misses
 SNMOT-062	0.405443	0.364119	224	0.644354	0.948078	6057	601
@@ -383,6 +386,7 @@ SNMOT-062	0.405443	0.364119	224	0.644354	0.948078	6057	601
 Secuencia	MOTA	IDF1	Num. switches	Precisión	Recall	Falsos positivos	Misses
 SNMOT-062	0.000000	0.000000	0	NaN	0.000000	0	750
 
+Secuencia 64
 <iframe
   src="https://drive.google.com/file/d/1MVhxkK1w_AxfrQtPZcQTgfhwKlL-J-yc/preview"
   width="720"
@@ -390,13 +394,14 @@ SNMOT-062	0.000000	0.000000	0	NaN	0.000000	0	750
   allow="autoplay">
 </iframe>
 
+
 === PLAYERS (IoU ≥ 0.5) ===
 Secuencia	MOTA	IDF1	Num. switches	Precisión	Recall	Falsos positivos	Misses
-SNMOT-062	-0.042748	0.217297	708	0.502567	0.811563	11143	2614
+SNMOT-064	-0.042748	0.217297	708	0.502567	0.811563	11143	2614
 
 === BALL (IoU ≥ 0.3) ===
 Secuencia	MOTA	IDF1	Num. switches	Precisión	Recall	Falsos positivos	Misses
-SNMOT-062	0.000000	0.000000	0	NaN	0.000000	0	590
+SNMOT-064	0.000000	0.000000	0	NaN	0.000000	0	590
 
 Aunque pueden seguirse los jugadores, no es posible con este entrenamiento de detección seguir el balón.
 
