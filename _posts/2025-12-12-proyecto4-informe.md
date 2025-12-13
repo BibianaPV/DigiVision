@@ -348,8 +348,22 @@ Este comportamiento evidencia una limitación común en modelos de detección cu
   <img src="/DigiVision/sistema-de-deteccion/results/YOLOv8n/runs/detect/val2/val_batch0_labels.jpg" width="700" />
 </p> 
 
+Posteriormente, se realizó un seguimiento de los objetos detectados asignando un ID
 
+Secuencia 62 y 64 :
+<iframe
+  src="https://drive.google.com/file/d/1R4G23XqFXWk1gO19bH4I8PLFllgDA5dt/preview"
+  width="720"
+  height="405"
+  allow="autoplay">
+</iframe>
 
+<iframe
+  src="https://drive.google.com/file/d/1A3PnXaEeTomFPfBYTevv1mSOHXHlkdHY/preview"
+  width="720"
+  height="405"
+  allow="autoplay">
+</iframe>
 
 ## 4.3 Detección y seguimiento de Objetos: YOLOv8l
 
