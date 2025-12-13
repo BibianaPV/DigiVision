@@ -279,7 +279,7 @@ El resultado final consiste en clips procesados con detección y seguimiento int
 Primero se realizó la inspección visual del dataset. 
 
 <p align="center">
-  <img src="./results/Ejemplo IMG.png" alt="image1" />
+  <img src="/DigiVision/sistema-de-deteccion/results/Ejemplo IMG.png" alt="image1" />
 </p> 
 
 Se realizó un muestreo de la distribución de cada una de las secuencias:
