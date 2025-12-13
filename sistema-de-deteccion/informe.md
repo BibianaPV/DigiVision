@@ -350,6 +350,6 @@ Wojke, N., Bewley, A., & Paulus, D. (2017). *Simple online and realtime tracking
 | Estudiante | Aporte Personal |
 | :---- | :---- |
 | Bibiana Andrea Peña V. |  |
-| Juan Felipe Arbeláez. |  |
+| Juan Felipe Arbeláez. | Redaccion del informe final, Deteccion y seguimiento utilizando YOLOv8l y DeepSort por segmentos para SoccerNet |
 | Leidy Marcela Leal L. |  |
 
