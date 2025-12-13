@@ -309,8 +309,8 @@ player: 56203 | ball: 3564 | ratio (player/ball): 15.769640852974186
 
 Finalmente, se reconstruye una de las secuencias como ejemplo.
 
-<video width="600" autoplay loop muted playsinline>
-  <source src="/DigiVision/sistema-de-deteccion/results/SNMOT-064_preview.mp4" type="video/mp4">
+<video controls width="720" preload="metadata">
+  <source src="https://raw.githubusercontent.com/BibianaPV/DigiVision/main/sistema-de-deteccion/results/SNMOT-064_preview.mp4" type="video/mp4">
 </video>
 
 
