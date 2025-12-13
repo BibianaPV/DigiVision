@@ -58,6 +58,9 @@ pip install deep_sort_realtime
 
 ## Data
 
+[/data](https://drive.google.com/drive/folders/1fHlZdzffsMKoR8RoTJ6lrVCPH4ihi5EG?usp=drive_link) Link al dataset utilizado para el procesamiento, deteccion y seguimiento, en el se encuentran las
+imagenes de train y test.
+
 ## Notebooks con los Ejercicios
 
 En la carpeta `notebooks/` encontrarás versiones en Jupyter de cada ejercicio, listas para ejecutarse:
