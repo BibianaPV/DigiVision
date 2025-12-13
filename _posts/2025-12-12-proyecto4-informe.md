@@ -309,10 +309,11 @@ player: 56203 | ball: 3564 | ratio (player/ball): 15.769640852974186
 
 Finalmente, se reconstruye una de las secuencias como ejemplo.
 
+<p align="center">
 <video controls width="720" preload="metadata">
   <source src="https://raw.githubusercontent.com/BibianaPV/DigiVision/main/sistema-de-deteccion/results/SNMOT064_preview.mp4" type="video/mp4">
 </video>
-
+</p>
 
 ### 4.1.2 Creación Dataset formato YOLO
 
@@ -368,10 +369,20 @@ En lo referente al balón, cuando éste acelera de forma brusca tiende a perders
 Es probable que, con una mayor capacidad de cómputo o con videos grabados desde ángulos más cercanos o con mayor definición, estas problemáticas pueden mitigarse. Sin embargo, dado que el dataset SoccerNet solo ofrece videos en resoluciones de 244p o 720p, y que un escalado a resoluciones superiores incrementa significativamente los tiempos de procesamiento, los resultados obtenidos corresponden a las condiciones reales de entrada y se reflejan en los clips generados.
 
 Video 1:
-[Ver video](/DigiVision/sistema-de-deteccion/results/YOLOv8l/clip_15.mp4)
+<iframe
+  src="https://drive.google.com/file/d/1b7F-HP43qiCf7eKUj6ZLbdO64ALQ3F7d](https://drive.google.com/file/d/1ogpWJWDzcWrc2DRT5V6fDRSqtK7v8scA/preview"
+  width="720"
+  height="405"
+  allow="autoplay">
+</iframe>
 
 Video 2:
-[Ver video](/DigiVision/sistema-de-deteccion/results/YOLOv8l/clip_25.mp4)
+<iframe
+  src="https://drive.google.com/file/d/1b7F-HP43qiCf7eKUj6ZLbdO64ALQ3F7d/preview"
+  width="720"
+  height="405"
+  allow="autoplay">
+</iframe>
 
 Video 3:
 <iframe
