@@ -220,11 +220,24 @@ En cada fotograma del segmento, la imagen se redimensiona a una resolución meno
 
 Una vez procesada la imagen, el modelo produce predicciones de cajas delimitadoras para tanto el balón como el jugador, las detecciones pasan por filtros adicionales basados en restricciones de área, proporciones y coherencia geométrica, asegurando que solo se conservan objetos válidos, como los anteriormente mencionados.
 
-Una vez filtradas, las detecciones se envían al rastreador **DeepSORT**, que mantiene la identidad de los objetos a lo largo de los fotogramas. El rastreador realiza predicciones de movimiento utilizando un filtro de Kalman, que anticipa la ubicación del objeto antes de recibir una nueva detección. La predicción sigue la forma ***xk \= F · x(k−1) \+ wk***, mientras que la corrección, una vez llegada la medición real, se calcula como ***xk \= xk \+ K · (zk − H · xk)***.
+Una vez filtradas, las detecciones se envían al rastreador **DeepSORT**, que mantiene la identidad de los objetos a lo largo de los fotogramas. El rastreador realiza predicciones de movimiento utilizando un filtro de Kalman, que anticipa la ubicación del objeto antes de recibir una nueva detección. La predicción sigue la forma:
+
+$$
+x_k = F\, x_{k-1} + w_k
+$$
+
+
+mientras que la corrección, una vez llegada la medición real, se calcula como
+
+$$
+x_k = x_k + K ( z_k - H x_k )
+$$
 
 El filtro de Kalman predice la posición futura de un objeto mediante la ecuación…
 
-***xk \= F · x(k−1) \+ wk***
+$$
+x_k = F x_{k-1} + w_k
+$$
 
 ***`xk` \= estado predicho***
 
@@ -234,7 +247,9 @@ El filtro de Kalman predice la posición futura de un objeto mediante la ecuaci�
 
  y corrige esa predicción con información nueva a través de…
 
-***xk \= xk \+ K · (zk − H · xk)***
+$$
+x_k = x_k + K ( z_k - H x_k )
+$$
 
 ***`zk` \= medición observada***
 
@@ -294,8 +309,9 @@ player: 56203 | ball: 3564 | ratio (player/ball): 15.769640852974186
 
 Finalmente, se reconstruye una de las secuencias como ejemplo.
 
-
-[Ver video](/DigiVision/sistema-de-deteccion/results/SNMOT-064_preview.mp4)
+<video width="600" autoplay loop muted playsinline>
+  <source src="/DigiVision/sistema-de-deteccion/results/SNMOT-064_preview.mp4" type="video/mp4">
+</video>
 
 
 ### 4.1.2 Creación Dataset formato YOLO
